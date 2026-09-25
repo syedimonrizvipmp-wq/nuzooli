@@ -28,7 +28,7 @@
 /* Base Theme Tokens */
 :root {
   --font-arabic-default: 'Amiri Quran', 'KFGQPC Uthman Taha Naskh', 'Scheherazade New', serif;
-  --font-urdu-default: 'Noto Nastaliq Urdu', 'Gulzar', serif;
+  --font-urdu-default: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Nafees Nastaleeq', 'Urdu Typesetting', 'Alvi Nastaleeq', serif;
   --font-ui-default: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
@@ -167,15 +167,19 @@ body {
   line-height: 2.2;
 }
 
-.font-urdu {
-  font-family: var(--font-urdu-default);
+/* All Urdu text MUST strictly use Nastaleeq */
+.font-urdu,
+[lang="ur"],
+:lang(ur) {
+  font-family: var(--font-urdu-default) !important;
   direction: rtl;
   text-align: right;
   line-height: 2.4;
   word-spacing: 1px;
 }
 
-.font-english {
+.font-english,
+[dir="ltr"] {
   direction: ltr;
   text-align: left;
   line-height: 1.65;

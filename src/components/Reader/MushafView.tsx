@@ -183,8 +183,8 @@ export const MushafView: React.FC = () => {
               onClick={handleBackToList}
               className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white text-xs font-bold border border-[var(--border-subtle)] transition-all cursor-pointer shadow-xs self-start"
             >
-              <ArrowLeft className="w-4 h-4" />
-              <span>فہرستِ ۱۱۴ سورتیں (Back to Mushaf Grid)</span>
+              <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
+              <span className="font-urdu">فہرستِ ۱۱۴ سورتیں (Back to Mushaf Grid)</span>
             </button>
 
             {/* Stepper for 114 Canonical Surahs */}
@@ -199,17 +199,17 @@ export const MushafView: React.FC = () => {
                 }`}
               >
                 <ChevronRight className="w-4 h-4" />
-                <span>پچھلی سورت</span>
+                <span className="font-urdu">پچھلی سورت</span>
               </button>
 
               <select
                 value={selectedSurahNumber}
                 onChange={(e) => handleSelectSurah(Number(e.target.value))}
-                className="px-3 py-1.5 rounded-xl text-xs bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-semibold focus:ring-2 focus:ring-emerald-500 cursor-pointer max-w-[200px] sm:max-w-[280px] truncate"
+                className="px-3 py-1.5 rounded-xl text-xs bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-semibold focus:ring-2 focus:ring-emerald-500 cursor-pointer max-w-[200px] sm:max-w-[280px] truncate font-urdu"
               >
                 {SURAHS_DATA.map((s) => (
-                  <option key={`mushaf-opt-${s.n}`} value={s.n}>
-                    #{s.n}. {s.en} ({s.ar}) — نزول #{s.nuzul} • {s.verses} آیات
+                  <option key={`mushaf-opt-${s.n}`} value={s.n} className="font-urdu">
+                    #{s.n}. {s.ar} ({s.ur}) — نزول #{s.nuzul} • {s.verses} آیات
                   </option>
                 ))}
               </select>
@@ -223,7 +223,7 @@ export const MushafView: React.FC = () => {
                     : 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700 shadow-xs cursor-pointer'
                 }`}
               >
-                <span>اگلی سورت</span>
+                <span className="font-urdu">اگلی سورت</span>
                 <ChevronLeft className="w-4 h-4" />
               </button>
             </div>
@@ -474,7 +474,8 @@ export const MushafView: React.FC = () => {
 
                       {typography.showEnglish && (
                         <p
-                          className="font-sans text-[var(--text-secondary)] mt-1 text-sm leading-relaxed"
+                          dir="ltr"
+                          className="font-sans text-[var(--text-secondary)] mt-1 text-sm leading-relaxed text-left"
                           style={{ fontFamily: typography.englishFont }}
                         >
                           {getEnglishText(v)}
@@ -593,7 +594,7 @@ export const MushafView: React.FC = () => {
 
                       {/* English Translation */}
                       {typography.showEnglish && (
-                        <div className="pt-2 text-left">
+                        <div className="pt-2 text-left" dir="ltr">
                           <p
                             className="font-sans leading-relaxed text-[var(--text-muted)] text-sm"
                             style={{ fontFamily: typography.englishFont }}

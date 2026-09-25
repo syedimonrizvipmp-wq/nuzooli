@@ -32,7 +32,7 @@ export const AsbabCard: React.FC<AsbabCardProps> = ({ event }) => {
                 Shia Scholarly Tradition (روایاتِ اہل بیتؑ)
               </span>
             </div>
-            <h3 className="text-base sm:text-lg font-bold text-[var(--text-primary)] font-serif mt-0.5">
+            <h3 className={`text-base sm:text-lg font-bold text-[var(--text-primary)] mt-0.5 ${langTab === 'ur' ? 'font-urdu' : 'font-serif'}`}>
               {langTab === 'ur' ? asbab.titleUrdu : asbab.titleEnglish}
             </h3>
           </div>
@@ -66,7 +66,7 @@ export const AsbabCard: React.FC<AsbabCardProps> = ({ event }) => {
           <button
             onClick={() => setIsExpanded(!isExpanded)}
             title={isExpanded ? 'Collapse Context Banner' : 'Expand Context Banner'}
-            className="p-1.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all"
+            className="p-1.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all cursor-pointer"
           >
             {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
           </button>
@@ -78,22 +78,28 @@ export const AsbabCard: React.FC<AsbabCardProps> = ({ event }) => {
         <div className="p-4 sm:p-6 space-y-4 animate-fade-in">
           
           {/* Summary Box */}
-          <div className="p-4 rounded-2xl bg-[var(--bg-surface)] border-l-4 border-emerald-600">
-            <p className={`text-sm leading-relaxed text-[var(--text-secondary)] ${
-              langTab === 'ur' ? 'font-urdu text-base' : 'font-sans'
-            }`}>
+          <div className="p-4 rounded-2xl bg-[var(--bg-surface)] border-s-4 border-s-emerald-600">
+            <p
+              dir={langTab === 'en' ? 'ltr' : 'rtl'}
+              className={`text-sm leading-relaxed text-[var(--text-secondary)] ${
+                langTab === 'ur' ? 'font-urdu text-base' : 'font-sans'
+              }`}
+            >
               {langTab === 'ur' ? asbab.summaryUrdu : asbab.summaryEnglish}
             </p>
           </div>
 
           {/* Detailed Narrative */}
           <div className="prose max-w-none">
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">
+            <h4 className={`text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2 ${langTab === 'ur' ? 'font-urdu' : 'font-sans'}`}>
               {langTab === 'ur' ? 'تفصیلی تاریخی و تفسیری احوال' : 'Detailed Historical & Exegetical Account'}
             </h4>
-            <p className={`text-sm sm:text-base leading-relaxed text-[var(--text-primary)] ${
-              langTab === 'ur' ? 'font-urdu text-lg leading-loose' : 'font-sans leading-relaxed'
-            }`}>
+            <p
+              dir={langTab === 'en' ? 'ltr' : 'rtl'}
+              className={`text-sm sm:text-base leading-relaxed text-[var(--text-primary)] ${
+                langTab === 'ur' ? 'font-urdu text-lg leading-loose' : 'font-sans leading-relaxed'
+              }`}
+            >
               {langTab === 'ur' ? asbab.detailedContextUrdu : asbab.detailedContextEnglish}
             </p>
           </div>

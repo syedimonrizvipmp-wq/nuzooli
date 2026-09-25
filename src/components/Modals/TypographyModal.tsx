@@ -22,9 +22,9 @@ export const TypographyModal: React.FC<TypographyModalProps> = ({ isOpen, onClos
   ];
 
   const urduFonts = [
-    { id: 'Noto Nastaliq Urdu', name: 'Noto Nastaliq Urdu (نستعلیق)' },
-    { id: 'Gulzar', name: 'Gulzar (گلزار نستعلیق)' },
-    { id: 'Noto Naskh Arabic', name: 'Noto Naskh Urdu (نسخ اردو)' },
+    { id: 'Noto Nastaliq Urdu', name: 'نوٹو نستعلیق اردو (Noto Nastaliq)' },
+    { id: 'Jameel Noori Nastaleeq', name: 'جمیل نوری نستعلیق (Jameel Noori)' },
+    { id: 'Urdu Typesetting', name: 'اردو ٹائپ سیٹنگ (Urdu Typesetting)' },
   ];
 
   return (
@@ -82,7 +82,7 @@ export const TypographyModal: React.FC<TypographyModalProps> = ({ isOpen, onClos
           {/* 2. Urdu Script Family */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-wider text-[var(--text-muted)] mb-2">
-              Urdu Script (اردو خط)
+              Urdu Script (اردو خط — صرف نستعلیق)
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
               {urduFonts.map((f) => (

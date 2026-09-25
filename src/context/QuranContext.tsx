@@ -215,7 +215,14 @@ export const QuranProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [typography, setTypographyState] = useState<TypographySettings>(() => {
     try {
       const saved = localStorage.getItem('tarteeb_typography');
-      if (saved) return { ...DEFAULT_TYPOGRAPHY, ...JSON.parse(saved) };
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Ensure Urdu font is strictly Nastaleeq
+        if (parsed.urduFont && (parsed.urduFont === 'Gulzar' || parsed.urduFont.includes('Naskh'))) {
+          parsed.urduFont = 'Noto Nastaliq Urdu';
+        }
+        return { ...DEFAULT_TYPOGRAPHY, ...parsed };
+      }
     } catch {
       // fallback
     }
@@ -225,6 +232,9 @@ export const QuranProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const updateTypography = useCallback((settings: Partial<TypographySettings>) => {
     setTypographyState((prev) => {
       const updated = { ...prev, ...settings };
+      if (updated.urduFont && (updated.urduFont === 'Gulzar' || updated.urduFont.includes('Naskh'))) {
+        updated.urduFont = 'Noto Nastaliq Urdu';
+      }
       localStorage.setItem('tarteeb_typography', JSON.stringify(updated));
       return updated;
     });

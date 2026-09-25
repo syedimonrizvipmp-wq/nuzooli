@@ -336,7 +336,7 @@ export const ChronologicalPassageReader: React.FC = () => {
 
       {/* ── 2. COLLAPSIBLE HISTORICAL CONTEXT & SHAN-E-NUZOOL ── */}
       {!isFocusMode && isContextExpanded && (
-        <div className="p-4 sm:p-5 rounded-2xl sacred-border bg-[var(--bg-surface-card)] shadow-xs space-y-2.5 animate-fade-in border-l-4 border-l-emerald-600">
+        <div className="p-4 sm:p-5 rounded-2xl sacred-border bg-[var(--bg-surface-card)] shadow-xs space-y-2.5 animate-fade-in border-s-4 border-s-emerald-600">
           <div className="flex items-center justify-between text-xs font-bold text-emerald-800 dark:text-emerald-300">
             <div className="flex items-center gap-1.5">
               <Sparkles className="w-4 h-4 text-amber-500" />
@@ -590,6 +590,7 @@ export const ChronologicalPassageReader: React.FC = () => {
 
                   {typography.showEnglish && (
                     <p
+                      dir="ltr"
                       className="font-sans text-left leading-relaxed text-[var(--text-muted)] text-sm"
                       style={{ fontFamily: typography.englishFont }}
                     >
@@ -714,7 +715,7 @@ export const ChronologicalPassageReader: React.FC = () => {
 
                     {/* English Translation */}
                     {typography.showEnglish && (
-                      <div className="pt-2 text-left">
+                      <div className="pt-2 text-left" dir="ltr">
                         <p
                           className="font-sans leading-relaxed text-[var(--text-muted)] text-sm"
                           style={{ fontFamily: typography.englishFont }}

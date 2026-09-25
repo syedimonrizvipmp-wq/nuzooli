@@ -56,19 +56,19 @@ export const TimeRibbon: React.FC = () => {
           <div className="flex items-center gap-2 w-full md:w-auto">
             <div className="flex items-center gap-1.5 bg-[var(--bg-surface-elevated)] px-3 py-1.5 rounded-xl border border-[var(--border-subtle)] text-xs text-[var(--text-secondary)] w-full md:w-auto">
               <ListFilter className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-              <span className="font-semibold whitespace-nowrap">Jump to Revelation:</span>
+              <span className="font-semibold whitespace-nowrap font-urdu">وحی پر جائیں:</span>
               <select
                 value={activeEventOrder}
                 onChange={(e) => setActiveEventOrder(parseInt(e.target.value, 10))}
-                className="bg-transparent text-[var(--text-primary)] font-bold focus:outline-none cursor-pointer text-xs w-full md:w-64"
+                className="bg-transparent text-[var(--text-primary)] font-bold focus:outline-none cursor-pointer text-xs w-full md:w-64 font-urdu"
               >
                 {events.map((evt) => (
                   <option
                     key={evt.chronologicalOrder}
                     value={evt.chronologicalOrder}
-                    className="bg-[var(--bg-surface-elevated)] text-[var(--text-primary)]"
+                    className="bg-[var(--bg-surface-elevated)] text-[var(--text-primary)] font-urdu"
                   >
-                    #{evt.chronologicalOrder} — {evt.surahNameEnglish} ({evt.surahNameArabic}) • {evt.revelationPeriod}
+                    #{evt.chronologicalOrder} — {evt.surahNameArabic} ({evt.surahNameUrdu}) • {evt.revelationPeriod}
                   </option>
                 ))}
               </select>
@@ -91,7 +91,9 @@ export const TimeRibbon: React.FC = () => {
                       : 'bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-emerald-500/40'
                   }`}
                 >
-                  <span>{p === 'All' ? 'All Phases (تمام ادوار)' : p}</span>
+                  <span className={p === 'All' ? 'font-urdu font-bold' : ''}>
+                    {p === 'All' ? 'تمام ادوار (All Phases)' : p}
+                  </span>
                   <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${
                     periodFilter === p ? 'bg-emerald-800 text-white' : 'bg-[var(--bg-surface)] text-[var(--text-muted)]'
                   }`}>
@@ -129,7 +131,7 @@ export const TimeRibbon: React.FC = () => {
                 >
                   <span className="font-bold text-emerald-700 dark:text-emerald-300">{m.yearCE} CE</span>
                   <span className="w-1 h-1 rounded-full bg-[var(--text-muted)]" />
-                  <span>{m.titleUrdu}</span>
+                  <span className="font-urdu">{m.titleUrdu}</span>
                   {m.relatedEventOrders.length > 0 && (
                     <span className="px-1.5 py-0.5 rounded text-[10px] bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 font-semibold">
                       Event #{m.relatedEventOrders[0]}
@@ -164,7 +166,7 @@ export const TimeRibbon: React.FC = () => {
                 <button
                   key={evt.chronologicalOrder}
                   onClick={() => setActiveEventOrder(evt.chronologicalOrder)}
-                  className={`flex-shrink-0 text-left w-52 sm:w-64 p-3 rounded-2xl border transition-all relative overflow-hidden snap-start cursor-pointer ${
+                  className={`flex-shrink-0 text-start w-52 sm:w-64 p-3 rounded-2xl border transition-all relative overflow-hidden snap-start cursor-pointer ${
                     isActive
                       ? 'bg-gradient-to-br from-emerald-500/15 via-[var(--bg-surface-elevated)] to-[var(--bg-surface)] border-emerald-600 ring-2 ring-emerald-500/30 shadow-md scale-[1.02]'
                       : 'bg-[var(--bg-surface-elevated)] border-[var(--border-subtle)] hover:border-emerald-500/40 hover:scale-[1.01]'

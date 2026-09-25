@@ -145,11 +145,11 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         {prevEvent ? (
           <button
             onClick={() => setActiveEventOrder(prevEvent.chronologicalOrder)}
-            className="flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-emerald-500/40 text-left transition-all cursor-pointer shadow-2xs"
+            className="flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-emerald-500/40 text-start transition-all cursor-pointer shadow-2xs"
           >
-            <ArrowLeft className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+            <ArrowLeft className="w-4 h-4 text-emerald-600 flex-shrink-0 rtl:rotate-180" />
             <div>
-              <div className="text-[11px] text-[var(--text-muted)]">پچھلی وحی • Previous Event</div>
+              <div className="text-[11px] text-[var(--text-muted)] font-urdu">پچھلی وحی • Previous Event</div>
               <div className="text-sm font-bold text-[var(--text-primary)]">
                 #{prevEvent.chronologicalOrder} {prevEvent.surahNameEnglish} ({prevEvent.approximateYearCE} CE)
               </div>
@@ -162,15 +162,15 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
         {nextEvent ? (
           <button
             onClick={() => setActiveEventOrder(nextEvent.chronologicalOrder)}
-            className="flex items-center justify-end gap-2.5 px-4 py-3 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-emerald-500/40 text-right sm:ml-auto transition-all cursor-pointer shadow-2xs"
+            className="flex items-center justify-end gap-2.5 px-4 py-3 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] hover:border-emerald-500/40 text-end sm:ms-auto transition-all cursor-pointer shadow-2xs"
           >
             <div>
-              <div className="text-[11px] text-[var(--text-muted)]">اگلی وحی • Next Event</div>
+              <div className="text-[11px] text-[var(--text-muted)] font-urdu">اگلی وحی • Next Event</div>
               <div className="text-sm font-bold text-[var(--text-primary)]">
                 #{nextEvent.chronologicalOrder} {nextEvent.surahNameEnglish} ({nextEvent.approximateYearCE} CE)
               </div>
             </div>
-            <ArrowRight className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+            <ArrowRight className="w-4 h-4 text-emerald-600 flex-shrink-0 rtl:rotate-180" />
           </button>
         ) : (
           <div />

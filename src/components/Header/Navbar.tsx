@@ -139,12 +139,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               {isFullscreen ? (
                 <>
                   <Minimize2 className="w-3.5 h-3.5" />
-                  <span>Exit Full Screen</span>
+                  <span className="font-urdu">عام اسکرین</span>
                 </>
               ) : (
                 <>
                   <Maximize2 className="w-3.5 h-3.5" />
-                  <span>Full HD Screen (مکمل اسکرین)</span>
+                  <span className="font-urdu">مکمل اسکرین (Full Screen)</span>
                 </>
               )}
             </button>
@@ -157,7 +157,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-[1780px] mx-auto px-3 sm:px-6 lg:px-8 xl:px-12 py-2 sm:py-3.5">
         <div className="flex items-center justify-between gap-2 sm:gap-4">
           
-          {/* Left: Sacred Logo & Branding */}
+          {/* Sacred Logo & Branding */}
           <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
             <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl overflow-hidden p-0.5 border border-emerald-500/40 shadow-sm bg-gradient-to-br from-emerald-950/20 via-amber-500/15 to-emerald-600/20 flex items-center justify-center group shrink-0">
               <img
@@ -169,15 +169,15 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <h1 className="text-lg sm:text-2xl font-bold tracking-tight text-[var(--text-primary)] font-serif">
+                <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--text-primary)] font-urdu">
                   ترتیبِ نزولی
                 </h1>
                 <span className="hidden sm:inline-block px-2 py-0.5 text-xs font-semibold rounded-md bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/25">
                   Tarteeb-e-Nuzul
                 </span>
               </div>
-              <p className="text-[10px] sm:text-[11px] text-[var(--text-muted)] font-medium">
-                23-Year Chronological Quran Journey
+              <p className="text-[10px] sm:text-[11px] text-[var(--text-muted)] font-medium font-urdu">
+                قرآن مجید کی ۲۳ سالہ زمانی و تدریجی تفہیم
               </p>
             </div>
           </div>
@@ -185,18 +185,18 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Center: Search Bar with generous breathing space (Desktop) */}
           <div className="hidden lg:flex items-center flex-1 max-w-sm xl:max-w-md mx-2">
             <div className="relative w-full">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
+              <Search className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search Surah, Ayah or Keyword (تلاش)..."
-                className="w-full pl-10 pr-4 py-2 text-xs rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-emerald-500/40 transition-all shadow-2xs"
+                placeholder="قرآن مجید میں تلاش کریں (سورت، آیت، مفہوم)..."
+                className="w-full ps-10 pe-9 py-2 text-xs rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-emerald-500/40 transition-all shadow-2xs font-urdu"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                  className="absolute end-3.5 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                 >
                   ✕
                 </button>
@@ -204,7 +204,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Right: Perspectives & Reading Utility Controls */}
+          {/* Perspectives & Reading Utility Controls */}
           <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
             
             {/* Desktop & Tablet Perspective Switcher (Hidden on Mobile < sm) */}
@@ -220,7 +220,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <Layers className="w-3.5 h-3.5 text-amber-400" />
                 <span className="font-urdu font-bold">نزولِ تدریجی</span>
-                <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-amber-500/20 text-amber-300 font-sans hidden md:inline font-semibold">مرکزی</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-amber-500/20 text-amber-300 font-urdu hidden md:inline font-bold">مرکزی</span>
               </button>
               <button
                 onClick={() => setPerspectiveMode('nuzul')}
@@ -232,7 +232,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <Compass className="w-3.5 h-3.5" />
-                <span>ترتیبِ نزول (مکمل سورتیں)</span>
+                <span className="font-urdu">ترتیبِ نزول (مکمل سورتیں)</span>
               </button>
               <button
                 onClick={() => setPerspectiveMode('mushaf')}
@@ -244,7 +244,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <BookOpen className="w-3.5 h-3.5" />
-                <span>ترتیبِ مصحف</span>
+                <span className="font-urdu">ترتیبِ مصحف</span>
               </button>
               <button
                 onClick={() => setPerspectiveMode('perspectives')}
@@ -256,7 +256,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                <span>مناظر و تجزیات</span>
+                <span className="font-urdu">مناظر و تجزیات</span>
               </button>
             </div>
 
@@ -274,7 +274,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
                 {isLayoutOpen && (
                   <div
-                    className="absolute right-0 mt-2 w-48 rounded-2xl shadow-2xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] p-1.5 z-50 animate-fade-in"
+                    className="absolute end-0 mt-2 w-48 rounded-2xl shadow-2xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] p-1.5 z-50 animate-fade-in"
                     onMouseLeave={() => setIsLayoutOpen(false)}
                   >
                     <div className="px-2 py-1 text-xs font-semibold text-[var(--text-muted)] border-b border-[var(--border-subtle)] mb-1">
@@ -319,7 +319,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
                 {isThemeOpen && (
                   <div
-                    className="absolute right-0 mt-2 w-60 rounded-2xl shadow-2xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] p-1.5 z-50 animate-fade-in"
+                    className="absolute end-0 mt-2 w-60 rounded-2xl shadow-2xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] p-1.5 z-50 animate-fade-in"
                     onMouseLeave={() => setIsThemeOpen(false)}
                   >
                     <div className="px-2 py-1 text-xs font-semibold text-[var(--text-muted)] border-b border-[var(--border-subtle)] mb-1">
