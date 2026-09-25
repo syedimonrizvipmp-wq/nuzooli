@@ -38,6 +38,7 @@ export interface PerspectiveTabDef {
   labelUr: string;
   icon: React.ReactNode;
   description: string;
+  descriptionUr: string;
 }
 
 export const PERSPECTIVE_TABS: PerspectiveTabDef[] = [
@@ -45,8 +46,9 @@ export const PERSPECTIVE_TABS: PerspectiveTabDef[] = [
     id: 'arc',
     labelEn: 'Arc of Reconnection',
     labelUr: 'محرابِ ربطِ مصحف',
-    icon: <Sparkles className="w-4 h-4" />,
+    icon: <Sparkles className="w-4 h-4 text-amber-500" />,
     description: 'Dual-rail chord diagram showing 23-year revelations assembling into the canonical Mushaf',
+    descriptionUr: '۲۳ سالہ بکھرے نزول کا حتمی مصحف میں یکجا ہونا اور تقابلی ربط',
   },
   {
     id: 'crisis',
@@ -54,6 +56,7 @@ export const PERSPECTIVE_TABS: PerspectiveTabDef[] = [
     labelUr: 'اسبابِ نزول و بحران',
     icon: <ShieldAlert className="w-4 h-4 text-indigo-500" />,
     description: 'Situational intelligence timeline of inquiries, sieges, battlefields, and Ghadir Khumm',
+    descriptionUr: 'غزوات، محاصروں اور تاریخی واقعات کے پس منظر میں نازل شدہ آیات',
   },
   {
     id: 'thematic',
@@ -61,6 +64,7 @@ export const PERSPECTIVE_TABS: PerspectiveTabDef[] = [
     labelUr: 'تطوّرِ مضامین',
     icon: <Flame className="w-4 h-4 text-rose-500" />,
     description: '23-Year Heatmap tracing the shift from Tawhid and Akhirah to Law, Governance, and Wilayah',
+    descriptionUr: 'توحید و معاد سے قانون و ولایت تک قرآنی مضامین کا ارتقائی ہیٹ میپ',
   },
   {
     id: 'map',
@@ -68,6 +72,7 @@ export const PERSPECTIVE_TABS: PerspectiveTabDef[] = [
     labelUr: 'سفرنامۂ وحی (نقشہ)',
     icon: <MapPin className="w-4 h-4 text-emerald-600" />,
     description: 'Sacred cartographic terrain of Makkah, Madinah, Badr, Uhud, Hudaybiyyah, and Ghadir Khumm',
+    descriptionUr: 'مکہ، مدینہ، بدر، احد، حدیبیہ اور غدیرِ خم کا جغرافیائی نقشہ',
   },
   {
     id: 'legislation',
@@ -75,48 +80,55 @@ export const PERSPECTIVE_TABS: PerspectiveTabDef[] = [
     labelUr: 'تدریجِ احکام',
     icon: <Scale className="w-4 h-4 text-amber-500" />,
     description: 'The 4 stages of alcohol prohibition, qiblah shift, fasting, and gradual divine laws',
+    descriptionUr: 'تحریمِ شراب، تغییرِ قبلہ اور روزے وغیرہ کے بتدریج ۴ مراحل',
   },
   {
     id: 'xray',
     labelEn: 'Surah X-Ray Matrix',
     labelUr: 'ایکس رے ڈیش بورڈ',
-    icon: <Eye className="w-4 h-4" />,
+    icon: <Eye className="w-4 h-4 text-teal-500" />,
     description: '114-Surah bar matrix showing single descent vs segmented multi-part revelations',
+    descriptionUr: 'تمام ۱۱۴ سورتوں کے یکبارگی یا ٹکڑوں میں نزول کا تفصیلی میٹرکس',
   },
   {
     id: 'flow',
     labelEn: 'Passage Flow & Linkage',
     labelUr: 'نزولی تسلسل و مقطوعات',
-    icon: <GitBranch className="w-4 h-4" />,
+    icon: <GitBranch className="w-4 h-4 text-blue-500" />,
     description: 'Chronological timeline flow linking multi-part revelations across years (e.g. Al-Alaq Part 1 & 2)',
+    descriptionUr: 'مختلف سالوں میں نازل شدہ حصوں کے باہمی تاریخی و نزولی رابطے',
   },
   {
     id: 'nature',
     labelEn: 'By Revelation Nature',
     labelUr: 'نزول کی نوعیت',
-    icon: <Layers className="w-4 h-4" />,
+    icon: <Layers className="w-4 h-4 text-emerald-600" />,
     description: 'Explore Complete Surahs (نزولِ کلی) vs Segmented Chunks (نزولِ تدریجی)',
+    descriptionUr: 'مکمل سورتیں (نزولِ کلی) بمقابلہ مرحلہ وار آیات (نزولِ تدریجی)',
   },
   {
     id: 'periods',
     labelEn: 'Makki vs Madani Periods',
     labelUr: 'مکی و مدنی ادوار',
-    icon: <Clock className="w-4 h-4" />,
+    icon: <Clock className="w-4 h-4 text-amber-600" />,
     description: '5 Prophetic Eras from Cave Hira to Ghadeer Khumm & Farewell',
+    descriptionUr: 'غارِ حرا سے غدیرِ خم تک رسالتِ مآبؐ کے ۵ سنہری تاریخی ادوار',
   },
   {
     id: 'comparison',
     labelEn: 'Nuzul vs Mushaf Mapping',
     labelUr: 'ترتیب کا تقابل',
-    icon: <Split className="w-4 h-4" />,
+    icon: <Split className="w-4 h-4 text-purple-600" />,
     description: 'Matrix comparison with historical revelation distance (Δ Gap)',
+    descriptionUr: 'نزولی ترتیب اور مصحف کے درمیانی فاصلے (Δ Gap) کا مکمل موازنہ',
   },
   {
     id: 'future',
     labelEn: 'Future Perspectives',
     labelUr: 'توسیع پذیر مناظر',
-    icon: <Sparkles className="w-4 h-4" />,
+    icon: <Sparkles className="w-4 h-4 text-cyan-500" />,
     description: 'Extensible registry for Comparative Sunnah/Shia & Thematic timelines',
+    descriptionUr: 'مکاتبِ فکر کی تقابلی تواریخ اور کلامی مباحث کے نئے تحقیقی زاویے',
   },
 ];
 
@@ -142,39 +154,90 @@ export const PerspectivesView: React.FC = () => {
   return (
     <div className="w-full max-w-[1780px] mx-auto py-6 sm:py-8 px-2 sm:px-4 animate-fade-in">
       
-      {/* Top Header Banner */}
-      <div className="mb-6 p-6 sm:p-8 rounded-3xl sacred-glass sacred-border sacred-shadow flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 mb-1">
-            <Compass className="w-4 h-4" />
-            <span>Multi-View Analytics & Historical Slices</span>
+      {/* Top Header Banner & Multi-Perspective Grid Suite */}
+      <div className="mb-8 p-5 sm:p-7 lg:p-8 rounded-3xl sacred-glass sacred-border sacred-shadow">
+        
+        {/* Banner Top Info Row */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-5 border-b border-[var(--border-subtle)]">
+          <div>
+            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 mb-1.5">
+              <Compass className="w-4 h-4 text-emerald-600" />
+              <span>Multi-View Analytics & Historical Slices</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] flex flex-wrap items-baseline gap-2.5">
+              <span className="font-urdu">مختلف مناظر و تجزیات</span>
+              <span className="text-base sm:text-lg font-sans font-normal text-[var(--text-muted)]">(Research & Analytics Suite)</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-1.5 max-w-3xl font-urdu leading-relaxed">
+              قرآن مجید کے ۲۳ سالہ زمانی و تاریخی نزول، اسبابِ نزول، جغرافیہ، اور ربطِ مصحف کے تمام ۱۱ تحقیقی مناظر میں سے مطلوبہ زاویہ منتخب فرمائیں (بغیر کسی اسکرولنگ کے تمام آپشنز سامنے موجود ہیں):
+            </p>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] flex flex-wrap items-baseline gap-2">
-            <span className="font-urdu">مختلف مناظر و تجزیات</span>
-            <span className="text-base sm:text-lg font-sans font-normal text-[var(--text-muted)]">(Views & Insights)</span>
-          </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl font-urdu leading-relaxed">
-            قرآن مجید کے ۲۳ سالہ زمانی و تاریخی نزول، سورتوں کی نوعیت اور روایتی مصحف کے تقابلی تعلق کے مختلف زاویوں کا گہرا تحقیقی مطالعہ کریں۔
-          </p>
+
+          <div className="flex items-center gap-2 self-start md:self-auto shrink-0">
+            <span className="px-3.5 py-1.5 rounded-xl bg-emerald-600/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/25 text-xs font-bold font-urdu flex items-center gap-1.5 shadow-2xs">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
+              <span>کل ۱۱ تحقیقی مناظر (11 Views)</span>
+            </span>
+          </div>
         </div>
 
-        {/* Tab Switcher Pills */}
-        <div className="flex items-center gap-1.5 bg-[var(--bg-surface)] p-1.5 rounded-2xl border border-[var(--border-subtle)] overflow-x-auto no-scrollbar">
-          {PERSPECTIVE_TABS.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all ${
-                activeTab === tab.id
-                  ? 'bg-emerald-700 text-white font-bold shadow-md'
-                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)]'
-              }`}
-            >
-              {tab.icon}
-              <span className="font-urdu">{tab.labelUr}</span>
-              <span className="opacity-80 font-sans hidden lg:inline">({tab.labelEn})</span>
-            </button>
-          ))}
+        {/* 11 Interactive Perspective Cards (Organized Multi-Column & Multi-Row Grid) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 pt-5">
+          {PERSPECTIVE_TABS.map((tab, idx) => {
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`p-3.5 sm:p-4 rounded-2xl border text-start transition-all cursor-pointer relative group flex flex-col justify-between ${
+                  isActive
+                    ? 'bg-gradient-to-br from-emerald-800 to-emerald-950 text-white border-emerald-700 shadow-md ring-2 ring-emerald-500/40 scale-[1.01]'
+                    : 'bg-[var(--bg-surface)] hover:bg-[var(--bg-surface-elevated)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500/40 hover:shadow-xs hover:scale-[1.005]'
+                }`}
+              >
+                {/* Card Top: Icon & Indicator */}
+                <div className="flex items-center justify-between w-full mb-2.5">
+                  <div className={`p-2 rounded-xl shrink-0 transition-colors ${
+                    isActive ? 'bg-white/15 text-white' : 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 group-hover:bg-emerald-500/20'
+                  }`}>
+                    {tab.icon}
+                  </div>
+                  
+                  <div className="flex items-center gap-1.5">
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
+                      isActive ? 'bg-amber-400 text-slate-950 font-bold' : 'bg-[var(--bg-surface-elevated)] text-[var(--text-muted)] border border-[var(--border-subtle)]'
+                    }`}>
+                      #{idx + 1}
+                    </span>
+                    {isActive && (
+                      <span className="w-2 h-2 rounded-full bg-amber-400 ring-4 ring-amber-400/25 animate-pulse" />
+                    )}
+                  </div>
+                </div>
+
+                {/* Card Middle: Titles */}
+                <div>
+                  <div className={`text-base font-bold font-urdu leading-snug ${
+                    isActive ? 'text-white' : 'text-[var(--text-primary)] group-hover:text-emerald-700 dark:group-hover:text-emerald-300'
+                  }`}>
+                    {tab.labelUr}
+                  </div>
+                  <div className={`text-[11px] font-medium font-sans truncate mt-0.5 ${
+                    isActive ? 'text-emerald-200' : 'text-[var(--text-muted)]'
+                  }`}>
+                    {tab.labelEn}
+                  </div>
+                </div>
+
+                {/* Card Bottom: Concise 1-line Exegesis Description */}
+                <div className={`text-[11px] font-urdu line-clamp-2 leading-relaxed mt-2.5 pt-2 border-t ${
+                  isActive ? 'text-emerald-100/90 border-white/15' : 'text-[var(--text-secondary)] border-[var(--border-subtle)]'
+                }`}>
+                  {tab.descriptionUr}
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
 
