@@ -1,21 +1,16 @@
 import { Verse } from '@/types/quran';
 import { getAyahAudioUrl } from '@/data/reciters';
-import { INITIAL_REVELATION_EVENTS } from '@/data/initialSeedEvents';
 
 // In-memory cache for loaded Surah verses to make navigation instant
 const surahCache = new Map<number, Verse[]>();
 
-// Initialize cache with initial seed events for zero-delay startup
-INITIAL_REVELATION_EVENTS.forEach((evt) => {
-  if (!surahCache.has(evt.surahNumber)) {
-    surahCache.set(evt.surahNumber, evt.verses);
-  }
-});
-
 export async function loadSurahVerses(surahNumber: number): Promise<Verse[]> {
-  // 1. Check cache first
+  // 1. Check cache first (only return if non-empty)
   if (surahCache.has(surahNumber)) {
-    return surahCache.get(surahNumber)!;
+    const cached = surahCache.get(surahNumber)!;
+    if (cached && cached.length > 0) {
+      return cached;
+    }
   }
 
   try {
