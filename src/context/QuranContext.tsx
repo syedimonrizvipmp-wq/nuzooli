@@ -133,14 +133,12 @@ export const QuranProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const activeEvent =
     events.find((e) => e.chronologicalOrder === activeEventOrder) || events[0] || BASE_114_EVENTS[0];
 
-  // Hydrate verses whenever activeEvent changes if not already hydrated
+  // Hydrate verses whenever activeEvent changes if not already fully hydrated
   useEffect(() => {
     if (!activeEvent) return;
 
-    // If event already has verses loaded (and if whole surah is requested, verify count)
-    const needsHydration =
-      activeEvent.verses.length === 0 ||
-      (showFullSurahForPassages && activeEvent.verses.length < activeEvent.totalVersesInSurah);
+    // In Tarteeb-e-Nuzool, always ensure the complete Surah is hydrated
+    const needsHydration = activeEvent.verses.length < activeEvent.totalVersesInSurah;
 
     if (needsHydration) {
       setIsLoadingVerses(true);
@@ -149,15 +147,11 @@ export const QuranProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           setEvents((prev) =>
             prev.map((evt) => {
               if (evt.chronologicalOrder === activeEvent.chronologicalOrder) {
-                // If this is a passage (like Al-Alaq 96:1-5) and user hasn't requested full surah
-                let displayVerses = loadedVerses;
-                if (!showFullSurahForPassages && !evt.isWholeSurah && evt.verseRange) {
-                  displayVerses = loadedVerses.slice(
-                    evt.verseRange.fromVerse - 1,
-                    evt.verseRange.toVerse
-                  );
-                }
-                return { ...evt, verses: displayVerses };
+                return {
+                  ...evt,
+                  verses: loadedVerses,
+                  isWholeSurah: true,
+                };
               }
               return evt;
             })
@@ -167,7 +161,7 @@ export const QuranProvider: React.FC<{ children: React.ReactNode }> = ({ childre
           setIsLoadingVerses(false);
         });
     }
-  }, [activeEvent.chronologicalOrder, activeEvent.surahNumber, showFullSurahForPassages]);
+  }, [activeEvent.chronologicalOrder, activeEvent.surahNumber, activeEvent.totalVersesInSurah]);
 
   // 4. Perspective & Layout
   const [perspectiveMode, setPerspectiveModeState] = useState<PerspectiveMode>(() => {

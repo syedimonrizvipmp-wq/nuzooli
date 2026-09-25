@@ -211,7 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="hidden sm:flex items-center bg-[var(--bg-surface)] p-1 rounded-2xl border border-[var(--border-subtle)] shadow-2xs">
               <button
                 onClick={() => setPerspectiveMode('passage_nuzul')}
-                title="Tadreejee Nuzool (نزولِ تدریجی — آیات بر زمانی ترتیب)"
+                title="نزولِ تدریجی (آیات کا مرحلہ وار تاریخی نزول — Chronological Passage Flow)"
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   perspectiveMode === 'passage_nuzul'
                     ? 'bg-emerald-700 text-white font-bold shadow-xs'
@@ -224,7 +224,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
               <button
                 onClick={() => setPerspectiveMode('nuzul')}
-                title="Tarteeb-e-Nuzuli (Chronological Surahs Order)"
+                title="ترتیبِ نزول (تمام ۱۱۴ مکمل سورتیں نزولی ترتیب میں — All 114 Complete Surahs in Chronological Order)"
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   perspectiveMode === 'nuzul'
                     ? 'bg-emerald-700 text-white font-bold shadow-xs'
@@ -232,11 +232,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <Compass className="w-3.5 h-3.5" />
-                <span>ترتیبِ نزول</span>
+                <span>ترتیبِ نزول (مکمل سورتیں)</span>
               </button>
               <button
                 onClick={() => setPerspectiveMode('mushaf')}
-                title="Tarteeb-e-Mushaf (Standard 114 Surahs Canonical Order)"
+                title="ترتیبِ مصحف (مصحفِ عثمانی کی روایتی ۱ تا ۱۱۴ سورتیں — Canonical Mushaf Order 1–114)"
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   perspectiveMode === 'mushaf'
                     ? 'bg-emerald-700 text-white font-bold shadow-xs'

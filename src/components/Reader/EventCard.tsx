@@ -23,8 +23,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
     events,
     setActiveEventOrder,
     isLoadingVerses,
-    showFullSurahForPassages,
-    setShowFullSurahForPassages,
+    setPerspectiveMode,
   } = useQuran();
 
   const currentIndex = events.findIndex(
@@ -88,15 +87,9 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
               <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1.5 flex items-center gap-1.5">
                 <MapPin className="w-4 h-4 text-emerald-600" />
                 <span>{event.location}</span>
-                {event.isWholeSurah ? (
-                  <span className="ml-2 font-semibold text-emerald-700 dark:text-emerald-300">
-                    • Complete Surah Revealed
-                  </span>
-                ) : (
-                  <span className="ml-2 font-semibold text-amber-500">
-                    • Segmented Passage Revelation
-                  </span>
-                )}
+                <span className="ml-2 font-semibold text-emerald-700 dark:text-emerald-300">
+                  • ترتیبِ نزول کی سورت #{event.chronologicalOrder}
+                </span>
               </p>
             </div>
 
@@ -111,31 +104,23 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
             </div>
           </div>
 
-          {/* Passage vs Whole Surah Toggle (if this Surah was revealed in chunks) */}
-          <div className="flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm text-[var(--text-secondary)]">
+          {/* Full Surah Presentation Banner & Bridge to Tadreejee Nuzool */}
+          <div className="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-[var(--text-secondary)] bg-[var(--bg-surface)] p-3.5 rounded-2xl border border-[var(--border-subtle)]">
             <div className="flex items-center gap-2">
-              <Layers className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-              <span>
-                {event.isWholeSurah || showFullSurahForPassages
-                  ? `Reading Complete Surah: All ${event.totalVersesInSurah} Ayahs (پوری سورت کی تلاوت)`
-                  : `Chronological Chunk: Verses ${event.verseRange.fromVerse}–${event.verseRange.toVerse} of ${event.totalVersesInSurah} total verses`}
+              <BookOpen className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+              <span className="font-semibold text-emerald-800 dark:text-emerald-300">
+                ترتیبِ نزول: مکمل سورت — تمام {event.totalVersesInSurah} آیات (Complete Surah: All {event.totalVersesInSurah} Ayahs)
               </span>
             </div>
 
-            {/* Chunk Toggle */}
-            {!event.isWholeSurah && (
-              <button
-                onClick={() => setShowFullSurahForPassages(!showFullSurahForPassages)}
-                className="px-3 py-1 rounded-xl text-xs font-bold bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 hover:bg-emerald-500/25 transition-all flex items-center gap-1 cursor-pointer shadow-2xs"
-              >
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>
-                  {showFullSurahForPassages
-                    ? 'Show Only This Historical Chunk'
-                    : 'Read Entire Surah Instead'}
-                </span>
-              </button>
-            )}
+            <button
+              onClick={() => setPerspectiveMode('passage_nuzul')}
+              className="text-[11px] font-bold text-emerald-700 dark:text-emerald-300 hover:text-emerald-800 flex items-center gap-1.5 cursor-pointer bg-emerald-500/10 hover:bg-emerald-500/20 px-3 py-1.5 rounded-xl border border-emerald-500/25 transition-all shadow-2xs"
+              title="آیات کا تاریخی و مرحلہ وار تدریجی نزول دیکھنے کے لیے کلک کریں"
+            >
+              <Layers className="w-3.5 h-3.5 text-amber-500" />
+              <span className="font-urdu">آیات کا مرحلہ وار نزول دیکھیں (نزولِ تدریجی)</span>
+            </button>
           </div>
 
         </div>
