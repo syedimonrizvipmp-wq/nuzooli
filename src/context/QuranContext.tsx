@@ -121,6 +121,10 @@ export const QuranProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [passageStreamMode, setPassageStreamModeState] = useState<PassageStreamMode>(() => {
     try {
       const saved = localStorage.getItem('tarteeb_passage_stream_mode');
+      if (saved === 'all_quran') {
+        localStorage.setItem('tarteeb_passage_stream_mode', 'curated_milestones');
+        return 'curated_milestones';
+      }
       return (saved as PassageStreamMode) || 'curated_milestones';
     } catch {
       return 'curated_milestones';

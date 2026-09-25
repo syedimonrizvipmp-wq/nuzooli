@@ -126,29 +126,5 @@ export const UNIFIED_CHRONOLOGICAL_PASSAGES: ChronologicalPassageStep[] = (() =>
   return list;
 })();
 
-// 3. Complete 114 Surahs Chronological Passage Sequence (Full Quran: 114 Surahs / 6,236 Ayahs)
-export const ALL_114_CHRONOLOGICAL_PASSAGES: ChronologicalPassageStep[] = ALL_114_CHRONOLOGICAL_EVENTS
-  .slice()
-  .sort((a, b) => a.chronologicalOrder - b.chronologicalOrder)
-  .map((evt, idx) => ({
-    stepNumber: idx + 1,
-    id: `all-114-quran-${evt.chronologicalOrder}`,
-    surahNumber: evt.mushafOrder,
-    surahNameEnglish: evt.surahNameEnglish,
-    surahNameArabic: evt.surahNameArabic,
-    surahNameUrdu: evt.surahNameUrdu,
-    segmentIndex: 1,
-    totalSegments: 1,
-    isSegmented: false,
-    verseRange: { fromVerse: 1, toVerse: evt.totalVersesInSurah },
-    totalVersesInSurah: evt.totalVersesInSurah,
-    yearCE: evt.approximateYearCE,
-    yearNabawiOrHijri: evt.hijriYear
-      ? `${evt.hijriYear} AH (${evt.approximateYearCE} CE)`
-      : `${evt.approximateYearCE} CE (${14 - evt.approximateYearNabawi} BH)`,
-    location: evt.location,
-    period: evt.revelationPeriod,
-    contextUrdu: evt.asbabUnNuzul?.summaryUrdu || 'زمانہ نزول و تاریخی پس منظر',
-    contextEnglish: evt.asbabUnNuzul?.summaryEnglish || 'Historical Context of Revelation',
-    sisterPassageIds: [],
-  }));
+// 3. Complete Chronological Passage Sequence (All Quranic passages preserving segmented multi-part Surahs)
+export const ALL_114_CHRONOLOGICAL_PASSAGES: ChronologicalPassageStep[] = UNIFIED_CHRONOLOGICAL_PASSAGES;

@@ -211,7 +211,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <div className="hidden sm:flex items-center bg-[var(--bg-surface)] p-1 rounded-2xl border border-[var(--border-subtle)] shadow-2xs">
               <button
                 onClick={() => setPerspectiveMode('passage_nuzul')}
-                title="نزولِ تدریجی (آیات کا مرحلہ وار تاریخی نزول — Chronological Passage Flow)"
+                title="نزولِ تدریجی: آیات کا مرحلہ وار تاریخی نزول — سورتوں کے تاریخی مقطوعات (Chronological Passage Flow)"
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   perspectiveMode === 'passage_nuzul'
                     ? 'bg-emerald-700 text-white font-bold shadow-xs'
@@ -219,12 +219,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 }`}
               >
                 <Layers className="w-3.5 h-3.5 text-amber-400" />
-                <span className="font-urdu font-bold">نزولِ تدریجی</span>
+                <span className="font-urdu font-bold">نزولِ تدریجی (مقطوعات)</span>
                 <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-amber-500/20 text-amber-300 font-urdu hidden md:inline font-bold">مرکزی</span>
               </button>
               <button
                 onClick={() => setPerspectiveMode('nuzul')}
-                title="ترتیبِ نزول (تمام ۱۱۴ مکمل سورتیں نزولی ترتیب میں — All 114 Complete Surahs in Chronological Order)"
+                title="ترتیبِ نزول: تمام ۱۱۴ سورتیں مکمل صورت میں آغازِ نزول کی ترتیب پر (All 114 Complete Surahs in Chronological Order)"
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   perspectiveMode === 'nuzul'
                     ? 'bg-emerald-700 text-white font-bold shadow-xs'
