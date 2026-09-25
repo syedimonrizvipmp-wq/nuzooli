@@ -51,10 +51,44 @@ export const VerseList: React.FC<VerseListProps> = ({ event }) => {
     return v.translationEnglish;
   };
 
+  // Luminous Bismillah Header (Surah 1 has Bismillah as Ayah 1; Surah 9 has no Bismillah)
+  const renderBismillah = () => {
+    if (event.surahNumber === 9) {
+      return (
+        <div className="py-3 px-4 mb-6 rounded-2xl bg-amber-500/10 border border-amber-500/25 text-center text-xs text-amber-800 dark:text-amber-200 font-urdu shadow-2xs">
+          <span>مستند روایات و تفاسیر کے مطابق، سورۃ التوبہ (برائت) کے آغاز میں بسم اللہ نازل نہیں ہوئی کیونکہ یہ غضبِ الٰہی اور عہد شکن مشرکین سے برائت کا اعلان ہے۔</span>
+        </div>
+      );
+    }
+
+    if (event.surahNumber === 1) {
+      // In Surah Al-Fatiha, Ayah 1 is itself Bismillahir Rahmanir Raheem
+      return null;
+    }
+
+    return (
+      <div className="py-6 mb-6 text-center animate-fade-in">
+        <div className="inline-block px-8 py-3.5 rounded-3xl bg-[var(--bg-surface-elevated)] border border-emerald-500/25 shadow-xs">
+          <div
+            className="font-arabic font-bold text-2xl sm:text-3xl lg:text-4xl text-emerald-900 dark:text-emerald-200 tracking-wider select-none"
+            style={{ fontFamily: typography.arabicFont }}
+          >
+            بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+          </div>
+          <div className="text-[11px] font-urdu text-[var(--text-muted)] mt-1.5">
+            شروع اللہ کے نام سے جو بڑا مہربان نہایت رحم والا ہے
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   // 1. ARABIC-ONLY MODE (Pure Uthmani flow with ornate Ayah glyphs)
   if (readingLayout === 'arabic-only') {
     return (
-      <div className="w-full p-4 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl sacred-border sacred-shadow bg-[var(--bg-surface-card)]">
+      <div className="space-y-4">
+        {renderBismillah()}
+        <div className="w-full p-4 sm:p-8 lg:p-10 rounded-2xl sm:rounded-3xl sacred-border sacred-shadow bg-[var(--bg-surface-card)]">
         <div
           className="font-arabic leading-[2.6] text-right"
           style={{
@@ -93,13 +127,15 @@ export const VerseList: React.FC<VerseListProps> = ({ event }) => {
           })}
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   // 2. TRANSLATION-ONLY MODE (Urdu flow with optional English)
   if (readingLayout === 'translation-only') {
     return (
       <div className="space-y-4">
+        {renderBismillah()}
         {event.verses.map((v) => {
           const isPlaying =
             activeAudio.isPlaying &&
@@ -182,6 +218,7 @@ export const VerseList: React.FC<VerseListProps> = ({ event }) => {
   if (readingLayout === 'side-by-side') {
     return (
       <div className="space-y-4">
+        {renderBismillah()}
         {event.verses.map((v) => {
           const isPlaying =
             activeAudio.isPlaying &&
@@ -292,6 +329,7 @@ export const VerseList: React.FC<VerseListProps> = ({ event }) => {
   // 4. SPLIT MODE (DEFAULT: Arabic verse on top, translations below)
   return (
     <div className="space-y-4">
+      {renderBismillah()}
       {event.verses.map((v) => {
         const isPlaying =
           activeAudio.isPlaying &&
