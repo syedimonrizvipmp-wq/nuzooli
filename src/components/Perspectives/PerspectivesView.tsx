@@ -149,11 +149,12 @@ export const PerspectivesView: React.FC = () => {
             <Compass className="w-4 h-4" />
             <span>Multi-View Analytics & Historical Slices</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[var(--text-primary)]">
-            مختلف مناظر و تجزیات (Views & Insights)
+          <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] flex flex-wrap items-baseline gap-2">
+            <span className="font-urdu">مختلف مناظر و تجزیات</span>
+            <span className="text-base sm:text-lg font-sans font-normal text-[var(--text-muted)]">(Views & Insights)</span>
           </h2>
-          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl">
-            Slice and study the 23-year Quranic revelation timeline across revelation nature, prophetic historical epochs, and standard Mushaf comparative mappings.
+          <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl font-urdu leading-relaxed">
+            قرآن مجید کے ۲۳ سالہ زمانی و تاریخی نزول، سورتوں کی نوعیت اور روایتی مصحف کے تقابلی تعلق کے مختلف زاویوں کا گہرا تحقیقی مطالعہ کریں۔
           </p>
         </div>
 

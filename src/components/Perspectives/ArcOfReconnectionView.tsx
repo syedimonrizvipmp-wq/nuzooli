@@ -435,12 +435,12 @@ export const ArcOfReconnectionView: React.FC = () => {
           <div>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 mb-1">
               <Sparkles className="w-4 h-4 text-amber-500" />
-              <span>The "Arc of Reconnection" Suite (محرابِ ربطِ مصحف — تقابلی نظام)</span>
+              <span>The "Arc of Reconnection" Suite <span className="font-urdu">(محرابِ ربطِ مصحف — تقابلی نظام)</span></span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-bold font-serif text-[var(--text-primary)]">
+            <h3 className="text-xl sm:text-2xl font-bold font-urdu text-[var(--text-primary)]">
               ۲۳ سالہ بکھرے نزول کا حتمی مصحف میں یکجا ہونا
             </h3>
-            <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed">
+            <p className="text-xs sm:text-sm text-[var(--text-muted)] mt-1 max-w-2xl leading-relaxed font-urdu">
               نزولِ قرآن کے ۲۳ سالہ تدریجی اور تاریخی سفر اور حتمی مصحف کے مابین تعلق کو تین مختلف زاویوں (زمانی، تقابلی، اور فاصلاتی) سے دریافت کریں۔
             </p>
           </div>
@@ -506,69 +506,69 @@ export const ArcOfReconnectionView: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-2 border-t border-[var(--border-subtle)]">
           <button
             onClick={() => setChartViewMode('order_comparison')}
-            className={`p-3 rounded-2xl border text-left transition-all flex items-center gap-3 ${
+            className={`p-3 rounded-2xl border text-start transition-all flex items-center gap-3 ${
               chartViewMode === 'order_comparison'
                 ? 'bg-emerald-800 text-white border-emerald-800 shadow-md ring-2 ring-emerald-500/40'
                 : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500'
             }`}
           >
-            <div className={`p-2 rounded-xl ${chartViewMode === 'order_comparison' ? 'bg-white/20 text-white' : 'bg-emerald-500/10 text-emerald-600'}`}>
+            <div className={`p-2 rounded-xl shrink-0 ${chartViewMode === 'order_comparison' ? 'bg-white/20 text-white' : 'bg-emerald-500/10 text-emerald-600'}`}>
               <GitCompare className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-bold font-serif">۱۱۴ سورتوں کا خالص تقابلی ربط</div>
-              <div className="text-[10px] opacity-80">Pure 1-to-1: Nuzul ⇄ Mushaf Dots</div>
+              <div className="text-xs font-bold font-urdu">۱۱۴ سورتوں کا خالص تقابلی ربط</div>
+              <div className="text-[10px] opacity-80 font-sans">Pure 1-to-1: Nuzul ⇄ Mushaf Dots</div>
             </div>
           </button>
 
           <button
             onClick={() => setChartViewMode('timeline')}
-            className={`p-3 rounded-2xl border text-left transition-all flex items-center gap-3 ${
+            className={`p-3 rounded-2xl border text-start transition-all flex items-center gap-3 ${
               chartViewMode === 'timeline'
                 ? 'bg-emerald-800 text-white border-emerald-800 shadow-md ring-2 ring-emerald-500/40'
                 : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500'
             }`}
           >
-            <div className={`p-2 rounded-xl ${chartViewMode === 'timeline' ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600'}`}>
+            <div className={`p-2 rounded-xl shrink-0 ${chartViewMode === 'timeline' ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600'}`}>
               <Clock className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-bold font-serif">۲۳ سالہ زمانی و مقطوعات ٹائم لائن</div>
-              <div className="text-[10px] opacity-80">Historical Years & Multi-Part Arcs</div>
+              <div className="text-xs font-bold font-urdu">۲۳ سالہ زمانی و مقطوعات ٹائم لائن</div>
+              <div className="text-[10px] opacity-80 font-sans">Historical Years & Multi-Part Arcs</div>
             </div>
           </button>
 
           <button
             onClick={() => setChartViewMode('delta_spectrum')}
-            className={`p-3 rounded-2xl border text-left transition-all flex items-center gap-3 ${
+            className={`p-3 rounded-2xl border text-start transition-all flex items-center gap-3 ${
               chartViewMode === 'delta_spectrum'
                 ? 'bg-emerald-800 text-white border-emerald-800 shadow-md ring-2 ring-emerald-500/40'
                 : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500'
             }`}
           >
-            <div className={`p-2 rounded-xl ${chartViewMode === 'delta_spectrum' ? 'bg-white/20 text-white' : 'bg-purple-500/10 text-purple-600'}`}>
+            <div className={`p-2 rounded-xl shrink-0 ${chartViewMode === 'delta_spectrum' ? 'bg-white/20 text-white' : 'bg-purple-500/10 text-purple-600'}`}>
               <TrendingUp className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-bold font-serif">فاصلاتی تغیّر کا طیف (Delta Spectrum)</div>
-              <div className="text-[10px] opacity-80">Leap Analysis & Permanent Anchors</div>
+              <div className="text-xs font-bold font-urdu">فاصلاتی تغیّر کا طیف (Delta Spectrum)</div>
+              <div className="text-[10px] opacity-80 font-sans">Leap Analysis & Permanent Anchors</div>
             </div>
           </button>
 
           <button
             onClick={() => setChartViewMode('all')}
-            className={`p-3 rounded-2xl border text-left transition-all flex items-center gap-3 ${
+            className={`p-3 rounded-2xl border text-start transition-all flex items-center gap-3 ${
               chartViewMode === 'all'
                 ? 'bg-emerald-800 text-white border-emerald-800 shadow-md ring-2 ring-emerald-500/40'
                 : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500'
             }`}
           >
-            <div className={`p-2 rounded-xl ${chartViewMode === 'all' ? 'bg-white/20 text-white' : 'bg-sky-500/10 text-sky-600'}`}>
+            <div className={`p-2 rounded-xl shrink-0 ${chartViewMode === 'all' ? 'bg-white/20 text-white' : 'bg-sky-500/10 text-sky-600'}`}>
               <LayoutGrid className="w-4 h-4" />
             </div>
             <div>
-              <div className="text-xs font-bold font-serif">تمام تقابلی چارٹس اکٹھے</div>
-              <div className="text-[10px] opacity-80">Stacked Comprehensive View</div>
+              <div className="text-xs font-bold font-urdu">تمام تقابلی چارٹس اکٹھے</div>
+              <div className="text-[10px] opacity-80 font-sans">Stacked Comprehensive View</div>
             </div>
           </button>
         </div>
@@ -577,7 +577,7 @@ export const ArcOfReconnectionView: React.FC = () => {
       {/* Global Quick Selector Bar */}
       <div className="p-3 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-wrap items-center justify-between gap-3 shadow-sm">
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <span className="text-xs font-bold text-[var(--text-primary)] shrink-0 flex items-center gap-1.5">
+          <span className="text-xs font-bold text-[var(--text-primary)] shrink-0 flex items-center gap-1.5 font-urdu">
             <Compass className="w-4 h-4 text-emerald-600" />
             <span>سورت منتخب کریں:</span>
           </span>
