@@ -1,7 +1,7 @@
 # Tarteeb-e-Nuzul (ترتیبِ نزولی) — Comprehensive Project Documentation & Technical Roadmap
 
-> **A Community Service Project by Maulana Syed Imon Rizvi**  
-> *(ایک خدمتِ خلق پروجیکٹ — مولانا سید آئمن رضوی)*  
+> **A Quranic Research & Educational Initiative by Maulana Syed Imon Rizvi**  
+> *(ایک علمی و قرآنی تحقیقی خدمت — مولانا سید آئمن رضوی)*  
 > **Live Production URL:** [https://nuzooli.vercel.app](https://nuzooli.vercel.app)  
 > **Repository:** `Tarteeb-e-Nuzooli Project`  
 > **Last Updated:** September 2026
@@ -239,22 +239,34 @@ The following features represent the planned pipeline. Each item includes its ar
 +-----------------------------------------------------------------------------------+
 |                            FUTURE FEATURES PIPELINE                                |
 +-----------------------------------------------------------------------------------+
-| 1. Word-by-Word Synchronized Recitation & Tajweed Player (تلاوت بر الفاظ)          |
+| 1. The Divine Interlocutors & Audience Matrix (مخاطبینِ قرآن — The Discourse)       |
+|    └─ [ACTIVE] يا أيها الناس vs يا أيها الذين آمنوا vs أهل الكتاب vs المنافقون     |
++-----------------------------------------------------------------------------------+
+| 2. The Divine Names (Asma-ul-Husna) Chronological Emergence (اسماءِ حسنیٰ کا سفر)  |
+|    └─ [ACTIVE] 99 Names of Allah traced by chronological revelation order          |
++-----------------------------------------------------------------------------------+
+| 3. The Ahl al-Bayt & Revelation Chronology (اہلِ بیتِ اطہار اور تاریخی نزول)       |
+|    └─ Laylat al-Mabit, Badr, Tat'heer, Mubahalah, Surah Al-Insan, Ghadir Khumm     |
++-----------------------------------------------------------------------------------+
+| 4. The Polemics & Counter-Arguments Matrix (قریش کے شبہات اور قرآنی استدلال)        |
+|    └─ Evolution of polytheist objections and divine dialectical refutations       |
++-----------------------------------------------------------------------------------+
+| 5. Stylistic & Rhetorical Evolution: Meccan vs Medinan (صوتی و بلاغتی ارتقاء)      |
+|    └─ Short rhythmic apocalyptic thunder vs expansive legal statecraft analytics   |
++-----------------------------------------------------------------------------------+
+| 6. The Prophetic Du'a Timeline across 23 Years (قرآنی دعاؤں کا تاریخی سفر)        |
+|    └─ Chronological supplications revealed during prophetic crises & triumphs      |
++-----------------------------------------------------------------------------------+
+| 7. Word-by-Word Synchronized Recitation & Tajweed Player (تلاوت بر الفاظ)          |
 |    └─ Real-time word highlighting, Tajweed color rules, tap-to-translate          |
 +-----------------------------------------------------------------------------------+
-| 2. The Divine Interlocutors & Audience Matrix (مخاطبینِ قرآن — The Discourse)       |
-|    └─ يا أيها الناس vs يا أيها الذين آمنوا vs أهل الكتاب vs المنافقون analytics   |
-+-----------------------------------------------------------------------------------+
-| 3. The Divine Names (Asma-ul-Husna) Chronological Emergence (اسماءِ حسنیٰ کا سفر)  |
-|    └─ 99 Names of Allah traced by chronological revelation order                  |
-+-----------------------------------------------------------------------------------+
-| 4. Progressive Web App (PWA) Offline Recitation Engine (مکمل آف لائن دستیابی)      |
+| 8. Progressive Web App (PWA) Offline Recitation Engine (مکمل آف لائن دستیابی)      |
 |    └─ Service Worker caching of full text, translations, and audio chunks         |
 +-----------------------------------------------------------------------------------+
-| 5. Audio Playback Speed & Sleep Timer (رفتار اور سلیپ ٹائمر)                       |
+| 9. Audio Playback Speed & Sleep Timer (رفتار اور سلیپ ٹائمر)                       |
 |    └─ 0.75x to 1.5x speed options with auto-fade sleep timers                     |
 +-----------------------------------------------------------------------------------+
-| 6. Personal Study Journal & Reflection Notes (ذاتی نوٹس اور مطالعہ)               |
+| 10. Personal Study Journal & Reflection Notes (ذاتی نوٹس اور مطالعہ)              |
 |    └─ LocalStorage/IndexedDB private notes with Markdown/PDF export               |
 +-----------------------------------------------------------------------------------+
 ```
@@ -328,6 +340,54 @@ export interface QuranWord {
 - **Objective**: Provide a private study drawer on any Ayah where users can record personal reflections (تدبّر).
 - **Storage**: Browser `localStorage` / `IndexedDB` with export to PDF or Markdown.
 - **Component**: `src/components/Reader/AyahReflectionDrawer.tsx`.
+
+---
+
+### 🛡️ Feature 7: The Ahl al-Bayt & Chronological Revelation Timeline (اہلِ بیتِ اطہار اور تاریخی نزول)
+- **Objective**: An exhaustive, scholarly timeline tracking the chronological descent of verses specifically revealed in honor, protection, and leadership mandate of the Ahl al-Bayt (ع):
+  1. *Laylat al-Mabit (622 CE / Night of Hijrah)*: Surah Al-Baqarah (2:207) honoring Imam Ali (ع) offering his life on the Prophet's bed (*وَمِنَ النَّاسِ مَن يَشْرِي نَفْسَهُ*).
+  2. *Brotherhood Covenant (Mawakhat)*: Spiritual brotherhood between the Prophet and Ali.
+  3. *Ayat at-Tat'hir (The Purification Verse - 628 CE)*: Surah Al-Ahzab (33:33) revealed under the Cloak (Hadith al-Kisa).
+  4. *Ayat al-Mubahalah (Event of Mubahalah - 9 AH / 631 CE)*: Surah Ali 'Imran (3:61) designating *Abna'ana*, *Nisa'ana*, and *Anfusana*.
+  5. *Surah Al-Insan / Ad-Dahr (Hal Ata - 2 AH / 624 CE)*: Commemorating the 3-day vow of fasting and feeding the destitute, orphan, and captive.
+  6. *Ayat al-Wilayah (Ring in Ruku - 9 AH)*: Surah Al-Ma'idah (5:55) establishing divine leadership.
+  7. *Ghadir Khumm & The Completion of Religion (10 AH / 632 CE)*: Surah Al-Ma'idah (5:67 Ayat al-Tabligh & 5:3 Ayat Ikmal al-Din).
+- **Component File**: `src/components/Perspectives/AhlAlBaytChronologyView.tsx`
+- **Data File**: `src/data/ahlAlBaytChronologyData.ts`
+
+---
+
+### ⚔️ Feature 8: The Polemics & Counter-Arguments Matrix (قریش کے شبہات اور قرآنی استدلال)
+- **Objective**: Interactive dialectical timeline showing how the Quran systematically dismantled polytheist, skeptic, and hypocrite propaganda across 23 years:
+  1. *Sorcery, Poetry & Madness Allegations (Early Mecca)*: Quranic psychological refutations.
+  2. *Mockery of Bodily Resurrection & Decayed Bones (Mid Mecca)*: Mathematical and ontological arguments from initial creation.
+  3. *The Lump-Sum Revelation Demand (Late Mecca)*: Refuting *لولا نزل عليه القرآن جملة واحدة* with the divine pedagogy of emotional anchoring (*لنثبت به فؤادك*).
+  4. *Materialistic Demands for Angels & Earthly Treasures*: Socratic Quranic counter-questions.
+  5. *Medinan Slander, Rumor-Mongering & Fifth-Column Subversion*: Countering fifth-column hypocrite tactics.
+- **Component File**: `src/components/Perspectives/PolemicsMatrixView.tsx`
+- **Data File**: `src/data/polemicsMatrixData.ts`
+
+---
+
+### 🎼 Feature 9: Stylistic & Rhetorical Evolution: Meccan Intensity vs Medinan Legislation (صوتی و بلاغتی ارتقاء)
+- **Objective**: Quantitative & aesthetic data visualization of the shift in divine rhetoric across 23 years:
+  - *Phonetic Velocity & Rhyme Scheme (فواصلِ آیات)*: Short, explosive, rhythmic oaths (e.g. *At-Takwir*, *Al-Infitar*, *An-Najm*) with dense end-rhymes shaking Meccan polytheist conscience.
+  - *Expansive Juridical & Societal Architecture*: Extended, dignified, prose-like structures formulating civil contracts, family law, inheritance, and international treaties in Medina.
+  - *Interactive Metrics*: Average Ayah length, phonetic rhyme clustering, and vocabulary evolution.
+- **Component File**: `src/components/Perspectives/StylisticEvolutionView.tsx`
+- **Data File**: `src/data/stylisticEvolutionData.ts`
+
+---
+
+### 🤲 Feature 10: The Prophetic Du'a Timeline across 23 Years (قرآنی دعاؤں کا تاریخی سفر)
+- **Objective**: An immersive spiritual timeline tracking the exact historical moments and emotional conditions when divine supplications (*Du'a*) were revealed:
+  - Solitude of Hira and dawn prayers (*Al-Muzzammil*)
+  - Extreme boycott and sorrow in Shi'b Abi Talib (*Rabbi inni lima anzalta ilayya min khayrin faqir*)
+  - Agony and hope at Ta'if and the night of Hijrah (*Rabbi adkhilni mudkhala sidqin*)
+  - Night of Badr battlefield supplication
+  - The final triumph and humble seeking of forgiveness in *Surah An-Nasr*.
+- **Component File**: `src/components/Perspectives/PropheticDuaTimelineView.tsx`
+- **Data File**: `src/data/propheticDuaData.ts`
 
 ---
 

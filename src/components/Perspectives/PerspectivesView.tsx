@@ -10,6 +10,7 @@ import { GeographicRevelationMap } from './GeographicRevelationMap';
 import { GradualLegislationView } from './GradualLegislationView';
 import { ThematicEvolutionHeatmap } from './ThematicEvolutionHeatmap';
 import { AsbabCrisisNavigator } from './AsbabCrisisNavigator';
+import { AudienceMatrixView } from './AudienceMatrixView';
 import {
   GitBranch,
   Layers,
@@ -28,9 +29,10 @@ import {
   Scale,
   Flame,
   ShieldAlert,
+  Users,
 } from 'lucide-react';
 
-export type PerspectiveTabId = 'arc' | 'crisis' | 'thematic' | 'map' | 'legislation' | 'xray' | 'flow' | 'nature' | 'periods' | 'comparison' | 'future';
+export type PerspectiveTabId = 'arc' | 'interlocutors' | 'crisis' | 'thematic' | 'map' | 'legislation' | 'xray' | 'flow' | 'nature' | 'periods' | 'comparison' | 'future';
 
 export interface PerspectiveTabDef {
   id: PerspectiveTabId;
@@ -49,6 +51,14 @@ export const PERSPECTIVE_TABS: PerspectiveTabDef[] = [
     icon: <Sparkles className="w-4 h-4 text-amber-500" />,
     description: 'Dual-rail chord diagram showing 23-year revelations assembling into the canonical Mushaf',
     descriptionUr: '۲۳ سالہ بکھرے نزول کا حتمی مصحف میں یکجا ہونا اور تقابلی ربط',
+  },
+  {
+    id: 'interlocutors',
+    labelEn: 'Divine Interlocutors & Audience',
+    labelUr: 'مخاطبینِ قرآن و اسالیبِ خطاب',
+    icon: <Users className="w-4 h-4 text-sky-500" />,
+    description: 'Analysis of who the Quran addressed: O Humanity, O Believers, People of the Book, Hypocrites, and the Prophet',
+    descriptionUr: '۲۳ سالہ وحی میں الٰہی خطاب اور لہجے کی تدریج: انسانیت، اہلِ ایمان، اہلِ کتاب، منافقین اور رسولِ اکرمؐ',
   },
   {
     id: 'crisis',
@@ -243,6 +253,9 @@ export const PerspectivesView: React.FC = () => {
 
       {/* ── TAB: THE ARC OF RECONNECTION (محرابِ ربطِ مصحف) ── */}
       {activeTab === 'arc' && <ArcOfReconnectionView />}
+
+      {/* ── TAB: THE DIVINE INTERLOCUTORS & AUDIENCE MATRIX (مخاطبینِ قرآن و اسالیبِ خطاب) ── */}
+      {activeTab === 'interlocutors' && <AudienceMatrixView />}
 
       {/* ── TAB: ASBAB-UN-NUZUL & CRISIS NAVIGATOR (اسبابِ نزول و تاریخی بحران) ── */}
       {activeTab === 'crisis' && <AsbabCrisisNavigator />}
