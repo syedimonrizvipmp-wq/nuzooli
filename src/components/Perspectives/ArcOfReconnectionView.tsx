@@ -228,10 +228,10 @@ export const ArcOfReconnectionView: React.FC = () => {
 
   // Dual-rail coordinates
   const svgWidth = 1600;
-  const svgHeight = 470;
-  const topY = 124;
-  const bottomY = svgHeight - 54;
-  const padding = 48;
+  const svgHeight = 580;
+  const topY = 175;
+  const bottomY = svgHeight - 75; // 505
+  const padding = 90;
 
   const getTopX = (rank: number) => {
     return padding + ((rank - 1) / 113) * (svgWidth - 2 * padding);
@@ -280,7 +280,7 @@ export const ArcOfReconnectionView: React.FC = () => {
       }
 
       const badgeX = Math.max(pillWidth / 2 + 14, Math.min(svgWidth - pillWidth / 2 - 14, dotX));
-      const badgeY = topY - 24 - (tier * 26);
+      const badgeY = topY - 38 - (tier * 28);
 
       placed.push({
         arc,
@@ -298,24 +298,24 @@ export const ArcOfReconnectionView: React.FC = () => {
 
   // Pure 1-to-1 Order Milestones with generous spacing and tiered offsets to prevent ANY text overlap
   const topNuzulMilestones = [
-    { rank: 1, name: 'العلق #1 (آغازِ وحی)', anchor: 'start' as const, dy: -14, dx: 0, isUpper: false },
-    { rank: 25, name: 'القدر #25', anchor: 'middle' as const, dy: -14, dx: 0, isUpper: false },
-    { rank: 50, name: 'الإسراء #50', anchor: 'middle' as const, dy: -14, dx: 0, isUpper: false },
-    { rank: 75, name: 'السجدۃ #75', anchor: 'middle' as const, dy: -14, dx: -22, isUpper: false },
-    { rank: 86, name: 'المطففین #86 (آخری مکی)', anchor: 'end' as const, dy: -38, dx: -18, isUpper: true },
-    { rank: 87, name: 'البقرۃ #87 (پہلی مدنی)', anchor: 'start' as const, dy: -14, dx: +22, isUpper: false },
-    { rank: 100, name: 'البینۃ #100', anchor: 'middle' as const, dy: -14, dx: 0, isUpper: false },
-    { rank: 114, name: 'النصر #114 (اتمامِ وحی)', anchor: 'end' as const, dy: -14, dx: 0, isUpper: false },
+    { rank: 1, name: 'العلق #1 (آغازِ وحی)', anchor: 'middle' as const, dy: -20, dx: +52, isUpper: false },
+    { rank: 25, name: 'القدر #25', anchor: 'middle' as const, dy: -20, dx: 0, isUpper: false },
+    { rank: 50, name: 'الإسراء #50', anchor: 'middle' as const, dy: -20, dx: 0, isUpper: false },
+    { rank: 75, name: 'السجدۃ #75', anchor: 'middle' as const, dy: -20, dx: -24, isUpper: false },
+    { rank: 86, name: 'المطففین #86 (آخری مکی)', anchor: 'middle' as const, dy: -48, dx: -44, isUpper: true },
+    { rank: 87, name: 'البقرۃ #87 (پہلی مدنی)', anchor: 'middle' as const, dy: -20, dx: +46, isUpper: false },
+    { rank: 100, name: 'البینۃ #100', anchor: 'middle' as const, dy: -20, dx: 0, isUpper: false },
+    { rank: 114, name: 'النصر #114 (اتمامِ وحی)', anchor: 'middle' as const, dy: -20, dx: -52, isUpper: false },
   ];
 
   // Timeline Milestones
   const propheticMilestones = [
-    { rank: 1, year: '610 CE (13 BH)', label: 'آغازِ وحی / بعثت', anchor: 'start' as const },
-    { rank: 28, year: '615 CE (8 BH)', label: 'ہجرتِ حبشہ', anchor: 'middle' as const },
-    { rank: 58, year: '620 CE (3 BH)', label: 'معراج و مکہ', anchor: 'middle' as const },
-    { rank: 86, year: '622 CE (1 AH)', label: 'ہجرتِ مدینہ', anchor: 'middle' as const },
-    { rank: 102, year: '628 CE (6 AH)', label: 'صلحِ حدیبیہ', anchor: 'middle' as const },
-    { rank: 114, year: '632 CE (10 AH)', label: 'اتمامِ وحی و غدیر', anchor: 'end' as const },
+    { rank: 1, year: '610 CE (13 BH)', label: 'آغازِ وحی / بعثت', anchor: 'middle' as const, dx: +48 },
+    { rank: 28, year: '615 CE (8 BH)', label: 'ہجرتِ حبشہ', anchor: 'middle' as const, dx: 0 },
+    { rank: 58, year: '620 CE (3 BH)', label: 'معراج و مکہ', anchor: 'middle' as const, dx: 0 },
+    { rank: 86, year: '622 CE (1 AH)', label: 'ہجرتِ مدینہ', anchor: 'middle' as const, dx: -24 },
+    { rank: 102, year: '628 CE (6 AH)', label: 'صلحِ حدیبیہ', anchor: 'middle' as const, dx: 0 },
+    { rank: 114, year: '632 CE (10 AH)', label: 'اتمامِ وحی و غدیر', anchor: 'middle' as const, dx: -48 },
   ];
 
   // Bottom Mushaf Milestones
@@ -668,11 +668,12 @@ export const ArcOfReconnectionView: React.FC = () => {
           </div>
 
           {/* SVG Canvas for Pure 1-to-1 Order */}
-          <div className="w-full relative py-2">
+          <div className="w-full relative py-2" dir="ltr">
             <svg
               viewBox={`0 0 ${svgWidth} ${svgHeight}`}
               className="w-full h-auto select-none block overflow-visible cursor-pointer touch-manipulation"
               preserveAspectRatio="xMidYMid meet"
+              style={{ direction: 'ltr' }}
               onClick={handlePureOrderSvgClick}
               onMouseLeave={() => setHoveredSurahNum(null)}
             >
@@ -712,18 +713,18 @@ export const ArcOfReconnectionView: React.FC = () => {
                   <g key={`top-nuzul-m-${m.rank}`} className="select-none">
                     <line
                       x1={tx}
-                      y1={m.isUpper ? topY - 30 : topY - 8}
+                      y1={m.isUpper ? topY - 34 : topY - 10}
                       x2={tx}
                       y2={topY + 6}
                       stroke="var(--text-muted)"
                       strokeWidth="1.5"
-                      opacity="0.5"
+                      opacity="0.55"
                     />
                     <text
                       x={mx}
                       y={topY + m.dy}
                       textAnchor={m.anchor}
-                      fontSize="11"
+                      fontSize="11.5"
                       fontWeight="700"
                       fill="var(--text-primary)"
                       className="font-urdu select-none"
@@ -743,21 +744,21 @@ export const ArcOfReconnectionView: React.FC = () => {
                     {/* Vertical Dividing Dashed Line */}
                     <line
                       x1={midX}
-                      y1={topY - 58}
+                      y1={topY - 60}
                       x2={midX}
-                      y2={topY + 20}
+                      y2={topY + 24}
                       stroke="#059669"
                       strokeWidth="2"
                       strokeDasharray="3 3"
                       opacity="0.85"
                     />
-                    {/* Compact boundary pill positioned between active badge (tier 1) and labels (tier 2) */}
+                    {/* Boundary pill positioned with generous breathing space between active badge (tier 1) and labels (tier 3/4) */}
                     <rect
-                      x={midX - 48}
-                      y={topY - 74}
-                      width="96"
-                      height="20"
-                      rx="10"
+                      x={midX - 52}
+                      y={topY - 84}
+                      width="104"
+                      height="24"
+                      rx="12"
                       fill="#047857"
                       stroke="#065F46"
                       strokeWidth="1.5"
@@ -765,9 +766,9 @@ export const ArcOfReconnectionView: React.FC = () => {
                     />
                     <text
                       x={midX}
-                      y={topY - 60}
+                      y={topY - 68}
                       textAnchor="middle"
-                      fontSize="10"
+                      fontSize="10.5"
                       fontWeight="bold"
                       fill="#FFFFFF"
                       className="font-urdu select-none"
@@ -808,8 +809,8 @@ export const ArcOfReconnectionView: React.FC = () => {
 
                 if (isCurrent) return null;
 
-                const cy1 = topY + 115;
-                const cy2 = bottomY - 115;
+                const cy1 = topY + 135;
+                const cy2 = bottomY - 135;
                 const d = `M ${x1} ${topY} C ${x1} ${cy1}, ${x2} ${cy2}, ${x2} ${bottomY}`;
 
                 return (
@@ -834,8 +835,8 @@ export const ArcOfReconnectionView: React.FC = () => {
               {activePureArc && (() => {
                 const x1 = getTopX(activePureArc.nuzulRank);
                 const x2 = getBottomX(activePureArc.mushafOrder);
-                const cy1 = topY + 115;
-                const cy2 = bottomY - 115;
+                const cy1 = topY + 135;
+                const cy2 = bottomY - 135;
                 const d = `M ${x1} ${topY} C ${x1} ${cy1}, ${x2} ${cy2}, ${x2} ${bottomY}`;
 
                 return (
@@ -864,35 +865,36 @@ export const ArcOfReconnectionView: React.FC = () => {
                     <circle cx={x2} cy={bottomY} r="14" fill={activePureArc.color} opacity="0.22" />
                     <circle cx={x2} cy={bottomY} r="7.5" fill={activePureArc.color} stroke="#FFFFFF" strokeWidth="2" />
 
-                    {/* Top Origin Callout Badge with elevated leader line floating above Hijrah boundary */}
+                    {/* Top Origin Callout Badge with elevated leader line floating far above Hijrah boundary */}
                     <line
                       x1={x1}
-                      y1={topY - 10}
+                      y1={topY - 12}
                       x2={x1}
-                      y2={topY - 84}
+                      y2={topY - 118}
                       stroke={activePureArc.color}
-                      strokeWidth="1.8"
-                      strokeDasharray="2.5 2.5"
+                      strokeWidth="2"
+                      strokeDasharray="3 3"
+                      opacity="0.9"
                     />
-                    <circle cx={x1} cy={topY - 10} r="2.5" fill={activePureArc.color} />
+                    <circle cx={x1} cy={topY - 12} r="3" fill={activePureArc.color} />
                     <rect
-                      x={Math.max(12, Math.min(svgWidth - 232, x1 - 110))}
-                      y={topY - 108}
-                      width="220"
-                      height="24"
-                      rx="12"
-                      fill="#FFFFFF"
-                      stroke="#0F172A"
-                      strokeWidth="1.8"
-                      className="shadow-md"
+                      x={Math.max(16, Math.min(svgWidth - 256, x1 - 120))}
+                      y={topY - 146}
+                      width="240"
+                      height="28"
+                      rx="14"
+                      fill="var(--bg-surface-elevated)"
+                      stroke={activePureArc.color}
+                      strokeWidth="2"
+                      className="shadow-lg"
                     />
                     <text
-                      x={Math.max(12, Math.min(svgWidth - 232, x1 - 110)) + 110}
-                      y={topY - 92}
+                      x={Math.max(16, Math.min(svgWidth - 256, x1 - 120)) + 120}
+                      y={topY - 128}
                       textAnchor="middle"
-                      fontSize="10.5"
+                      fontSize="11.5"
                       fontWeight="800"
-                      fill="#000000"
+                      fill="var(--text-primary)"
                       className="font-sans select-none"
                     >
                       نزول #{activePureArc.nuzulRank}: {activePureArc.surahNameEnglish} ({activePureArc.surahNameArabic})
@@ -901,31 +903,33 @@ export const ArcOfReconnectionView: React.FC = () => {
                     {/* Bottom Destination Callout Badge with lower leader line */}
                     <line
                       x1={x2}
-                      y1={bottomY + 8}
+                      y1={bottomY + 10}
                       x2={x2}
-                      y2={bottomY + 24}
+                      y2={bottomY + 36}
                       stroke="#0284C7"
-                      strokeWidth="1.8"
-                      strokeDasharray="2.5 2.5"
+                      strokeWidth="2"
+                      strokeDasharray="3 3"
+                      opacity="0.9"
                     />
-                    <circle cx={x2} cy={bottomY + 8} r="2.5" fill="#0284C7" />
+                    <circle cx={x2} cy={bottomY + 10} r="3" fill="#0284C7" />
                     <rect
-                      x={Math.max(12, Math.min(svgWidth - 232, x2 - 110))}
-                      y={bottomY + 24}
-                      width="220"
-                      height="24"
-                      rx="12"
-                      fill="#FFFFFF"
+                      x={Math.max(16, Math.min(svgWidth - 256, x2 - 120))}
+                      y={bottomY + 36}
+                      width="240"
+                      height="28"
+                      rx="14"
+                      fill="var(--bg-surface-elevated)"
                       stroke="#0284C7"
-                      strokeWidth="1.8"
+                      strokeWidth="2"
+                      className="shadow-lg"
                     />
                     <text
-                      x={Math.max(12, Math.min(svgWidth - 232, x2 - 110)) + 110}
-                      y={bottomY + 40}
+                      x={Math.max(16, Math.min(svgWidth - 256, x2 - 120)) + 120}
+                      y={bottomY + 54}
                       textAnchor="middle"
-                      fontSize="10.5"
+                      fontSize="11.5"
                       fontWeight="800"
-                      fill="#000000"
+                      fill="var(--text-primary)"
                       className="font-sans select-none"
                     >
                       مصحف #{activePureArc.mushafOrder}: {activePureArc.surahNameEnglish} (Δ {activePureArc.delta})
@@ -1033,11 +1037,12 @@ export const ArcOfReconnectionView: React.FC = () => {
           </div>
 
           {/* SVG Canvas for Timeline */}
-          <div className="w-full relative py-2">
+          <div className="w-full relative py-2" dir="ltr">
             <svg
               viewBox={`0 0 ${svgWidth} ${svgHeight}`}
               className="w-full h-auto select-none block overflow-visible cursor-pointer touch-manipulation"
               preserveAspectRatio="xMidYMid meet"
+              style={{ direction: 'ltr' }}
               onClick={handleTimelineSvgClick}
               onMouseLeave={() => setHoveredSurahNum(null)}
             >
@@ -1073,7 +1078,7 @@ export const ArcOfReconnectionView: React.FC = () => {
                 <g key={`pm-${pm.rank}`}>
                   <line
                     x1={getTopX(pm.rank)}
-                    y1={topY - 8}
+                    y1={topY - 12}
                     x2={getTopX(pm.rank)}
                     y2={topY + 8}
                     stroke="var(--text-muted)"
@@ -1081,10 +1086,10 @@ export const ArcOfReconnectionView: React.FC = () => {
                     opacity="0.5"
                   />
                   <text
-                    x={getTopX(pm.rank)}
-                    y={topY - 14}
+                    x={getTopX(pm.rank) + pm.dx}
+                    y={topY - 18}
                     textAnchor={pm.anchor}
-                    fontSize="11"
+                    fontSize="11.5"
                     fontWeight="700"
                     fill="var(--text-primary)"
                     className="font-urdu"
@@ -1092,8 +1097,8 @@ export const ArcOfReconnectionView: React.FC = () => {
                     {pm.label}
                   </text>
                   <text
-                    x={getTopX(pm.rank)}
-                    y={topY - 28}
+                    x={getTopX(pm.rank) + pm.dx}
+                    y={topY - 34}
                     textAnchor={pm.anchor}
                     fontSize="10"
                     fontWeight="600"
@@ -1129,8 +1134,8 @@ export const ArcOfReconnectionView: React.FC = () => {
 
                 if (isCurrent) return null;
 
-                const cy1 = topY + 115;
-                const cy2 = bottomY - 115;
+                const cy1 = topY + 135;
+                const cy2 = bottomY - 135;
                 const d = `M ${x1} ${topY} C ${x1} ${cy1}, ${x2} ${cy2}, ${x2} ${bottomY}`;
 
                 return (
@@ -1156,8 +1161,8 @@ export const ArcOfReconnectionView: React.FC = () => {
                 const x1 = getTopX(arc.nuzulRank);
                 const x2 = getBottomX(arc.mushafOrder);
 
-                const cy1 = topY + 115;
-                const cy2 = bottomY - 115;
+                const cy1 = topY + 135;
+                const cy2 = bottomY - 135;
                 const d = `M ${x1} ${topY} C ${x1} ${cy1}, ${x2} ${cy2}, ${x2} ${bottomY}`;
 
                 return (
@@ -1257,30 +1262,32 @@ export const ArcOfReconnectionView: React.FC = () => {
                 <g key={`bot-dest-${activeSurahDetails.mushafOrder}`}>
                   <line
                     x1={getBottomX(activeSurahDetails.mushafOrder)}
-                    y1={bottomY + 8}
+                    y1={bottomY + 10}
                     x2={getBottomX(activeSurahDetails.mushafOrder)}
-                    y2={bottomY + 16}
+                    y2={bottomY + 36}
                     stroke="#0284C7"
-                    strokeWidth="1.5"
-                    strokeDasharray="2 2"
+                    strokeWidth="1.8"
+                    strokeDasharray="2.5 2.5"
                   />
+                  <circle cx={getBottomX(activeSurahDetails.mushafOrder)} cy={bottomY + 10} r="2.5" fill="#0284C7" />
                   <rect
-                    x={getBottomX(activeSurahDetails.mushafOrder) - 75}
-                    y={bottomY + 16}
-                    width="150"
-                    height="20"
-                    rx="10"
-                    fill="#FFFFFF"
+                    x={Math.max(16, Math.min(svgWidth - 236, getBottomX(activeSurahDetails.mushafOrder) - 110))}
+                    y={bottomY + 36}
+                    width="220"
+                    height="28"
+                    rx="14"
+                    fill="var(--bg-surface-elevated)"
                     stroke="#0284C7"
-                    strokeWidth="1.6"
+                    strokeWidth="1.8"
+                    className="shadow-md"
                   />
                   <text
-                    x={getBottomX(activeSurahDetails.mushafOrder)}
-                    y={bottomY + 30}
+                    x={Math.max(16, Math.min(svgWidth - 236, getBottomX(activeSurahDetails.mushafOrder) - 110)) + 110}
+                    y={bottomY + 54}
                     textAnchor="middle"
-                    fontSize="10.5"
+                    fontSize="11"
                     fontWeight="800"
-                    fill="#000000"
+                    fill="var(--text-primary)"
                     className="font-sans select-none"
                   >
                     #{activeSurahDetails.mushafOrder} {activeSurahDetails.surahNameEnglish} ({activeSurahDetails.surahNameArabic})
