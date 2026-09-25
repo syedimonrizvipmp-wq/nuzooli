@@ -98,56 +98,75 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="sticky top-0 z-40 w-full sacred-glass border-b transition-colors shadow-sm">
       
-      {/* ── ROW 1: TOP DEDICATED ATTRIBUTION & FULLSCREEN BAR ── */}
-      <div className="w-full border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]/85 py-1.5 sm:py-2 px-3 sm:px-6 lg:px-8 xl:px-12">
-        <div className="max-w-[1780px] mx-auto flex items-center justify-between gap-2 text-xs">
+      {/* ── ROW 1: TOP DEDICATED ATTRIBUTION, BISMILLAH & FULLSCREEN BAR ── */}
+      <div className="w-full border-b border-[var(--border-subtle)] bg-[var(--bg-surface)]/90 backdrop-blur-md py-1.5 px-3 sm:px-6 lg:px-8 xl:px-12">
+        <div className="max-w-[1780px] mx-auto">
           
-          {/* Mobile Centered Attribution Banner (< sm) */}
-          <div className="sm:hidden w-full flex flex-col items-center justify-center text-center py-0.5">
-            <span className="flex items-center justify-center gap-1.5 text-[11px] font-bold text-emerald-800 dark:text-emerald-300 font-urdu leading-tight">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
-              <span>ایک خدمتِ خلق پروجیکٹ — مولانا سید آئمن رضوی</span>
-            </span>
-            <span className="text-[10px] text-[var(--text-secondary)] font-medium mt-0.5">
-              A Community Service Project by Maulana Syed Imon Rizvi
-            </span>
-          </div>
-
-          {/* Tablet & Desktop Attribution Banner (>= sm) */}
-          <div className="hidden sm:flex items-center gap-2">
-            <span className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-800 dark:text-emerald-200 border border-emerald-500/25 shadow-2xs">
-              <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>A Community Service Project by Maulana Syed Imon Rizvi</span>
-            </span>
-            <span className="font-urdu text-[11px] text-emerald-700 dark:text-emerald-300 font-bold">
-              (ایک خدمتِ خلق پروجیکٹ — مولانا سید آئمن رضوی)
-            </span>
-          </div>
-
-          {/* Right: Bismillah & Full HD Screen Toggle Button (Only on Tablet & Desktop >= sm) */}
-          <div className="hidden sm:flex items-center gap-3 ml-auto">
-            <span className="font-arabic text-xs text-[var(--text-secondary)] hidden md:inline">
+          {/* Mobile Layout (< md) */}
+          <div className="md:hidden flex flex-col items-center justify-center text-center py-1 gap-1">
+            <span className="font-arabic text-base sm:text-lg font-bold text-[var(--text-primary)] tracking-wide leading-tight select-none">
               بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
             </span>
+            <div className="flex flex-wrap items-center justify-center gap-1.5 text-[11px] font-bold text-emerald-800 dark:text-emerald-300 font-urdu leading-tight">
+              <Sparkles className="w-3 h-3 text-amber-500 shrink-0" />
+              <span>ایک علمی و قرآنی تحقیقی خدمت — مولانا سید آئمن رضوی</span>
+            </div>
+            <div className="flex items-center justify-between w-full pt-0.5 px-1">
+              <span className="text-[10px] text-[var(--text-secondary)] font-medium text-left truncate" dir="ltr">
+                A Quranic Research & Educational Initiative by Maulana Syed Imon Rizvi
+              </span>
+              <button
+                onClick={toggleFullscreen}
+                title={isFullscreen ? 'Exit Full Screen' : 'Full Screen'}
+                className="p-1 rounded-lg bg-emerald-600/10 text-emerald-700 dark:text-emerald-300 text-[10px] shrink-0"
+              >
+                {isFullscreen ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
+              </button>
+            </div>
+          </div>
 
-            {/* Prominent Full HD Screen Mode Toggle */}
-            <button
-              onClick={toggleFullscreen}
-              title={isFullscreen ? 'Exit Full Screen Mode' : 'Toggle Full HD Screen Experience'}
-              className="flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-600/10 hover:bg-emerald-700 text-emerald-700 dark:text-emerald-300 hover:text-white text-xs font-bold transition-all border border-emerald-500/30 shadow-2xs cursor-pointer select-none"
-            >
-              {isFullscreen ? (
-                <>
-                  <Minimize2 className="w-3.5 h-3.5" />
-                  <span className="font-urdu">عام اسکرین</span>
-                </>
-              ) : (
-                <>
-                  <Maximize2 className="w-3.5 h-3.5" />
-                  <span className="font-urdu">مکمل اسکرین (Full Screen)</span>
-                </>
-              )}
-            </button>
+          {/* Desktop & Tablet Majestic 3-Zone Layout (>= md) */}
+          <div className="hidden md:grid md:grid-cols-3 items-center gap-3 text-xs w-full">
+            
+            {/* Zone 1: TOP RIGHT in RTL -> Urdu Initiative Attribution */}
+            <div className="flex items-center gap-2 justify-self-start text-right">
+              <Sparkles className="w-3.5 h-3.5 text-amber-500 shrink-0" />
+              <span className="font-urdu text-xs lg:text-[13px] font-bold text-emerald-800 dark:text-emerald-300 leading-tight">
+                ایک علمی و قرآنی تحقیقی خدمت — مولانا سید آئمن رضوی
+              </span>
+            </div>
+
+            {/* Zone 2: EXACT CENTER -> Grand Bismillah in Classical Quranic Calligraphy */}
+            <div className="justify-self-center text-center">
+              <span className="font-arabic text-lg lg:text-xl xl:text-2xl font-bold text-[var(--text-primary)] tracking-widest leading-none select-none drop-shadow-2xs">
+                بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ
+              </span>
+            </div>
+
+            {/* Zone 3: TOP LEFT in RTL -> English Initiative Attribution & Corner Fullscreen Button */}
+            <div className="flex items-center gap-2.5 justify-self-end text-left" dir="ltr">
+              <button
+                onClick={toggleFullscreen}
+                title={isFullscreen ? 'Exit Full Screen Mode' : 'Toggle Full Screen Experience'}
+                className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-emerald-600/10 hover:bg-emerald-700 text-emerald-700 dark:text-emerald-300 hover:text-white text-[11px] font-bold transition-all border border-emerald-500/30 shadow-2xs cursor-pointer select-none shrink-0"
+              >
+                {isFullscreen ? (
+                  <>
+                    <Minimize2 className="w-3.5 h-3.5" />
+                    <span className="font-urdu">عام اسکرین</span>
+                  </>
+                ) : (
+                  <>
+                    <Maximize2 className="w-3.5 h-3.5" />
+                    <span className="font-urdu">مکمل اسکرین</span>
+                  </>
+                )}
+              </button>
+              <span className="text-[11px] lg:text-[12px] font-semibold text-[var(--text-secondary)] tracking-tight truncate max-w-[280px] lg:max-w-[340px] xl:max-w-none">
+                A Quranic Research & Educational Initiative by Maulana Syed Imon Rizvi
+              </span>
+            </div>
+
           </div>
 
         </div>

@@ -66,7 +66,7 @@ export const AppContent: React.FC = () => {
               <span>—</span>
               <span className="font-urdu">قرآن مجید کی زمانی ترتیب و تفہیم</span>
               <span className="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-emerald-700 text-white shadow-xs">
-                A Community Service Project by Maulana Syed Imon Rizvi
+                A Quranic Research & Educational Initiative by Maulana Syed Imon Rizvi
               </span>
             </div>
             <p className="max-w-xl text-[11px] leading-relaxed text-[var(--text-secondary)]">
@@ -75,7 +75,7 @@ export const AppContent: React.FC = () => {
           </div>
           <div className="flex flex-col items-center sm:items-end gap-1 text-[11px]">
             <span className="font-urdu text-[12px] text-emerald-800 dark:text-emerald-300 font-bold">
-              ایک خدمتِ خلق پروجیکٹ — مولانا سید آئمن رضوی
+              ایک علمی و قرآنی تحقیقی خدمت — مولانا سید آئمن رضوی
             </span>
             <span className="text-emerald-700 dark:text-emerald-400 font-semibold">
               Prophetic Mission 610 CE – 632 CE (23-Year Divine Timeline)
