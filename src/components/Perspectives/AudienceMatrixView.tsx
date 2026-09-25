@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useQuran } from '@/context/QuranContext';
 import { AUDIENCE_GROUPS } from '@/data/audienceMatrixData';
+import { ALL_AUDIENCE_VERSES_CATALOG } from '@/data/audienceVersesCatalog';
 import {
   Users,
   Globe,
@@ -16,19 +17,76 @@ import {
   CheckCircle2,
   ArrowRight,
   Flame,
+  Layers,
+  ArrowUpDown,
+  Filter,
 } from 'lucide-react';
 
 export const AudienceMatrixView: React.FC = () => {
   const { setActiveEventOrder, setPerspectiveMode, playAyah, pauseAudio, activeAudio } = useQuran();
   const [selectedGroupId, setSelectedGroupId] = useState<string>('believers');
   const [searchQuery, setSearchQuery] = useState<string>('');
+  const [viewMode, setViewMode] = useState<'highlights' | 'all_catalog'>('all_catalog');
+  const [activeSubFilter, setActiveSubFilter] = useState<string>('all');
+  const [sortBy, setSortBy] = useState<'nuzul' | 'mushaf'>('nuzul');
 
   // Selected Group Object
   const currentGroup = useMemo(() => {
     return AUDIENCE_GROUPS.find((g) => g.id === selectedGroupId) || AUDIENCE_GROUPS[0];
   }, [selectedGroupId]);
 
-  // Filtered Examples
+  // Full Catalog for this group
+  const rawCatalogVerses = useMemo(() => {
+    return ALL_AUDIENCE_VERSES_CATALOG[selectedGroupId] || [];
+  }, [selectedGroupId]);
+
+  // Dynamic Subcategory Filters for this group
+  const subFilterOptions = useMemo(() => {
+    const map = new Map<string, { key: string; labelUrdu: string; count: number }>();
+    for (const v of rawCatalogVerses) {
+      if (!map.has(v.subCategoryKey)) {
+        map.set(v.subCategoryKey, {
+          key: v.subCategoryKey,
+          labelUrdu: v.subCategoryTitleUrdu,
+          count: 0,
+        });
+      }
+      map.get(v.subCategoryKey)!.count++;
+    }
+    return Array.from(map.values());
+  }, [rawCatalogVerses]);
+
+  // Filtered & Sorted Catalog Verses
+  const filteredCatalogVerses = useMemo(() => {
+    let list = rawCatalogVerses;
+    if (activeSubFilter !== 'all') {
+      list = list.filter((v) => v.subCategoryKey === activeSubFilter);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim();
+      list = list.filter(
+        (v) =>
+          v.surahNameEnglish.toLowerCase().includes(q) ||
+          v.surahNameArabic.includes(q) ||
+          v.surahNameUrdu.includes(q) ||
+          v.arabicText.includes(q) ||
+          v.translationUrdu.includes(q) ||
+          v.translationEnglish.toLowerCase().includes(q) ||
+          `${v.surahNumber}:${v.ayahNumber}`.includes(q)
+      );
+    }
+    return [...list].sort((a, b) => {
+      if (sortBy === 'nuzul') {
+        if (a.nuzulRank !== b.nuzulRank) return a.nuzulRank - b.nuzulRank;
+        return a.ayahNumber - b.ayahNumber;
+      } else {
+        if (a.mushafOrder !== b.mushafOrder) return a.mushafOrder - b.mushafOrder;
+        return a.ayahNumber - b.ayahNumber;
+      }
+    });
+  }, [rawCatalogVerses, activeSubFilter, searchQuery, sortBy]);
+
+  // Filtered Highlights/Examples
   const filteredExamples = useMemo(() => {
     if (!searchQuery.trim()) return currentGroup.examples;
     const q = searchQuery.toLowerCase().trim();
@@ -39,9 +97,15 @@ export const AudienceMatrixView: React.FC = () => {
         ex.surahNameUrdu.includes(q) ||
         ex.arabicText.includes(q) ||
         ex.translationUrdu.includes(q) ||
-        ex.translationEnglish.toLowerCase().includes(q)
+        ex.translationEnglish.toLowerCase().includes(q) ||
+        `${ex.surahNumber}:${ex.ayahNumber}`.includes(q)
     );
   }, [currentGroup, searchQuery]);
+
+  const handleGroupChange = (groupId: string) => {
+    setSelectedGroupId(groupId);
+    setActiveSubFilter('all');
+  };
 
   const navigateToReader = (nuzulRank: number) => {
     setActiveEventOrder(nuzulRank);
@@ -138,10 +202,11 @@ export const AudienceMatrixView: React.FC = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
         {AUDIENCE_GROUPS.map((group) => {
           const isSelected = group.id === selectedGroupId;
+          const catalogCount = ALL_AUDIENCE_VERSES_CATALOG[group.id]?.length || 0;
           return (
             <button
               key={group.id}
-              onClick={() => setSelectedGroupId(group.id)}
+              onClick={() => handleGroupChange(group.id)}
               className={`p-3.5 rounded-2xl border text-right transition-all flex flex-col justify-between gap-3 cursor-pointer ${
                 isSelected
                   ? 'bg-gradient-to-br from-[var(--bg-surface-card)] to-emerald-500/10 border-emerald-500 shadow-md ring-2 ring-emerald-500/20'
@@ -153,12 +218,14 @@ export const AudienceMatrixView: React.FC = () => {
                   <div className="p-2 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
                     {getIcon(group.iconName)}
                   </div>
-                  <span
-                    className="text-[10px] font-bold px-2 py-0.5 rounded-full font-sans"
-                    style={{ backgroundColor: `${group.badgeColor}20`, color: group.badgeColor }}
-                  >
-                    {group.totalOccurrences.split(' ')[0]}
-                  </span>
+                  <div className="flex items-center gap-1">
+                    <span
+                      className="text-[10px] font-bold px-2 py-0.5 rounded-full font-sans"
+                      style={{ backgroundColor: `${group.badgeColor}20`, color: group.badgeColor }}
+                    >
+                      {catalogCount} آیات
+                    </span>
+                  </div>
                 </div>
                 <h4 className="font-arabic text-sm sm:text-base font-bold text-[var(--text-primary)] leading-tight pt-1">
                   {group.titleArabic}
@@ -259,113 +326,333 @@ export const AudienceMatrixView: React.FC = () => {
           </div>
         </div>
 
-        {/* ── CORE SCRIPTURAL EXAMPLES ── */}
-        <div className="space-y-4 pt-2">
-          <div className="flex items-center justify-between">
-            <h4 className="font-urdu text-sm sm:text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
-              <Flame className="w-4 h-4 text-amber-500" />
-              <span>کلیدی قرآنی شواہد و تاریخی بصیرت ({filteredExamples.length} آیات)</span>
-            </h4>
-            <span className="text-xs text-[var(--text-muted)] font-urdu">
-              مستند ترجمہ: علامہ ذیشان حیدر جوادیؒ
-            </span>
-          </div>
+        {/* ── VIEW MODE TOGGLE BUTTONS (Full Catalog vs Curated Highlights) ── */}
+        <div className="pt-2">
+          <div className="flex flex-wrap items-center justify-between gap-3 p-2 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setViewMode('all_catalog')}
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  viewMode === 'all_catalog'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)]'
+                }`}
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span className="font-urdu">تمام آیات کی مکمل جامع فہرست ({rawCatalogVerses.length} آیات)</span>
+              </button>
 
-          <div className="space-y-4">
-            {filteredExamples.map((ex) => {
-              const isReciting = activeAudio?.surahNumber === ex.surahNumber && activeAudio?.ayahNumber === ex.ayahNumber && activeAudio?.isPlaying;
+              <button
+                onClick={() => setViewMode('highlights')}
+                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  viewMode === 'highlights'
+                    ? 'bg-emerald-600 text-white shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)]'
+                }`}
+              >
+                <Flame className="w-3.5 h-3.5" />
+                <span className="font-urdu">کلیدی تاریخی شواہد و بصیرت ({currentGroup.examples.length} آیات)</span>
+              </button>
+            </div>
 
-              return (
-                <div
-                  key={`ex-${ex.surahNumber}-${ex.ayahNumber}`}
-                  className={`p-4 sm:p-5 rounded-2xl border transition-all space-y-3 ${
-                    isReciting
-                      ? 'bg-emerald-500/10 border-emerald-500 ring-2 ring-emerald-500/20'
-                      : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] hover:border-emerald-500/40'
+            {/* Sorting control (Active in full catalog mode) */}
+            {viewMode === 'all_catalog' && (
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] text-[var(--text-muted)] font-urdu flex items-center gap-1">
+                  <ArrowUpDown className="w-3 h-3" />
+                  <span>ترتیب:</span>
+                </span>
+                <button
+                  onClick={() => setSortBy('nuzul')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    sortBy === 'nuzul'
+                      ? 'bg-emerald-500/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/30'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                   }`}
                 >
-                  {/* Top Bar of Card */}
-                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs pb-2 border-b border-[var(--border-subtle)]">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded-lg bg-emerald-600/10 text-emerald-800 dark:text-emerald-300 font-bold font-urdu">
-                        {ex.surahNameUrdu} ({ex.surahNumber}:{ex.ayahNumber})
-                      </span>
-                      <span className="text-[11px] text-[var(--text-muted)] font-sans">
-                        {ex.surahNameEnglish} — Nuzul #{ex.nuzulRank} ➔ Mushaf #{ex.mushafOrder}
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)]">
-                        {ex.yearLabel}
-                      </span>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      {/* Audio Button */}
-                      <button
-                        onClick={() => {
-                          if (isReciting) {
-                            pauseAudio();
-                          } else {
-                            playAyah(ex.surahNumber, ex.ayahNumber, ex.nuzulRank);
-                          }
-                        }}
-                        className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold transition-all border ${
-                          isReciting
-                            ? 'bg-emerald-600 text-white border-emerald-600'
-                            : 'bg-[var(--bg-surface-elevated)] hover:bg-emerald-600 hover:text-white border-[var(--border-subtle)] text-[var(--text-primary)]'
-                        }`}
-                        title="Listen to recitation"
-                      >
-                        <Volume2 className="w-3.5 h-3.5" />
-                        <span className="font-urdu">{isReciting ? 'تلاوت جاری ہے' : 'تلاوت سنیں'}</span>
-                      </button>
-
-                      {/* View in Reader Jump */}
-                      <button
-                        onClick={() => navigateToReader(ex.nuzulRank)}
-                        className="flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 transition-all cursor-pointer shadow-xs"
-                        title="Open in Chronological Passage Reader"
-                      >
-                        <span className="font-urdu">ریڈر میں دیکھیں</span>
-                        <ArrowRight className="w-3 h-3 rotate-180" />
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Quranic Arabic Ayah Text */}
-                  <div className="py-1">
-                    <p className="font-arabic text-lg sm:text-xl lg:text-2xl text-[var(--text-primary)] leading-loose text-right">
-                      {ex.arabicText}
-                    </p>
-                  </div>
-
-                  {/* Urdu Translation */}
-                  <div className="p-3 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)]">
-                    <p className="font-urdu text-xs sm:text-sm text-[var(--text-primary)] leading-relaxed">
-                      <span className="font-bold text-emerald-700 dark:text-emerald-400 ml-1">ترجمہ:</span>
-                      {ex.translationUrdu}
-                    </p>
-                    <p className="text-[11px] text-[var(--text-muted)] font-sans mt-1.5 text-left" dir="ltr">
-                      {ex.translationEnglish}
-                    </p>
-                  </div>
-
-                  {/* Scholarly Insight */}
-                  <div className="flex items-start gap-2 pt-1 text-xs">
-                    <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <div>
-                      <span className="font-urdu font-bold text-emerald-800 dark:text-emerald-300 ml-1">
-                        تفسیری و تاریخی بصیرت:
-                      </span>
-                      <span className="font-urdu text-[var(--text-secondary)] leading-relaxed">
-                        {ex.scholarlyInsightUrdu}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+                  <span className="font-urdu">ترتیبِ نزول</span>
+                </button>
+                <button
+                  onClick={() => setSortBy('mushaf')}
+                  className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                    sortBy === 'mushaf'
+                      ? 'bg-sky-500/15 text-sky-800 dark:text-sky-300 border border-sky-500/30'
+                      : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                  }`}
+                >
+                  <span className="font-urdu">ترتیبِ مصحف</span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
+
+        {/* ── SUBCATEGORY FILTER CHIPS (Full Catalog Mode) ── */}
+        {viewMode === 'all_catalog' && subFilterOptions.length > 1 && (
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-xs text-[var(--text-muted)] font-urdu">
+              <Filter className="w-3.5 h-3.5 text-emerald-500" />
+              <span>ذیلی اسالیب و سورتوں کے فلٹرز:</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button
+                onClick={() => setActiveSubFilter('all')}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                  activeSubFilter === 'all'
+                    ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                    : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500/50'
+                }`}
+              >
+                <span className="font-urdu">تمام آیات ({rawCatalogVerses.length})</span>
+              </button>
+              {subFilterOptions.map((opt) => (
+                <button
+                  key={opt.key}
+                  onClick={() => setActiveSubFilter(opt.key)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer border ${
+                    activeSubFilter === opt.key
+                      ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs'
+                      : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500/50'
+                  }`}
+                >
+                  <span className="font-urdu">
+                    {opt.labelUrdu} ({opt.count})
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* ── MODE 1: EXHAUSTIVE CATALOG OF ALL VERSES ── */}
+        {viewMode === 'all_catalog' && (
+          <div className="space-y-4 pt-1">
+            <div className="flex items-center justify-between text-xs text-[var(--text-secondary)] font-urdu pb-1 border-b border-[var(--border-subtle)]">
+              <span className="font-bold text-emerald-800 dark:text-emerald-300">
+                مستند قرآنی آیات کا ذخیرہ: {filteredCatalogVerses.length} آیات دکھائی جا رہی ہیں
+              </span>
+              <span className="text-[var(--text-muted)]">
+                متن: رسم الخط عثمانی • اردو ترجمہ: علامہ ذیشان حیدر جوادیؒ
+              </span>
+            </div>
+
+            {filteredCatalogVerses.length === 0 ? (
+              <div className="p-8 text-center rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] space-y-2">
+                <Search className="w-8 h-8 text-[var(--text-muted)] mx-auto opacity-50" />
+                <p className="text-sm font-urdu text-[var(--text-secondary)]">
+                  تلاش کے مطابق کوئی آیت نہیں ملی۔
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {filteredCatalogVerses.map((item, idx) => {
+                  const isReciting =
+                    activeAudio?.surahNumber === item.surahNumber &&
+                    activeAudio?.ayahNumber === item.ayahNumber &&
+                    activeAudio?.isPlaying;
+
+                  return (
+                    <div
+                      key={`cat-${item.surahNumber}-${item.ayahNumber}-${idx}`}
+                      className={`p-4 sm:p-5 rounded-2xl border transition-all space-y-3 ${
+                        isReciting
+                          ? 'bg-emerald-500/10 border-emerald-500 ring-2 ring-emerald-500/20'
+                          : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] hover:border-emerald-500/40'
+                      }`}
+                    >
+                      {/* Top Bar of Verse Card */}
+                      <div className="flex flex-wrap items-center justify-between gap-2 text-xs pb-2 border-b border-[var(--border-subtle)]">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="px-2.5 py-0.5 rounded-lg bg-emerald-600/10 text-emerald-800 dark:text-emerald-300 font-bold font-urdu">
+                            {item.surahNameUrdu} ({item.surahNumber}:{item.ayahNumber})
+                          </span>
+                          <span className="text-[11px] text-[var(--text-muted)] font-sans">
+                            {item.surahNameEnglish} — Nuzul #{item.nuzulRank} ➔ Mushaf #{item.mushafOrder}
+                          </span>
+                          <span
+                            className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${
+                              item.revelationType === 'medinan'
+                                ? 'bg-sky-500/10 border-sky-500/25 text-sky-800 dark:text-sky-300'
+                                : 'bg-amber-500/10 border-amber-500/25 text-amber-800 dark:text-amber-300'
+                            }`}
+                          >
+                            {item.revelationType === 'medinan' ? 'مدنی دور' : 'مکی دور'}
+                          </span>
+                          <span className="px-2 py-0.5 rounded-lg text-[10px] font-bold bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)] font-urdu">
+                            {item.subCategoryTitleUrdu}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          {/* Audio Recitation Button */}
+                          <button
+                            onClick={() => {
+                              if (isReciting) {
+                                pauseAudio();
+                              } else {
+                                playAyah(item.surahNumber, item.ayahNumber, item.nuzulRank);
+                              }
+                            }}
+                            className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
+                              isReciting
+                                ? 'bg-emerald-600 text-white border-emerald-600'
+                                : 'bg-[var(--bg-surface-elevated)] hover:bg-emerald-600 hover:text-white border-[var(--border-subtle)] text-[var(--text-primary)]'
+                            }`}
+                            title="Listen to recitation"
+                          >
+                            <Volume2 className="w-3.5 h-3.5" />
+                            <span className="font-urdu">{isReciting ? 'تلاوت جاری ہے' : 'تلاوت سنیں'}</span>
+                          </button>
+
+                          {/* View in Reader Jump */}
+                          <button
+                            onClick={() => navigateToReader(item.nuzulRank)}
+                            className="flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 transition-all cursor-pointer shadow-xs"
+                            title="Open in Chronological Passage Reader"
+                          >
+                            <span className="font-urdu">ریڈر میں دیکھیں</span>
+                            <ArrowRight className="w-3 h-3 rotate-180" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Quranic Arabic Ayah Text */}
+                      <div className="py-1">
+                        <p className="font-arabic text-lg sm:text-xl lg:text-2xl text-[var(--text-primary)] leading-loose text-right">
+                          {item.arabicText}
+                        </p>
+                      </div>
+
+                      {/* Urdu Translation */}
+                      <div className="p-3 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)]">
+                        <p className="font-urdu text-xs sm:text-sm text-[var(--text-primary)] leading-relaxed">
+                          <span className="font-bold text-emerald-700 dark:text-emerald-400 ml-1">ترجمہ:</span>
+                          {item.translationUrdu}
+                        </p>
+                        <p className="text-[11px] text-[var(--text-muted)] font-sans mt-1.5 text-left" dir="ltr">
+                          {item.translationEnglish}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* ── MODE 2: CURATED SCRIPTURAL HIGHLIGHTS ── */}
+        {viewMode === 'highlights' && (
+          <div className="space-y-4 pt-1">
+            <div className="flex items-center justify-between">
+              <h4 className="font-urdu text-sm sm:text-base font-bold text-[var(--text-primary)] flex items-center gap-2">
+                <Flame className="w-4 h-4 text-amber-500" />
+                <span>کلیدی قرآنی شواہد و تفسیری بصیرت ({filteredExamples.length} آیات)</span>
+              </h4>
+              <span className="text-xs text-[var(--text-muted)] font-urdu">
+                مستند ترجمہ: علامہ ذیشان حیدر جوادیؒ
+              </span>
+            </div>
+
+            <div className="space-y-4">
+              {filteredExamples.map((ex) => {
+                const isReciting =
+                  activeAudio?.surahNumber === ex.surahNumber &&
+                  activeAudio?.ayahNumber === ex.ayahNumber &&
+                  activeAudio?.isPlaying;
+
+                return (
+                  <div
+                    key={`ex-${ex.surahNumber}-${ex.ayahNumber}`}
+                    className={`p-4 sm:p-5 rounded-2xl border transition-all space-y-3 ${
+                      isReciting
+                        ? 'bg-emerald-500/10 border-emerald-500 ring-2 ring-emerald-500/20'
+                        : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] hover:border-emerald-500/40'
+                    }`}
+                  >
+                    {/* Top Bar of Card */}
+                    <div className="flex flex-wrap items-center justify-between gap-2 text-xs pb-2 border-b border-[var(--border-subtle)]">
+                      <div className="flex items-center gap-2">
+                        <span className="px-2.5 py-0.5 rounded-lg bg-emerald-600/10 text-emerald-800 dark:text-emerald-300 font-bold font-urdu">
+                          {ex.surahNameUrdu} ({ex.surahNumber}:{ex.ayahNumber})
+                        </span>
+                        <span className="text-[11px] text-[var(--text-muted)] font-sans">
+                          {ex.surahNameEnglish} — Nuzul #{ex.nuzulRank} ➔ Mushaf #{ex.mushafOrder}
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full text-[10px] font-bold bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)]">
+                          {ex.yearLabel}
+                        </span>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        {/* Audio Button */}
+                        <button
+                          onClick={() => {
+                            if (isReciting) {
+                              pauseAudio();
+                            } else {
+                              playAyah(ex.surahNumber, ex.ayahNumber, ex.nuzulRank);
+                            }
+                          }}
+                          className={`flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-bold transition-all border cursor-pointer ${
+                            isReciting
+                              ? 'bg-emerald-600 text-white border-emerald-600'
+                              : 'bg-[var(--bg-surface-elevated)] hover:bg-emerald-600 hover:text-white border-[var(--border-subtle)] text-[var(--text-primary)]'
+                          }`}
+                          title="Listen to recitation"
+                        >
+                          <Volume2 className="w-3.5 h-3.5" />
+                          <span className="font-urdu">{isReciting ? 'تلاوت جاری ہے' : 'تلاوت سنیں'}</span>
+                        </button>
+
+                        {/* View in Reader Jump */}
+                        <button
+                          onClick={() => navigateToReader(ex.nuzulRank)}
+                          className="flex items-center gap-1 px-3 py-1 rounded-xl text-xs font-bold bg-emerald-700 text-white hover:bg-emerald-800 transition-all cursor-pointer shadow-xs"
+                          title="Open in Chronological Passage Reader"
+                        >
+                          <span className="font-urdu">ریڈر میں دیکھیں</span>
+                          <ArrowRight className="w-3 h-3 rotate-180" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Quranic Arabic Ayah Text */}
+                    <div className="py-1">
+                      <p className="font-arabic text-lg sm:text-xl lg:text-2xl text-[var(--text-primary)] leading-loose text-right">
+                        {ex.arabicText}
+                      </p>
+                    </div>
+
+                    {/* Urdu Translation */}
+                    <div className="p-3 rounded-xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)]">
+                      <p className="font-urdu text-xs sm:text-sm text-[var(--text-primary)] leading-relaxed">
+                        <span className="font-bold text-emerald-700 dark:text-emerald-400 ml-1">ترجمہ:</span>
+                        {ex.translationUrdu}
+                      </p>
+                      <p className="text-[11px] text-[var(--text-muted)] font-sans mt-1.5 text-left" dir="ltr">
+                        {ex.translationEnglish}
+                      </p>
+                    </div>
+
+                    {/* Scholarly Insight */}
+                    <div className="flex items-start gap-2 pt-1 text-xs">
+                      <Info className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                      <div>
+                        <span className="font-urdu font-bold text-emerald-800 dark:text-emerald-300 ml-1">
+                          تفسیری و تاریخی بصیرت:
+                        </span>
+                        <span className="font-urdu text-[var(--text-secondary)] leading-relaxed">
+                          {ex.scholarlyInsightUrdu}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
       </div>
     </div>
