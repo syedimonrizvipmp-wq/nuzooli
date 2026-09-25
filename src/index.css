@@ -159,7 +159,7 @@ body {
   transition: background-color 0.25s ease, color 0.25s ease;
 }
 
-/* Sacred Typography Utilities */
+/* Sacred Quranic Arabic Script - Standard Quranic Fonts (Amiri Quran, Uthman Taha Naskh, etc.) */
 .font-arabic {
   font-family: var(--font-arabic-default);
   direction: rtl;
@@ -167,11 +167,9 @@ body {
   line-height: 2.2;
 }
 
-/* All Urdu text MUST strictly use Nastaleeq */
-.font-urdu,
-[lang="ur"],
-:lang(ur) {
-  font-family: var(--font-urdu-default) !important;
+/* Nastaleeq ONLY for Urdu text — NEVER applied to Quranic Arabic verses */
+.font-urdu {
+  font-family: var(--font-urdu-default);
   direction: rtl;
   text-align: right;
   line-height: 2.4;
