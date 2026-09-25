@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+/* Local Sacred Quran Fonts */
+@font-face {
+  font-family: 'KFGQPC Uthman Taha Naskh';
+  src: url('/fonts/KFGQPC Uthman Taha Naskh Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Al Qalam Quran Majeed Web';
+  src: url('/fonts/Al Qalam Quran Majeed Web Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Me Quran Volt Newmet';
+  src: url('/fonts/me_quran_volt_newmet.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Base Theme Tokens */
+:root {
+  --font-arabic-default: 'Amiri Quran', 'KFGQPC Uthman Taha Naskh', 'Scheherazade New', serif;
+  --font-urdu-default: 'Noto Nastaliq Urdu', 'Gulzar', serif;
+  --font-ui-default: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* 0. Emerald & Gold (Flagship Divine Light - زمرد و زر) */
+.theme-emerald-gold {
+  --bg-primary: #F8FAF8;
+  --bg-surface: #EEF5F1;
+  --bg-surface-card: #FFFFFF;
+  --bg-surface-elevated: #F3F8F5;
+  --text-primary: #0F231A;
+  --text-secondary: #2B4839;
+  --text-muted: #527362;
+  --accent-gold: #C5983B;
+  --accent-gold-soft: rgba(197, 152, 59, 0.15);
+  --accent-emerald: #1B5E43;
+  --accent-emerald-soft: rgba(27, 94, 67, 0.12);
+  --border-subtle: rgba(27, 94, 67, 0.12);
+  --border-strong: rgba(27, 94, 67, 0.25);
+  --ribbon-track: #DFEDE5;
+  --shadow-card: 0 4px 24px -2px rgba(27, 94, 67, 0.06);
+}
+
+/* 0-Dark. Midnight Emerald (Flagship Divine Dark - شبِ قدر) */
+.theme-emerald-dark {
+  --bg-primary: #0B1713;
+  --bg-surface: #11221B;
+  --bg-surface-card: #172D24;
+  --bg-surface-elevated: #1F3A2E;
+  --text-primary: #EFF7F3;
+  --text-secondary: #BED7CA;
+  --text-muted: #81A895;
+  --accent-gold: #E5B869;
+  --accent-gold-soft: rgba(229, 184, 105, 0.18);
+  --accent-emerald: #34D399;
+  --accent-emerald-soft: rgba(52, 211, 153, 0.15);
+  --border-subtle: rgba(239, 247, 243, 0.12);
+  --border-strong: rgba(239, 247, 243, 0.22);
+  --ribbon-track: #1A3127;
+  --shadow-card: 0 4px 24px -2px rgba(0, 0, 0, 0.55);
+}
+
+/* 1. Mushaf Classic (Parchment & Sepia Ink - عنبری) */
+.theme-mushaf-classic {
+  --bg-primary: #FBF8EE;
+  --bg-surface: #F5EFE0;
+  --bg-surface-card: #FFFFFF;
+  --bg-surface-elevated: #FFFDF9;
+  --text-primary: #2B241C;
+  --text-secondary: #635345;
+  --text-muted: #8E7C6C;
+  --accent-gold: #B8860B;
+  --accent-gold-soft: rgba(184, 134, 11, 0.12);
+  --accent-emerald: #1B4D3E;
+  --accent-emerald-soft: rgba(27, 77, 62, 0.1);
+  --border-subtle: rgba(43, 36, 28, 0.1);
+  --border-strong: rgba(43, 36, 28, 0.2);
+  --ribbon-track: #EAE1CD;
+  --shadow-card: 0 4px 20px -2px rgba(43, 36, 28, 0.05);
+}
+
+/* 2. Night Paper (Warm Dark - Zero Blue Light) */
+.theme-night-paper {
+  --bg-primary: #191614;
+  --bg-surface: #221E1A;
+  --bg-surface-card: #2B2621;
+  --bg-surface-elevated: #332D27;
+  --text-primary: #EAE2DB;
+  --text-secondary: #BDB0A4;
+  --text-muted: #877A6E;
+  --accent-gold: #DDA853;
+  --accent-gold-soft: rgba(221, 168, 83, 0.15);
+  --accent-emerald: #3DA57B;
+  --accent-emerald-soft: rgba(61, 165, 123, 0.12);
+  --border-subtle: rgba(234, 226, 219, 0.1);
+  --border-strong: rgba(234, 226, 219, 0.2);
+  --ribbon-track: #2F2A25;
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.35);
+}
+
+/* 3. OLED Midnight (Pure Black) */
+.theme-oled-midnight {
+  --bg-primary: #000000;
+  --bg-surface: #0E0E10;
+  --bg-surface-card: #151518;
+  --bg-surface-elevated: #1F1F24;
+  --text-primary: #EDEDED;
+  --text-secondary: #A0A0A5;
+  --text-muted: #66666A;
+  --accent-gold: #F3B744;
+  --accent-gold-soft: rgba(243, 183, 68, 0.15);
+  --accent-emerald: #10B981;
+  --accent-emerald-soft: rgba(16, 185, 129, 0.12);
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --ribbon-track: #1C1C20;
+  --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.7);
+}
+
+/* 4. Sage & Olive (Calming Nature Tint) */
+.theme-sage-olive {
+  --bg-primary: #F3F5F0;
+  --bg-surface: #E8EDE3;
+  --bg-surface-card: #FFFFFF;
+  --bg-surface-elevated: #F9FAF8;
+  --text-primary: #1C2A20;
+  --text-secondary: #486150;
+  --text-muted: #768F7E;
+  --accent-gold: #C08D38;
+  --accent-gold-soft: rgba(192, 141, 56, 0.12);
+  --accent-emerald: #2E6845;
+  --accent-emerald-soft: rgba(46, 104, 69, 0.12);
+  --border-subtle: rgba(28, 42, 32, 0.1);
+  --border-strong: rgba(28, 42, 32, 0.2);
+  --ribbon-track: #DCE3D5;
+  --shadow-card: 0 4px 20px -2px rgba(28, 42, 32, 0.05);
+}
+
+/* Global Reset & Body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-ui-default);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* Sacred Typography Utilities */
+.font-arabic {
+  font-family: var(--font-arabic-default);
+  direction: rtl;
+  text-align: right;
+  line-height: 2.2;
+}
+
+.font-urdu {
+  font-family: var(--font-urdu-default);
+  direction: rtl;
+  text-align: right;
+  line-height: 2.4;
+  word-spacing: 1px;
+}
+
+.font-english {
+  direction: ltr;
+  text-align: left;
+  line-height: 1.65;
+}
+
+/* Ayah End Glyph */
+.ayah-end-glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-gold);
+  font-family: 'Amiri', serif;
+  font-size: 0.9em;
+  margin: 0 6px;
+  position: relative;
+  user-select: none;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-gold);
+}
+
+/* Sacred Shimmer & Glass */
+.sacred-glass {
+  background: var(--bg-surface-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+}
+
+.sacred-border {
+  border: 1px solid var(--border-subtle);
+}
+
+.sacred-shadow {
+  box-shadow: var(--shadow-card);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+/* Hide scrollbar for clean time-ribbon horizontal scrolling */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
