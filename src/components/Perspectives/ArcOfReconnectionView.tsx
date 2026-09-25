@@ -298,14 +298,14 @@ export const ArcOfReconnectionView: React.FC = () => {
 
   // Pure 1-to-1 Order Milestones with generous spacing and tiered offsets to prevent ANY text overlap
   const topNuzulMilestones = [
-    { rank: 1, name: 'العلق #1 (آغازِ وحی)', anchor: 'start' as const, dy: -14, dx: 0 },
-    { rank: 25, name: 'القدر #25', anchor: 'middle' as const, dy: -14, dx: 0 },
-    { rank: 50, name: 'الإسراء #50', anchor: 'middle' as const, dy: -14, dx: 0 },
-    { rank: 75, name: 'السجدۃ #75', anchor: 'middle' as const, dy: -14, dx: 0 },
-    { rank: 86, name: 'المطففین #86 (آخری مکی)', anchor: 'end' as const, dy: -14, dx: -12 },
-    { rank: 87, name: 'البقرۃ #87 (پہلی مدنی)', anchor: 'start' as const, dy: -14, dx: +14 },
-    { rank: 100, name: 'البینۃ #100', anchor: 'middle' as const, dy: -14, dx: 0 },
-    { rank: 114, name: 'النصر #114 (اتمامِ وحی)', anchor: 'end' as const, dy: -14, dx: 0 },
+    { rank: 1, name: 'العلق #1 (آغازِ وحی)', anchor: 'start' as const, dy: -14, dx: 0, isUpper: false },
+    { rank: 25, name: 'القدر #25', anchor: 'middle' as const, dy: -14, dx: 0, isUpper: false },
+    { rank: 50, name: 'الإسراء #50', anchor: 'middle' as const, dy: -14, dx: 0, isUpper: false },
+    { rank: 75, name: 'السجدۃ #75', anchor: 'middle' as const, dy: -14, dx: -22, isUpper: false },
+    { rank: 86, name: 'المطففین #86 (آخری مکی)', anchor: 'end' as const, dy: -38, dx: -18, isUpper: true },
+    { rank: 87, name: 'البقرۃ #87 (پہلی مدنی)', anchor: 'start' as const, dy: -14, dx: +22, isUpper: false },
+    { rank: 100, name: 'البینۃ #100', anchor: 'middle' as const, dy: -14, dx: 0, isUpper: false },
+    { rank: 114, name: 'النصر #114 (اتمامِ وحی)', anchor: 'end' as const, dy: -14, dx: 0, isUpper: false },
   ];
 
   // Timeline Milestones
@@ -703,21 +703,21 @@ export const ArcOfReconnectionView: React.FC = () => {
                 strokeLinecap="round"
               />
 
-              {/* Top Rail Milestones with dynamic offsets and near-active dimming */}
+              {/* Top Rail Milestones with staggered tiered coordinates and crisp high contrast */}
               {topNuzulMilestones.map((m) => {
                 const mx = getTopX(m.rank) + m.dx;
-                const isNearActive = activePureArc && Math.abs(getTopX(m.rank) - getTopX(activePureArc.nuzulRank)) < 90;
+                const tx = getTopX(m.rank);
 
                 return (
-                  <g key={`top-nuzul-m-${m.rank}`} opacity={isNearActive ? 0.12 : 1} className="transition-opacity duration-200">
+                  <g key={`top-nuzul-m-${m.rank}`} className="select-none">
                     <line
-                      x1={getTopX(m.rank)}
-                      y1={topY - 8}
-                      x2={getTopX(m.rank)}
-                      y2={topY + 8}
+                      x1={tx}
+                      y1={m.isUpper ? topY - 30 : topY - 8}
+                      x2={tx}
+                      y2={topY + 6}
                       stroke="var(--text-muted)"
                       strokeWidth="1.5"
-                      opacity="0.4"
+                      opacity="0.5"
                     />
                     <text
                       x={mx}
@@ -734,44 +734,45 @@ export const ArcOfReconnectionView: React.FC = () => {
                 );
               })}
 
-              {/* Dividing Marker between Meccan (1-86) and Medinan (87-114) */}
+              {/* Dividing Marker between Meccan (1-86) and Medinan (87-114) — Hijrah Boundary Pillar */}
               {(() => {
                 const midX = (getTopX(86) + getTopX(87)) / 2;
-                const isNearActive = activePureArc && Math.abs(getTopX(activePureArc.nuzulRank) - midX) < 85;
 
                 return (
-                  <g opacity={isNearActive ? 0.2 : 1} className="transition-opacity duration-200">
+                  <g key="pure-hijrah-boundary" className="select-none">
+                    {/* Vertical Dividing Dashed Line */}
                     <line
                       x1={midX}
-                      y1={topY - 62}
+                      y1={topY - 58}
                       x2={midX}
-                      y2={topY + 18}
-                      stroke="#10B981"
-                      strokeWidth="1.8"
+                      y2={topY + 20}
+                      stroke="#059669"
+                      strokeWidth="2"
                       strokeDasharray="3 3"
                       opacity="0.85"
                     />
+                    {/* Compact boundary pill positioned between active badge (tier 1) and labels (tier 2) */}
                     <rect
-                      x={midX - 44}
-                      y={topY - 80}
-                      width="88"
-                      height="22"
-                      rx="11"
-                      fill="#10B981"
-                      stroke="#047857"
+                      x={midX - 48}
+                      y={topY - 74}
+                      width="96"
+                      height="20"
+                      rx="10"
+                      fill="#047857"
+                      stroke="#065F46"
                       strokeWidth="1.5"
                       className="shadow-sm"
                     />
                     <text
                       x={midX}
-                      y={topY - 65}
+                      y={topY - 60}
                       textAnchor="middle"
                       fontSize="10"
                       fontWeight="bold"
                       fill="#FFFFFF"
                       className="font-urdu select-none"
                     >
-                      ہجرتِ مدینہ
+                      ہجرتِ مدینہ (622ء)
                     </text>
                   </g>
                 );
@@ -863,12 +864,12 @@ export const ArcOfReconnectionView: React.FC = () => {
                     <circle cx={x2} cy={bottomY} r="14" fill={activePureArc.color} opacity="0.22" />
                     <circle cx={x2} cy={bottomY} r="7.5" fill={activePureArc.color} stroke="#FFFFFF" strokeWidth="2" />
 
-                    {/* Top Origin Callout Badge with elevated leader line */}
+                    {/* Top Origin Callout Badge with elevated leader line floating above Hijrah boundary */}
                     <line
                       x1={x1}
                       y1={topY - 10}
                       x2={x1}
-                      y2={topY - 74}
+                      y2={topY - 84}
                       stroke={activePureArc.color}
                       strokeWidth="1.8"
                       strokeDasharray="2.5 2.5"
@@ -876,17 +877,18 @@ export const ArcOfReconnectionView: React.FC = () => {
                     <circle cx={x1} cy={topY - 10} r="2.5" fill={activePureArc.color} />
                     <rect
                       x={Math.max(12, Math.min(svgWidth - 232, x1 - 110))}
-                      y={topY - 98}
+                      y={topY - 108}
                       width="220"
                       height="24"
                       rx="12"
                       fill="#FFFFFF"
                       stroke="#0F172A"
                       strokeWidth="1.8"
+                      className="shadow-md"
                     />
                     <text
                       x={Math.max(12, Math.min(svgWidth - 232, x1 - 110)) + 110}
-                      y={topY - 82}
+                      y={topY - 92}
                       textAnchor="middle"
                       fontSize="10.5"
                       fontWeight="800"
