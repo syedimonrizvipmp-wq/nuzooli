@@ -210,6 +210,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Desktop & Tablet Perspective Switcher (Hidden on Mobile < sm) */}
             <div className="hidden sm:flex items-center bg-[var(--bg-surface)] p-1 rounded-2xl border border-[var(--border-subtle)] shadow-2xs">
               <button
+                onClick={() => setPerspectiveMode('passage_nuzul')}
+                title="Tadreejee Nuzool (نزولِ تدریجی — آیات بر زمانی ترتیب)"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
+                  perspectiveMode === 'passage_nuzul'
+                    ? 'bg-emerald-700 text-white font-bold shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+                }`}
+              >
+                <Layers className="w-3.5 h-3.5 text-amber-400" />
+                <span className="font-urdu font-bold">نزولِ تدریجی</span>
+                <span className="text-[10px] px-1.5 py-0.2 rounded-md bg-amber-500/20 text-amber-300 font-sans hidden md:inline font-semibold">مرکزی</span>
+              </button>
+              <button
                 onClick={() => setPerspectiveMode('nuzul')}
                 title="Tarteeb-e-Nuzuli (Chronological Surahs Order)"
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
@@ -220,18 +233,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <Compass className="w-3.5 h-3.5" />
                 <span>ترتیبِ نزول</span>
-              </button>
-              <button
-                onClick={() => setPerspectiveMode('passage_nuzul')}
-                title="Chronological Passage Flow (نزولِ تدریجی بر ترتیبِ آیات)"
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
-                  perspectiveMode === 'passage_nuzul'
-                    ? 'bg-emerald-700 text-white font-bold shadow-xs'
-                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-                }`}
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span className="font-urdu font-bold">نزولِ تدریجی (آیات)</span>
               </button>
               <button
                 onClick={() => setPerspectiveMode('mushaf')}
@@ -527,6 +528,17 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="sm:hidden px-2 py-1.5 border-t border-[var(--border-subtle)] bg-[var(--bg-surface)]">
         <div className="grid grid-cols-4 p-1 rounded-2xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] shadow-inner text-[11px]">
           <button
+            onClick={() => setPerspectiveMode('passage_nuzul')}
+            className={`flex flex-col items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-xl font-bold transition-all cursor-pointer ${
+              perspectiveMode === 'passage_nuzul'
+                ? 'bg-emerald-700 text-white shadow-xs'
+                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            }`}
+          >
+            <Layers className="w-3.5 h-3.5 text-amber-400" />
+            <span className="font-urdu truncate font-bold">تدریجی</span>
+          </button>
+          <button
             onClick={() => setPerspectiveMode('nuzul')}
             className={`flex flex-col items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-xl font-bold transition-all cursor-pointer ${
               perspectiveMode === 'nuzul'
@@ -536,17 +548,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <Compass className="w-3.5 h-3.5" />
             <span className="font-urdu truncate">سورتیں</span>
-          </button>
-          <button
-            onClick={() => setPerspectiveMode('passage_nuzul')}
-            className={`flex flex-col items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-xl font-bold transition-all cursor-pointer ${
-              perspectiveMode === 'passage_nuzul'
-                ? 'bg-emerald-700 text-white shadow-xs'
-                : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
-            }`}
-          >
-            <Layers className="w-3.5 h-3.5" />
-            <span className="font-urdu truncate">آیات و تدریج</span>
           </button>
           <button
             onClick={() => setPerspectiveMode('mushaf')}

@@ -171,7 +171,7 @@ export const QuranProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   // 4. Perspective & Layout
   const [perspectiveMode, setPerspectiveModeState] = useState<PerspectiveMode>(() => {
-    return (localStorage.getItem('tarteeb_perspective') as PerspectiveMode) || 'nuzul';
+    return (localStorage.getItem('tarteeb_perspective') as PerspectiveMode) || 'passage_nuzul';
   });
 
   const setPerspectiveMode = useCallback((mode: PerspectiveMode) => {

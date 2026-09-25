@@ -11,6 +11,8 @@ import {
   Sparkles,
   ChevronRight,
   ChevronLeft,
+  ChevronDown,
+  ChevronUp,
   BookOpen,
   LayoutGrid,
   Columns,
@@ -26,6 +28,9 @@ import {
   ArrowRight,
   Languages,
   Repeat,
+  Eye,
+  EyeOff,
+  BookMarked,
 } from 'lucide-react';
 
 export const ChronologicalPassageReader: React.FC = () => {
@@ -50,6 +55,8 @@ export const ChronologicalPassageReader: React.FC = () => {
   const [copiedAyah, setCopiedAyah] = useState<number | null>(null);
   const [verses, setVerses] = useState<Verse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isContextExpanded, setIsContextExpanded] = useState<boolean>(true);
+  const [isFocusMode, setIsFocusMode] = useState<boolean>(false);
 
   // Active stream determination: 36 Milestones or Full 114 Surahs (6,236 Ayahs)
   const currentStream = useMemo(() => {
@@ -113,7 +120,7 @@ export const ChronologicalPassageReader: React.FC = () => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
-      if (e.key === 'ArrowRight') goToPrev(); // In RTL reading, right is previous / left is next
+      if (e.key === 'ArrowRight') goToPrev();
       if (e.key === 'ArrowLeft') goToNext();
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -160,217 +167,283 @@ export const ChronologicalPassageReader: React.FC = () => {
   }, [activePassage, currentStream]);
 
   return (
-    <div className="space-y-6 animate-fade-in max-w-[1780px] mx-auto pb-12">
+    <div className="space-y-4 sm:space-y-5 animate-fade-in max-w-[1780px] mx-auto pb-12">
       
-      {/* ── 1. TOP STEPPER & PASSAGE TIMELINE BAR ── */}
-      <div className="p-4 sm:p-6 rounded-3xl sacred-glass sacred-border shadow-md space-y-4">
-        
-        {/* Stream Mode Toggle & Continuous Recitation Toggle */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-[var(--border-subtle)]">
-          <div className="flex flex-wrap items-center gap-2 p-1 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-xs">
-            <button
-              onClick={() => setPassageStreamMode('curated_milestones')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                passageStreamMode === 'curated_milestones'
-                  ? 'bg-emerald-700 text-white shadow-xs'
-                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)]'
-              }`}
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>۳۶ کلیدی مقطوعات (36 Milestones)</span>
-            </button>
+      {/* ── 1. UNIFIED SANCTUARY PASSAGE HERO & TIMELINE ── */}
+      {!isFocusMode && (
+        <div className="p-4 sm:p-7 rounded-3xl sacred-glass sacred-border shadow-md space-y-4 relative overflow-hidden">
+          {/* Subtle golden spiritual glow accent */}
+          <div className="absolute top-0 right-0 w-80 h-80 bg-amber-500/5 dark:bg-emerald-500/5 rounded-full blur-3xl pointer-events-none" />
 
-            <button
-              onClick={() => setPassageStreamMode('all_quran')}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                passageStreamMode === 'all_quran'
-                  ? 'bg-emerald-700 text-white shadow-xs'
-                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)]'
-              }`}
-            >
-              <BookOpen className="w-3.5 h-3.5" />
-              <span>مکمل قرآن تدریجی (تمام ۱۱۴ سورتیں / ۶،۲۳۶ آیات)</span>
-            </button>
-          </div>
-
-          {/* Continuous Recitation Toggle */}
-          <button
-            onClick={toggleContinuousPlay}
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all cursor-pointer self-start sm:self-auto ${
-              isContinuousPlay
-                ? 'bg-emerald-700/15 border-emerald-500 text-emerald-800 dark:text-emerald-300 shadow-xs'
-                : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
-            }`}
-            title="مسلسل خودکار تلاوت: آن ہونے پر ایک آیت کے بعد اگلی آیت خود چلے گی"
-          >
-            <Repeat className={`w-3.5 h-3.5 ${isContinuousPlay ? 'text-emerald-600 dark:text-emerald-400' : ''}`} />
-            <span className="font-urdu">مسلسل تلاوت: {isContinuousPlay ? 'آن' : 'آف'}</span>
-            <span className={`w-2 h-2 rounded-full ${isContinuousPlay ? 'bg-emerald-500 animate-pulse' : 'bg-gray-400'}`} />
-          </button>
-        </div>
-
-        {/* Row A: Progress and Context Header */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <div>
-            <div className="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 mb-1">
-              <Sparkles className="w-4 h-4 text-amber-500" />
-              <span>
-                {passageStreamMode === 'all_quran'
-                  ? 'مکمل قرآن مجید تدریجی ترتیب بر نزول'
-                  : 'نزولِ تدریجی بر ترتیبِ آیات (Chronological Passage Flow)'}
-              </span>
-              <span className="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 text-[11px] font-sans">
-                مرحلہ {activePassageStep} از {totalPassages}
-              </span>
-            </div>
+          {/* Top Control Bar: Mode Toggle + Quick Stepper */}
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3.5 border-b border-[var(--border-subtle)]">
             
-            <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[var(--text-primary)] flex flex-wrap items-center gap-3">
-              <span>{activePassage.surahNameEnglish}</span>
-              <span className="font-arabic text-emerald-800 dark:text-emerald-300">
-                {activePassage.surahNameArabic}
-              </span>
-              <span className="text-sm sm:text-base font-normal text-[var(--text-muted)] font-urdu">
-                ({activePassage.surahNameUrdu})
-              </span>
-            </h2>
+            {/* Left: Stream Mode Toggle & Continuous Recitation */}
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex items-center gap-1 p-1 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-xs">
+                <button
+                  onClick={() => setPassageStreamMode('curated_milestones')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    passageStreamMode === 'curated_milestones'
+                      ? 'bg-emerald-700 text-white shadow-xs'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)]'
+                  }`}
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                  <span>۳۶ کلیدی مقطوعات (Milestones)</span>
+                </button>
+
+                <button
+                  onClick={() => setPassageStreamMode('all_quran')}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                    passageStreamMode === 'all_quran'
+                      ? 'bg-emerald-700 text-white shadow-xs'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)]'
+                  }`}
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>تمام ۱۱۴ سورتیں تدریجی</span>
+                </button>
+              </div>
+
+              {/* Continuous Recitation Button */}
+              <button
+                onClick={toggleContinuousPlay}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                  isContinuousPlay
+                    ? 'bg-emerald-700/15 border-emerald-500 text-emerald-800 dark:text-emerald-300 shadow-xs'
+                    : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
+                }`}
+                title="مسلسل خودکار تلاوت: آن ہونے پر ایک آیت کے بعد اگلی خود چلے گی"
+              >
+                <Repeat className={`w-3.5 h-3.5 ${isContinuousPlay ? 'text-emerald-600 dark:text-emerald-400' : ''}`} />
+                <span className="font-urdu">مسلسل تلاوت: {isContinuousPlay ? 'آن' : 'آف'}</span>
+              </button>
+            </div>
+
+            {/* Right: Quick Stepper & Step Selector */}
+            <div className="flex items-center gap-2 self-start md:self-auto">
+              <button
+                onClick={goToPrev}
+                disabled={activePassageStep <= 1}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
+                  activePassageStep <= 1
+                    ? 'opacity-40 cursor-not-allowed bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-subtle)]'
+                    : 'bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white text-[var(--text-primary)] border-[var(--border-subtle)] shadow-xs cursor-pointer'
+                }`}
+              >
+                <ChevronRight className="w-4 h-4" />
+                <span>پچھلا</span>
+              </button>
+
+              <select
+                value={activePassageStep}
+                onChange={(e) => {
+                  setActivePassageStep(Number(e.target.value));
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                className="px-3 py-1.5 rounded-xl text-xs bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-semibold focus:ring-2 focus:ring-emerald-500 cursor-pointer max-w-[200px] sm:max-w-[280px] truncate"
+              >
+                {currentStream.map((p) => (
+                  <option key={`p-opt-${p.stepNumber}`} value={p.stepNumber}>
+                    #{p.stepNumber}. {p.surahNameEnglish} ({p.yearNabawiOrHijri}) — آیات {p.verseRange.fromVerse}–{p.verseRange.toVerse}
+                  </option>
+                ))}
+              </select>
+
+              <button
+                onClick={goToNext}
+                disabled={activePassageStep >= totalPassages}
+                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
+                  activePassageStep >= totalPassages
+                    ? 'opacity-40 cursor-not-allowed bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-subtle)]'
+                    : 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700 shadow-xs cursor-pointer'
+                }`}
+              >
+                <span>اگلا</span>
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+            </div>
           </div>
 
-          {/* Stepper Navigation Buttons */}
-          <div className="flex items-center gap-2 self-start md:self-auto">
-            <button
-              onClick={goToPrev}
-              disabled={activePassageStep <= 1}
-              className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${
-                activePassageStep <= 1
-                  ? 'opacity-40 cursor-not-allowed bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-subtle)]'
-                  : 'bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white text-[var(--text-primary)] border-[var(--border-subtle)] shadow-xs cursor-pointer'
-              }`}
-            >
-              <ChevronRight className="w-4 h-4" />
-              <span>پچھلا مرحلہ</span>
-            </button>
+          {/* Centerpiece: The Divine Revelation Display */}
+          <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-4 pt-1">
+            <div>
+              <div className="flex flex-wrap items-center gap-2 mb-2 text-xs">
+                <span className="px-2.5 py-0.5 rounded-full bg-emerald-600/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/25 font-bold font-sans">
+                  مرحلہ {activePassageStep} از {totalPassages}
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-200 border border-amber-500/25 font-semibold flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-amber-600" />
+                  <span>سنِ نزول: {activePassage.yearNabawiOrHijri}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-800 dark:text-sky-200 border border-sky-500/25 font-semibold flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-sky-600" />
+                  <span>{activePassage.location}</span>
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-800 dark:text-purple-200 border border-purple-500/25 font-semibold flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-purple-600" />
+                  <span>مصحف سورۃ #{activePassage.surahNumber}</span>
+                </span>
+              </div>
 
-            {/* Quick Passage Dropdown */}
-            <select
-              value={activePassageStep}
-              onChange={(e) => {
-                setActivePassageStep(Number(e.target.value));
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className="px-3 py-2 rounded-xl text-xs bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium focus:ring-2 focus:ring-emerald-500 cursor-pointer max-w-[180px] sm:max-w-[260px] truncate"
+              <div className="flex flex-wrap items-baseline gap-3">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-[var(--text-primary)]">
+                  {activePassage.surahNameEnglish}
+                </h2>
+                <span className="font-arabic text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-800 dark:text-emerald-300">
+                  {activePassage.surahNameArabic}
+                </span>
+                <span className="text-base sm:text-lg font-normal text-[var(--text-muted)] font-urdu">
+                  ({activePassage.surahNameUrdu})
+                </span>
+                <span className="text-xs sm:text-sm font-semibold text-emerald-700 dark:text-emerald-400 font-sans px-2.5 py-1 rounded-lg bg-[var(--bg-surface)] border border-[var(--border-subtle)]">
+                  آیات {activePassage.verseRange.fromVerse} تا {activePassage.verseRange.toVerse}
+                </span>
+              </div>
+            </div>
+
+            {/* Direct Context Toggle in Header */}
+            <button
+              onClick={() => setIsContextExpanded(!isContextExpanded)}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white border border-[var(--border-subtle)] text-xs font-semibold text-[var(--text-secondary)] transition-all cursor-pointer shrink-0 shadow-xs self-start md:self-auto"
+              title="شانِ نزول و تفسیری پس منظر دکھائیں یا چھپائیں"
             >
-              {currentStream.map((p) => (
-                <option key={`p-opt-${p.stepNumber}`} value={p.stepNumber}>
-                  #{p.stepNumber}. {p.surahNameEnglish} ({p.yearNabawiOrHijri}) — آیات {p.verseRange.fromVerse}–{p.verseRange.toVerse}
-                </option>
+              <BookMarked className="w-3.5 h-3.5 text-amber-500" />
+              <span>شانِ نزول</span>
+              {isContextExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+            </button>
+          </div>
+
+          {/* Integrated 23-Year Luminous Timeline Bar */}
+          <div className="space-y-1.5 pt-2 border-t border-[var(--border-subtle)]">
+            <div className="w-full bg-[var(--bg-surface)] h-2 rounded-full overflow-hidden border border-[var(--border-subtle)]">
+              <div
+                className="bg-gradient-to-r from-emerald-700 via-teal-500 to-amber-500 h-full transition-all duration-500 rounded-full"
+                style={{ width: `${(activePassageStep / totalPassages) * 100}%` }}
+              />
+            </div>
+            <div className="flex justify-between text-[11px] text-[var(--text-muted)] font-medium">
+              <span>آغازِ وحی (610 CE / 13 BH — غارِ حرا)</span>
+              <span className="font-semibold text-emerald-700 dark:text-emerald-400">
+                ۲۳ سالہ سفرِ نزول: مرحلہ {activePassageStep} / {totalPassages}
+              </span>
+              <span>اتمامِ وحی (632 CE / 10 AH — غدیرِ خم)</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ── 2. COLLAPSIBLE HISTORICAL CONTEXT & SHAN-E-NUZOOL ── */}
+      {!isFocusMode && isContextExpanded && (
+        <div className="p-4 sm:p-5 rounded-2xl sacred-border bg-[var(--bg-surface-card)] shadow-xs space-y-2.5 animate-fade-in border-l-4 border-l-emerald-600">
+          <div className="flex items-center justify-between text-xs font-bold text-emerald-800 dark:text-emerald-300">
+            <div className="flex items-center gap-1.5">
+              <Sparkles className="w-4 h-4 text-amber-500" />
+              <span>شانِ نزول و تفسیری پس منظر (مستند تفاسیر: المیزان، مجمع البیان، التمہید)</span>
+            </div>
+            <span className="text-[11px] font-normal text-[var(--text-muted)] font-sans hidden sm:inline">
+              {activePassage.location} • {activePassage.yearNabawiOrHijri}
+            </span>
+          </div>
+
+          <p className="font-urdu text-sm sm:text-base leading-relaxed text-[var(--text-primary)] text-right">
+            {activePassage.contextUrdu}
+          </p>
+
+          {activePassage.contextEnglish && (
+            <p className="text-xs text-[var(--text-muted)] leading-relaxed pt-1.5 border-t border-[var(--border-subtle)] font-sans">
+              {activePassage.contextEnglish}
+            </p>
+          )}
+
+          {/* Sister passages link */}
+          {sisterPassages.length > 0 && (
+            <div className="pt-2 flex flex-wrap items-center gap-2 text-xs border-t border-[var(--border-subtle)]">
+              <span className="text-[var(--text-muted)] font-semibold flex items-center gap-1">
+                <Layers className="w-3.5 h-3.5 text-emerald-600" />
+                <span>اس سورت کے دیگر تاریخی مراحل:</span>
+              </span>
+              {sisterPassages.map((sis) => (
+                <button
+                  key={sis.id}
+                  onClick={() => {
+                    setActivePassageStep(sis.stepNumber);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[var(--bg-surface)] hover:bg-emerald-700 hover:text-white border border-[var(--border-subtle)] transition-all flex items-center gap-1 cursor-pointer shadow-2xs"
+                >
+                  <span>مرحلہ #{sis.stepNumber}</span>
+                  <span className="opacity-75">({sis.yearNabawiOrHijri})</span>
+                  <span>[آیات {sis.verseRange.fromVerse}–{sis.verseRange.toVerse}]</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
               ))}
-            </select>
-
-            <button
-              onClick={goToNext}
-              disabled={activePassageStep >= totalPassages}
-              className={`flex items-center gap-1 px-3.5 py-2 rounded-xl text-xs font-bold border transition-all ${
-                activePassageStep >= totalPassages
-                  ? 'opacity-40 cursor-not-allowed bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-subtle)]'
-                  : 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700 shadow-xs cursor-pointer'
-              }`}
-            >
-              <span>اگلا مرحلہ</span>
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-          </div>
+            </div>
+          )}
         </div>
+      )}
 
-        {/* Row B: Historical Metadata Badges */}
-        <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-[var(--border-subtle)] text-xs">
-          <span className="px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-800 dark:text-emerald-200 border border-emerald-500/25 font-semibold flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5 text-emerald-600" />
-            <span>سنِ نزول: {activePassage.yearNabawiOrHijri}</span>
-          </span>
-
-          <span className="px-2.5 py-1 rounded-lg bg-sky-500/10 text-sky-800 dark:text-sky-200 border border-sky-500/20 font-semibold flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-sky-600" />
-            <span>{activePassage.location}</span>
-          </span>
-
-          <span className="px-2.5 py-1 rounded-lg bg-purple-500/10 text-purple-800 dark:text-purple-200 border border-purple-500/20 font-semibold flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-purple-600" />
-            <span>مصحف ترتیب: سورۃ #{activePassage.surahNumber}</span>
-          </span>
-        </div>
-
-        {/* Row C: Progress Bar along the 23-Year timeline */}
-        <div className="space-y-1">
-          <div className="w-full bg-[var(--bg-surface)] h-2 rounded-full overflow-hidden border border-[var(--border-subtle)]">
-            <div
-              className="bg-gradient-to-r from-emerald-700 via-teal-500 to-amber-500 h-full transition-all duration-500 rounded-full"
-              style={{ width: `${(activePassageStep / totalPassages) * 100}%` }}
-            />
-          </div>
-          <div className="flex justify-between text-[11px] text-[var(--text-muted)] font-medium">
-            <span>آغازِ وحی (610 CE / 13 BH - غارِ حرا)</span>
-            <span>۲۳ سالہ تدریجی نزول: مرحلہ {activePassageStep} / {totalPassages}</span>
-            <span>اتمامِ وحی (632 CE / 10 AH - غدیر خم)</span>
-          </div>
-        </div>
-      </div>
-
-      {/* ── 2. READING CONTROLS & TRANSLATION SELECTOR ── */}
-      <div className="p-4 rounded-2xl sacred-glass sacred-border flex flex-wrap items-center justify-between gap-3 text-xs">
+      {/* ── 3. SERENE READING CONTROLS & TRANSLATION BAR ── */}
+      <div className="p-3 sm:p-3.5 rounded-2xl sacred-glass sacred-border flex flex-wrap items-center justify-between gap-2.5 text-xs shadow-xs">
         
-        {/* Layout Mode Pills */}
+        {/* Layout Mode Switcher */}
         <div className="flex items-center gap-1 bg-[var(--bg-surface)] p-1 rounded-xl border border-[var(--border-subtle)]">
           <button
             onClick={() => setReadingLayout('split')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold transition-all ${
+            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
               readingLayout === 'split'
                 ? 'bg-emerald-700 text-white shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
+            title="Split Mode (آیت و ترجمہ)"
           >
             <LayoutGrid className="w-3.5 h-3.5" />
-            <span>آیت و ترجمہ (Split)</span>
+            <span className="hidden sm:inline">آیت و ترجمہ</span>
           </button>
           <button
             onClick={() => setReadingLayout('arabic-only')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold transition-all ${
+            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
               readingLayout === 'arabic-only'
                 ? 'bg-emerald-700 text-white shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
+            title="Arabic Only (صرف عربی)"
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>صرف عربی (Arabic Only)</span>
+            <span className="hidden sm:inline">صرف عربی</span>
           </button>
           <button
             onClick={() => setReadingLayout('translation-only')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold transition-all ${
+            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
               readingLayout === 'translation-only'
                 ? 'bg-emerald-700 text-white shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
+            title="Translation Only (صرف ترجمہ)"
           >
             <Languages className="w-3.5 h-3.5" />
-            <span>صرف ترجمہ (Translation)</span>
+            <span className="hidden sm:inline">صرف ترجمہ</span>
           </button>
           <button
             onClick={() => setReadingLayout('side-by-side')}
-            className={`flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold transition-all ${
+            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-lg font-semibold transition-all ${
               readingLayout === 'side-by-side'
                 ? 'bg-emerald-700 text-white shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
+            title="Side by Side (دو کالم)"
           >
             <Columns className="w-3.5 h-3.5" />
-            <span>دو کالم (Side-by-Side)</span>
+            <span className="hidden sm:inline">دو کالم</span>
           </button>
         </div>
 
-        {/* Translation Switchers */}
+        {/* Translation Switchers & Focus Mode */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Urdu Translator */}
-          <div className="flex items-center gap-1.5">
-            <span className="text-[var(--text-muted)] font-urdu">مترجم اردو:</span>
+          <div className="flex items-center gap-1">
+            <span className="text-[var(--text-muted)] font-urdu text-[11px]">ترجمہ:</span>
             <select
               value={typography.urduTranslator}
               onChange={(e) =>
@@ -378,7 +451,7 @@ export const ChronologicalPassageReader: React.FC = () => {
                   urduTranslator: e.target.value as 'jawadi' | 'najafi' | 'jalandhry',
                 })
               }
-              className="px-2.5 py-1 rounded-lg text-xs bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium font-urdu focus:ring-1 focus:ring-emerald-500"
+              className="px-2 py-1 rounded-lg text-xs bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium font-urdu focus:ring-1 focus:ring-emerald-500 cursor-pointer"
             >
               {URDU_TRANSLATORS.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -389,8 +462,8 @@ export const ChronologicalPassageReader: React.FC = () => {
           </div>
 
           {/* English Translator */}
-          <div className="flex items-center gap-1.5">
-            <span className="text-[var(--text-muted)] font-sans">English:</span>
+          <div className="flex items-center gap-1">
+            <span className="text-[var(--text-muted)] font-sans text-[11px]">EN:</span>
             <select
               value={typography.englishTranslator}
               onChange={(e) =>
@@ -398,7 +471,7 @@ export const ChronologicalPassageReader: React.FC = () => {
                   englishTranslator: e.target.value as 'qarai' | 'khattab' | 'sahih',
                 })
               }
-              className="px-2.5 py-1 rounded-lg text-xs bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium focus:ring-1 focus:ring-emerald-500"
+              className="px-2 py-1 rounded-lg text-xs bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium focus:ring-1 focus:ring-emerald-500 cursor-pointer"
             >
               {ENGLISH_TRANSLATORS.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -407,55 +480,21 @@ export const ChronologicalPassageReader: React.FC = () => {
               ))}
             </select>
           </div>
+
+          {/* Focus / Zen Mode Toggle */}
+          <button
+            onClick={() => setIsFocusMode(!isFocusMode)}
+            className={`flex items-center gap-1 px-2.5 py-1.5 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+              isFocusMode
+                ? 'bg-amber-500/20 text-amber-700 dark:text-amber-300 border-amber-500/40 shadow-xs'
+                : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
+            }`}
+            title="Focus Mode (حالتِ یکسوئی — صرف آیات کی تلاوت)"
+          >
+            {isFocusMode ? <Eye className="w-3.5 h-3.5 text-amber-500" /> : <EyeOff className="w-3.5 h-3.5" />}
+            <span className="font-urdu">{isFocusMode ? 'عام منظر' : 'یکسوئی'}</span>
+          </button>
         </div>
-      </div>
-
-      {/* ── 3. HISTORICAL OCCASION (شانِ نزول و تفسیری پس منظر) ── */}
-      <div className="p-5 rounded-2xl sacred-border bg-[var(--bg-surface-card)] shadow-sm space-y-2">
-        <div className="flex items-center justify-between text-xs font-bold text-emerald-800 dark:text-emerald-300">
-          <div className="flex items-center gap-1.5">
-            <Sparkles className="w-4 h-4 text-amber-500" />
-            <span>شانِ نزول و تفسیری پس منظر (Historical Context of this Passage)</span>
-          </div>
-          <span className="text-[11px] font-normal text-[var(--text-muted)] font-sans">
-            {activePassage.location} • {activePassage.yearNabawiOrHijri}
-          </span>
-        </div>
-
-        <p className="font-urdu text-sm sm:text-base leading-relaxed text-[var(--text-primary)] text-right">
-          {activePassage.contextUrdu}
-        </p>
-
-        {activePassage.contextEnglish && (
-          <p className="text-xs text-[var(--text-muted)] leading-relaxed pt-1 border-t border-[var(--border-subtle)] font-sans">
-            {activePassage.contextEnglish}
-          </p>
-        )}
-
-        {/* If multi-part passage: display links to sister parts */}
-        {sisterPassages.length > 0 && (
-          <div className="pt-2 flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-[var(--text-muted)] font-semibold flex items-center gap-1">
-              <Layers className="w-3.5 h-3.5 text-emerald-600" />
-              <span>اس سورت کے دیگر تاریخی مراحل:</span>
-            </span>
-            {sisterPassages.map((sis) => (
-              <button
-                key={sis.id}
-                onClick={() => {
-                  setActivePassageStep(sis.stepNumber);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-[var(--bg-surface)] hover:bg-emerald-700 hover:text-white border border-[var(--border-subtle)] transition-all flex items-center gap-1 cursor-pointer shadow-2xs"
-              >
-                <span>مرحلہ #{sis.stepNumber}</span>
-                <span className="opacity-75">({sis.yearNabawiOrHijri})</span>
-                <span>[آیات {sis.verseRange.fromVerse}–{sis.verseRange.toVerse}]</span>
-                <ArrowRight className="w-3 h-3" />
-              </button>
-            ))}
-          </div>
-        )}
       </div>
 
       {/* ── 4. VERSES STREAM ── */}

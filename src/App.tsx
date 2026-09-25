@@ -28,8 +28,8 @@ export const AppContent: React.FC = () => {
         onOpenDataModal={() => setIsDataModalOpen(true)}
       />
 
-      {/* Interactive 23-Year Time-Ribbon Discovery Engine */}
-      <TimeRibbon />
+      {/* Interactive 23-Year Time-Ribbon Discovery Engine (Surah Chronology) */}
+      {perspectiveMode === 'nuzul' && <TimeRibbon />}
 
       {/* Main View Area */}
       <main className="flex-1 max-w-[1780px] w-full mx-auto px-3 sm:px-6 lg:px-8 xl:px-12 py-3 sm:py-6">
