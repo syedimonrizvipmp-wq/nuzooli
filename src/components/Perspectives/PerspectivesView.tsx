@@ -11,6 +11,7 @@ import { GradualLegislationView } from './GradualLegislationView';
 import { ThematicEvolutionHeatmap } from './ThematicEvolutionHeatmap';
 import { AsbabCrisisNavigator } from './AsbabCrisisNavigator';
 import { AudienceMatrixView } from './AudienceMatrixView';
+import { AsmaUlHusnaChronologyView } from './AsmaUlHusnaChronologyView';
 import {
   GitBranch,
   Layers,
@@ -30,9 +31,10 @@ import {
   Flame,
   ShieldAlert,
   Users,
+  Crown,
 } from 'lucide-react';
 
-export type PerspectiveTabId = 'arc' | 'interlocutors' | 'crisis' | 'thematic' | 'map' | 'legislation' | 'xray' | 'flow' | 'nature' | 'periods' | 'comparison' | 'future';
+export type PerspectiveTabId = 'arc' | 'interlocutors' | 'asma' | 'crisis' | 'thematic' | 'map' | 'legislation' | 'xray' | 'flow' | 'nature' | 'periods' | 'comparison' | 'future';
 
 export interface PerspectiveTabDef {
   id: PerspectiveTabId;
@@ -59,6 +61,14 @@ export const PERSPECTIVE_TABS: PerspectiveTabDef[] = [
     icon: <Users className="w-4 h-4 text-sky-500" />,
     description: 'Analysis of who the Quran addressed: O Humanity, O Believers, People of the Book, Hypocrites, and the Prophet',
     descriptionUr: '۲۳ سالہ وحی میں الٰہی خطاب اور لہجے کی تدریج: انسانیت، اہلِ ایمان، اہلِ کتاب، منافقین اور رسولِ اکرمؐ',
+  },
+  {
+    id: 'asma',
+    labelEn: 'Asma-ul-Husna Chronology',
+    labelUr: 'اسمائے حسنیٰ کا نزولی سفر',
+    icon: <Crown className="w-4 h-4 text-amber-500" />,
+    description: 'Chronological revelation timeline of the Names of Allah from Cave Hira to Ghadir Khumm',
+    descriptionUr: 'غارِ حرا (الرَّبّ) سے غدیرِ خم اور سورۃ النصر (التَّوَّاب) تک اسمائے الٰہیہ کا ظہور',
   },
   {
     id: 'crisis',
@@ -256,6 +266,9 @@ export const PerspectivesView: React.FC = () => {
 
       {/* ── TAB: THE DIVINE INTERLOCUTORS & AUDIENCE MATRIX (مخاطبینِ قرآن و اسالیبِ خطاب) ── */}
       {activeTab === 'interlocutors' && <AudienceMatrixView />}
+
+      {/* ── TAB: ASMA-UL-HUSNA CHRONOLOGY (اسمائے حسنیٰ کا نزولی سفر) ── */}
+      {activeTab === 'asma' && <AsmaUlHusnaChronologyView />}
 
       {/* ── TAB: ASBAB-UN-NUZUL & CRISIS NAVIGATOR (اسبابِ نزول و تاریخی بحران) ── */}
       {activeTab === 'crisis' && <AsbabCrisisNavigator />}
