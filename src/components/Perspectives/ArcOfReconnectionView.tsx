@@ -15,6 +15,11 @@ import {
   Anchor,
   Compass,
   LayoutGrid,
+  Sliders,
+  Eye,
+  Palette,
+  Hash,
+  Smartphone,
 } from 'lucide-react';
 
 interface ArcConnection {
@@ -47,6 +52,56 @@ export const ArcOfReconnectionView: React.FC = () => {
   const [hoveredSurahNum, setHoveredSurahNum] = useState<number | null>(null);
   const [selectedSurahNum, setSelectedSurahNum] = useState<number | null>(3); // Default to Aal-e-Imran to demonstrate fix
   const [deltaSearchQuery, setDeltaSearchQuery] = useState('');
+
+  // Readability & Display Options (Checkboxes)
+  const [isLargeBeads, setIsLargeBeads] = useState<boolean>(() => {
+    const saved = localStorage.getItem('tarteeb_arc_large_beads');
+    return saved !== null ? saved === 'true' : true;
+  });
+  const [isColorCoded, setIsColorCoded] = useState<boolean>(() => {
+    const saved = localStorage.getItem('tarteeb_arc_color_coded');
+    return saved !== null ? saved === 'true' : true;
+  });
+  const [isShowNumbers, setIsShowNumbers] = useState<boolean>(() => {
+    const saved = localStorage.getItem('tarteeb_arc_show_numbers');
+    return saved === 'true';
+  });
+  const [isMobileHdScroll, setIsMobileHdScroll] = useState<boolean>(() => {
+    const saved = localStorage.getItem('tarteeb_arc_mobile_scroll');
+    return saved !== null ? saved === 'true' : true;
+  });
+
+  const toggleLargeBeads = () => {
+    setIsLargeBeads((prev) => {
+      const next = !prev;
+      localStorage.setItem('tarteeb_arc_large_beads', String(next));
+      return next;
+    });
+  };
+
+  const toggleColorCoded = () => {
+    setIsColorCoded((prev) => {
+      const next = !prev;
+      localStorage.setItem('tarteeb_arc_color_coded', String(next));
+      return next;
+    });
+  };
+
+  const toggleShowNumbers = () => {
+    setIsShowNumbers((prev) => {
+      const next = !prev;
+      localStorage.setItem('tarteeb_arc_show_numbers', String(next));
+      return next;
+    });
+  };
+
+  const toggleMobileHdScroll = () => {
+    setIsMobileHdScroll((prev) => {
+      const next = !prev;
+      localStorage.setItem('tarteeb_arc_mobile_scroll', String(next));
+      return next;
+    });
+  };
 
   // Helper to format Hijri & CE year labels
   const formatYear = (ce: number, hijri?: number, nabawi?: number): string => {
@@ -637,6 +692,110 @@ export const ArcOfReconnectionView: React.FC = () => {
       </div>
 
       {/* ========================================================================= */}
+      {/* DISPLAY & READABILITY CONTROL PANEL (بصری ترتیبات و پڑھنے کے اختیارات)    */}
+      {/* ========================================================================= */}
+      <div className="p-3 sm:p-4 rounded-3xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] shadow-xs space-y-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[var(--border-subtle)] pb-2">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-xl bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 flex items-center justify-center">
+              <Sliders className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="text-xs sm:text-sm font-bold text-[var(--text-primary)] font-serif block">
+                بصری ترتیبات و پڑھنے کے اختیارات (Display & Readability Options)
+              </span>
+              <span className="text-[10px] text-[var(--text-muted)] font-urdu">
+                ابواب اور نقطوں کو اپنی سہولت و سائز کے مطابق ترتیب دیں
+              </span>
+            </div>
+          </div>
+          <span className="text-[11px] text-[var(--text-muted)] hidden sm:inline">
+            Interactive Bead & Touch Enhancements
+          </span>
+        </div>
+
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+          
+          {/* Checkbox 1: Large Beads */}
+          <label className={`flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
+            isLargeBeads 
+              ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-900 dark:text-emerald-200 font-semibold shadow-xs' 
+              : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500/40'
+          }`}>
+            <input
+              type="checkbox"
+              checked={isLargeBeads}
+              onChange={toggleLargeBeads}
+              className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 rounded border-gray-300 cursor-pointer"
+            />
+            <Eye className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+            <div className="flex flex-col">
+              <span className="font-urdu leading-tight text-[12px]">بڑے و واضح موتی</span>
+              <span className="text-[10px] opacity-75 font-sans">Enlarged Beads</span>
+            </div>
+          </label>
+
+          {/* Checkbox 2: Period Colors */}
+          <label className={`flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
+            isColorCoded 
+              ? 'bg-amber-500/10 border-amber-500/40 text-amber-900 dark:text-amber-200 font-semibold shadow-xs' 
+              : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-amber-500/40'
+          }`}>
+            <input
+              type="checkbox"
+              checked={isColorCoded}
+              onChange={toggleColorCoded}
+              className="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 rounded border-gray-300 cursor-pointer"
+            />
+            <Palette className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+            <div className="flex flex-col">
+              <span className="font-urdu leading-tight text-[12px]">مکی و مدنی رنگ</span>
+              <span className="text-[10px] opacity-75 font-sans">Period Jewel Colors</span>
+            </div>
+          </label>
+
+          {/* Checkbox 3: Show Chapter Numbers */}
+          <label className={`flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
+            isShowNumbers 
+              ? 'bg-sky-500/10 border-sky-500/40 text-sky-900 dark:text-sky-200 font-semibold shadow-xs' 
+              : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-sky-500/40'
+          }`}>
+            <input
+              type="checkbox"
+              checked={isShowNumbers}
+              onChange={toggleShowNumbers}
+              className="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 rounded border-gray-300 cursor-pointer"
+            />
+            <Hash className="w-3.5 h-3.5 text-sky-600 shrink-0" />
+            <div className="flex flex-col">
+              <span className="font-urdu leading-tight text-[12px]">سورتوں کے نمبر</span>
+              <span className="text-[10px] opacity-75 font-sans">Chapter Numbers</span>
+            </div>
+          </label>
+
+          {/* Checkbox 4: Mobile HD Scroll */}
+          <label className={`flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
+            isMobileHdScroll 
+              ? 'bg-purple-500/10 border-purple-500/40 text-purple-900 dark:text-purple-200 font-semibold shadow-xs' 
+              : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-purple-500/40'
+          }`}>
+            <input
+              type="checkbox"
+              checked={isMobileHdScroll}
+              onChange={toggleMobileHdScroll}
+              className="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 rounded border-gray-300 cursor-pointer"
+            />
+            <Smartphone className="w-3.5 h-3.5 text-purple-600 shrink-0" />
+            <div className="flex flex-col">
+              <span className="font-urdu leading-tight text-[12px]">موبائل ایچ ڈی اسکرول</span>
+              <span className="text-[10px] opacity-75 font-sans">Mobile HD Scroll</span>
+            </div>
+          </label>
+
+        </div>
+      </div>
+
+      {/* ========================================================================= */}
       {/* CHART 2: PURE 1-TO-1 ORDER COMPARISON ARC (114 NUZUL DOTS ⇄ 114 MUSHAF DOTS) */}
       {/* ========================================================================= */}
       {(chartViewMode === 'order_comparison' || chartViewMode === 'all') && (
@@ -668,15 +827,21 @@ export const ArcOfReconnectionView: React.FC = () => {
           </div>
 
           {/* SVG Canvas for Pure 1-to-1 Order */}
-          <div className="w-full relative py-2" dir="ltr">
-            <svg
-              viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-              className="w-full h-auto select-none block overflow-visible cursor-pointer touch-manipulation"
-              preserveAspectRatio="xMidYMid meet"
-              style={{ direction: 'ltr' }}
-              onClick={handlePureOrderSvgClick}
-              onMouseLeave={() => setHoveredSurahNum(null)}
-            >
+          <div className={`w-full relative py-2 ${isMobileHdScroll ? 'overflow-x-auto custom-scrollbar-thin' : ''}`} dir="ltr">
+            {isMobileHdScroll && (
+              <div className="sm:hidden flex items-center justify-end gap-1 text-[10px] text-emerald-700 dark:text-emerald-400 font-urdu mb-1 px-1">
+                <span>👈 ۱۱۴ سورتوں کو دیکھنے کے لیے افقی اسکرول کریں (Swipe to explore)</span>
+              </div>
+            )}
+            <div className={isMobileHdScroll ? 'min-w-[1050px] sm:min-w-full' : 'w-full'}>
+              <svg
+                viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+                className="w-full h-auto select-none block overflow-visible cursor-pointer touch-manipulation"
+                preserveAspectRatio="xMidYMid meet"
+                style={{ direction: 'ltr' }}
+                onClick={handlePureOrderSvgClick}
+                onMouseLeave={() => setHoveredSurahNum(null)}
+              >
               <defs>
                 <filter id="glowPure" x="-20%" y="-20%" width="140%" height="140%">
                   <feGaussianBlur stdDeviation="3.5" result="blur" />
@@ -942,24 +1107,81 @@ export const ArcOfReconnectionView: React.FC = () => {
               {ALL_114_CHRONOLOGICAL_EVENTS.map((evt) => {
                 const cx = getTopX(evt.chronologicalOrder);
                 const isSelected = activeSurahNumber === evt.mushafOrder;
+                const dotColor = isColorCoded
+                  ? getPeriodColor(evt.revelationPeriod)
+                  : (isSelected ? '#F59E0B' : 'var(--text-muted)');
+                const radius = isSelected
+                  ? (isLargeBeads ? 11 : 7.5)
+                  : (isLargeBeads ? 6.5 : 4);
+                const opacity = isSelected ? 1 : (isColorCoded ? 0.92 : (isLargeBeads ? 0.8 : 0.45));
 
                 return (
-                  <circle
-                    key={`top-pure-dot-${evt.chronologicalOrder}`}
-                    cx={cx}
-                    cy={topY}
-                    r={isSelected ? '7' : '3.8'}
-                    fill={isSelected ? '#F59E0B' : 'var(--text-muted)'}
-                    opacity={isSelected ? '1' : '0.4'}
-                    stroke={isSelected ? '#FFFFFF' : 'transparent'}
-                    strokeWidth={isSelected ? '1.5' : '0'}
-                    className="cursor-pointer transition-colors duration-150"
-                    onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedSurahNum(evt.mushafOrder);
-                    }}
-                  />
+                  <g key={`top-pure-dot-${evt.chronologicalOrder}`} className="group select-none">
+                    {/* Glowing Aura Ring for selected or large hover */}
+                    {isSelected && (
+                      <circle
+                        cx={cx}
+                        cy={topY}
+                        r={isLargeBeads ? 18 : 13}
+                        fill={dotColor}
+                        opacity="0.25"
+                      />
+                    )}
+
+                    {/* Visible Chapter Bead */}
+                    <circle
+                      cx={cx}
+                      cy={topY}
+                      r={radius}
+                      fill={dotColor}
+                      opacity={opacity}
+                      stroke={isSelected ? '#FFFFFF' : (isLargeBeads ? '#FFFFFF' : 'transparent')}
+                      strokeWidth={isSelected ? '2' : (isLargeBeads ? '1.2' : '0')}
+                      className="cursor-pointer transition-all duration-200"
+                    />
+
+                    {/* Chapter Number Badge (if isShowNumbers or on selected) */}
+                    {(isShowNumbers || isSelected) && (
+                      <g className="pointer-events-none">
+                        <rect
+                          x={cx - (evt.chronologicalOrder > 99 ? 12 : 9)}
+                          y={topY - (isLargeBeads ? 28 : 22)}
+                          width={evt.chronologicalOrder > 99 ? 24 : 18}
+                          height="14"
+                          rx="4"
+                          fill={isSelected ? '#F59E0B' : 'var(--bg-surface-elevated)'}
+                          stroke={dotColor}
+                          strokeWidth="1"
+                          className="shadow-xs"
+                        />
+                        <text
+                          x={cx}
+                          y={topY - (isLargeBeads ? 18 : 12)}
+                          textAnchor="middle"
+                          fontSize="8.5"
+                          fontWeight="bold"
+                          fill={isSelected ? '#000000' : 'var(--text-primary)'}
+                          className="font-sans"
+                        >
+                          {evt.chronologicalOrder}
+                        </text>
+                      </g>
+                    )}
+
+                    {/* Invisible Touch Magnet Target (44px Diameter Hitbox) */}
+                    <circle
+                      cx={cx}
+                      cy={topY}
+                      r="22"
+                      fill="transparent"
+                      className="cursor-pointer touch-manipulation"
+                      onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedSurahNum(evt.mushafOrder);
+                      }}
+                    />
+                  </g>
                 );
               })}
 
@@ -967,27 +1189,85 @@ export const ArcOfReconnectionView: React.FC = () => {
               {ALL_114_CHRONOLOGICAL_EVENTS.map((evt) => {
                 const cx = getBottomX(evt.mushafOrder);
                 const isSelected = activeSurahNumber === evt.mushafOrder;
+                const dotColor = isColorCoded
+                  ? getPeriodColor(evt.revelationPeriod)
+                  : (isSelected ? '#0284C7' : 'var(--text-muted)');
+                const radius = isSelected
+                  ? (isLargeBeads ? 11 : 7.5)
+                  : (isLargeBeads ? 6.5 : 4);
+                const opacity = isSelected ? 1 : (isColorCoded ? 0.92 : (isLargeBeads ? 0.8 : 0.45));
 
                 return (
-                  <circle
-                    key={`bot-pure-dot-${evt.mushafOrder}`}
-                    cx={cx}
-                    cy={bottomY}
-                    r={isSelected ? '7' : '3.8'}
-                    fill={isSelected ? '#0284C7' : 'var(--text-muted)'}
-                    opacity={isSelected ? '1' : '0.4'}
-                    stroke={isSelected ? '#FFFFFF' : 'transparent'}
-                    strokeWidth={isSelected ? '1.5' : '0'}
-                    className="cursor-pointer transition-colors duration-150"
-                    onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setSelectedSurahNum(evt.mushafOrder);
-                    }}
-                  />
+                  <g key={`bot-pure-dot-${evt.mushafOrder}`} className="group select-none">
+                    {/* Glowing Aura Ring for selected or large hover */}
+                    {isSelected && (
+                      <circle
+                        cx={cx}
+                        cy={bottomY}
+                        r={isLargeBeads ? 18 : 13}
+                        fill={dotColor}
+                        opacity="0.25"
+                      />
+                    )}
+
+                    {/* Visible Chapter Bead */}
+                    <circle
+                      cx={cx}
+                      cy={bottomY}
+                      r={radius}
+                      fill={dotColor}
+                      opacity={opacity}
+                      stroke={isSelected ? '#FFFFFF' : (isLargeBeads ? '#FFFFFF' : 'transparent')}
+                      strokeWidth={isSelected ? '2' : (isLargeBeads ? '1.2' : '0')}
+                      className="cursor-pointer transition-all duration-200"
+                    />
+
+                    {/* Chapter Number Badge (if isShowNumbers or on selected) */}
+                    {(isShowNumbers || isSelected) && (
+                      <g className="pointer-events-none">
+                        <rect
+                          x={cx - (evt.mushafOrder > 99 ? 12 : 9)}
+                          y={bottomY + (isLargeBeads ? 16 : 12)}
+                          width={evt.mushafOrder > 99 ? 24 : 18}
+                          height="14"
+                          rx="4"
+                          fill={isSelected ? '#0284C7' : 'var(--bg-surface-elevated)'}
+                          stroke={dotColor}
+                          strokeWidth="1"
+                          className="shadow-xs"
+                        />
+                        <text
+                          x={cx}
+                          y={bottomY + (isLargeBeads ? 26 : 22)}
+                          textAnchor="middle"
+                          fontSize="8.5"
+                          fontWeight="bold"
+                          fill={isSelected ? '#FFFFFF' : 'var(--text-primary)'}
+                          className="font-sans"
+                        >
+                          {evt.mushafOrder}
+                        </text>
+                      </g>
+                    )}
+
+                    {/* Invisible Touch Magnet Target (44px Diameter Hitbox) */}
+                    <circle
+                      cx={cx}
+                      cy={bottomY}
+                      r="22"
+                      fill="transparent"
+                      className="cursor-pointer touch-manipulation"
+                      onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedSurahNum(evt.mushafOrder);
+                      }}
+                    />
+                  </g>
                 );
               })}
             </svg>
+            </div>
           </div>
 
           {/* Bottom Rail Legend Label */}
@@ -1037,15 +1317,21 @@ export const ArcOfReconnectionView: React.FC = () => {
           </div>
 
           {/* SVG Canvas for Timeline */}
-          <div className="w-full relative py-2" dir="ltr">
-            <svg
-              viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-              className="w-full h-auto select-none block overflow-visible cursor-pointer touch-manipulation"
-              preserveAspectRatio="xMidYMid meet"
-              style={{ direction: 'ltr' }}
-              onClick={handleTimelineSvgClick}
-              onMouseLeave={() => setHoveredSurahNum(null)}
-            >
+          <div className={`w-full relative py-2 ${isMobileHdScroll ? 'overflow-x-auto custom-scrollbar-thin' : ''}`} dir="ltr">
+            {isMobileHdScroll && (
+              <div className="sm:hidden flex items-center justify-end gap-1 text-[10px] text-amber-700 dark:text-amber-400 font-urdu mb-1 px-1">
+                <span>👈 ۲۳ سالہ زمانی و مقطوعات ٹریک کو دیکھنے کے لیے افقی اسکرول کریں</span>
+              </div>
+            )}
+            <div className={isMobileHdScroll ? 'min-w-[1050px] sm:min-w-full' : 'w-full'}>
+              <svg
+                viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+                className="w-full h-auto select-none block overflow-visible cursor-pointer touch-manipulation"
+                preserveAspectRatio="xMidYMid meet"
+                style={{ direction: 'ltr' }}
+                onClick={handleTimelineSvgClick}
+                onMouseLeave={() => setHoveredSurahNum(null)}
+              >
               <defs>
                 <filter id="glowTimeline" x="-20%" y="-20%" width="140%" height="140%">
                   <feGaussianBlur stdDeviation="3" result="blur" />
@@ -1194,21 +1480,68 @@ export const ArcOfReconnectionView: React.FC = () => {
               {ALL_114_CHRONOLOGICAL_EVENTS.map((evt) => {
                 const cx = getTopX(evt.chronologicalOrder);
                 const isSelected = activeTimelineArcs.some((a) => a.nuzulRank === evt.chronologicalOrder) || activeSurahNumber === evt.mushafOrder;
+                const dotColor = isColorCoded 
+                  ? getPeriodColor(evt.revelationPeriod) 
+                  : (isSelected ? '#F59E0B' : 'var(--text-muted)');
+                const radius = isSelected 
+                  ? (isLargeBeads ? 11 : 7.5) 
+                  : (isLargeBeads ? 6.5 : 4);
+                const opacity = isSelected ? 1 : (isColorCoded ? 0.92 : (isLargeBeads ? 0.8 : 0.45));
 
                 return (
-                  <g key={`top-timeline-tick-${evt.chronologicalOrder}`}>
+                  <g key={`top-timeline-tick-${evt.chronologicalOrder}`} className="group select-none">
+                    {/* Glowing Aura Ring */}
                     {isSelected && (
-                      <circle cx={cx} cy={topY} r="12" fill="#F59E0B" opacity="0.22" />
+                      <circle cx={cx} cy={topY} r={isLargeBeads ? 18 : 13} fill={dotColor} opacity="0.25" />
                     )}
+
+                    {/* Visible Chapter Bead */}
                     <circle
                       cx={cx}
                       cy={topY}
-                      r={isSelected ? '7' : '4'}
-                      fill={isSelected ? '#F59E0B' : 'var(--text-muted)'}
-                      opacity={isSelected ? '1' : '0.45'}
-                      stroke={isSelected ? '#FFFFFF' : 'transparent'}
-                      strokeWidth={isSelected ? '1.5' : '0'}
-                      className="cursor-pointer transition-colors duration-150"
+                      r={radius}
+                      fill={dotColor}
+                      opacity={opacity}
+                      stroke={isSelected ? '#FFFFFF' : (isLargeBeads ? '#FFFFFF' : 'transparent')}
+                      strokeWidth={isSelected ? '2' : (isLargeBeads ? '1.2' : '0')}
+                      className="cursor-pointer transition-all duration-200"
+                    />
+
+                    {/* Chapter Number Badge (if isShowNumbers or on selected) */}
+                    {(isShowNumbers || isSelected) && (
+                      <g className="pointer-events-none">
+                        <rect
+                          x={cx - (evt.chronologicalOrder > 99 ? 12 : 9)}
+                          y={topY - (isLargeBeads ? 28 : 22)}
+                          width={evt.chronologicalOrder > 99 ? 24 : 18}
+                          height="14"
+                          rx="4"
+                          fill={isSelected ? '#F59E0B' : 'var(--bg-surface-elevated)'}
+                          stroke={dotColor}
+                          strokeWidth="1"
+                          className="shadow-xs"
+                        />
+                        <text
+                          x={cx}
+                          y={topY - (isLargeBeads ? 18 : 12)}
+                          textAnchor="middle"
+                          fontSize="8.5"
+                          fontWeight="bold"
+                          fill={isSelected ? '#000000' : 'var(--text-primary)'}
+                          className="font-sans"
+                        >
+                          {evt.chronologicalOrder}
+                        </text>
+                      </g>
+                    )}
+
+                    {/* Invisible Touch Magnet Target (44px Diameter Hitbox) */}
+                    <circle
+                      cx={cx}
+                      cy={topY}
+                      r="22"
+                      fill="transparent"
+                      className="cursor-pointer touch-manipulation"
                       onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1299,21 +1632,68 @@ export const ArcOfReconnectionView: React.FC = () => {
               {ALL_114_CHRONOLOGICAL_EVENTS.map((evt) => {
                 const cx = getBottomX(evt.mushafOrder);
                 const isSelected = activeSurahNumber === evt.mushafOrder;
+                const dotColor = isColorCoded 
+                  ? getPeriodColor(evt.revelationPeriod) 
+                  : (isSelected ? '#0284C7' : 'var(--text-muted)');
+                const radius = isSelected 
+                  ? (isLargeBeads ? 11 : 7.5) 
+                  : (isLargeBeads ? 6.5 : 4);
+                const opacity = isSelected ? 1 : (isColorCoded ? 0.92 : (isLargeBeads ? 0.8 : 0.45));
 
                 return (
-                  <g key={`bot-tick-${evt.mushafOrder}`}>
+                  <g key={`bot-tick-${evt.mushafOrder}`} className="group select-none">
+                    {/* Glowing Aura Ring */}
                     {isSelected && (
-                      <circle cx={cx} cy={bottomY} r="12" fill="#0284C7" opacity="0.22" />
+                      <circle cx={cx} cy={bottomY} r={isLargeBeads ? 18 : 13} fill={dotColor} opacity="0.25" />
                     )}
+
+                    {/* Visible Chapter Bead */}
                     <circle
                       cx={cx}
                       cy={bottomY}
-                      r={isSelected ? '7' : '4'}
-                      fill={isSelected ? '#0284C7' : 'var(--text-muted)'}
-                      opacity={isSelected ? '1' : '0.45'}
-                      stroke={isSelected ? '#FFFFFF' : 'transparent'}
-                      strokeWidth={isSelected ? '1.5' : '0'}
-                      className="cursor-pointer transition-colors duration-150"
+                      r={radius}
+                      fill={dotColor}
+                      opacity={opacity}
+                      stroke={isSelected ? '#FFFFFF' : (isLargeBeads ? '#FFFFFF' : 'transparent')}
+                      strokeWidth={isSelected ? '2' : (isLargeBeads ? '1.2' : '0')}
+                      className="cursor-pointer transition-all duration-200"
+                    />
+
+                    {/* Chapter Number Badge (if isShowNumbers or on selected) */}
+                    {(isShowNumbers || isSelected) && (
+                      <g className="pointer-events-none">
+                        <rect
+                          x={cx - (evt.mushafOrder > 99 ? 12 : 9)}
+                          y={bottomY + (isLargeBeads ? 16 : 12)}
+                          width={evt.mushafOrder > 99 ? 24 : 18}
+                          height="14"
+                          rx="4"
+                          fill={isSelected ? '#0284C7' : 'var(--bg-surface-elevated)'}
+                          stroke={dotColor}
+                          strokeWidth="1"
+                          className="shadow-xs"
+                        />
+                        <text
+                          x={cx}
+                          y={bottomY + (isLargeBeads ? 26 : 22)}
+                          textAnchor="middle"
+                          fontSize="8.5"
+                          fontWeight="bold"
+                          fill={isSelected ? '#FFFFFF' : 'var(--text-primary)'}
+                          className="font-sans"
+                        >
+                          {evt.mushafOrder}
+                        </text>
+                      </g>
+                    )}
+
+                    {/* Invisible Touch Magnet Target (44px Diameter Hitbox) */}
+                    <circle
+                      cx={cx}
+                      cy={bottomY}
+                      r="22"
+                      fill="transparent"
+                      className="cursor-pointer touch-manipulation"
                       onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
                       onClick={(e) => {
                         e.stopPropagation();
@@ -1324,6 +1704,7 @@ export const ArcOfReconnectionView: React.FC = () => {
                 );
               })}
             </svg>
+            </div>
           </div>
 
           {/* Bottom Rail Legend Label */}
