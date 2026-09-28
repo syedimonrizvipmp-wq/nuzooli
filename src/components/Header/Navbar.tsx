@@ -121,9 +121,9 @@ export const Navbar: React.FC<NavbarProps> = ({
               <button
                 onClick={toggleFullscreen}
                 title={isFullscreen ? 'Exit Full Screen' : 'Full Screen'}
-                className="p-1 rounded-lg bg-emerald-600/10 text-emerald-700 dark:text-emerald-300 text-[10px] shrink-0"
+                className="p-1.5 min-w-[34px] min-h-[34px] flex items-center justify-center rounded-xl bg-emerald-600/10 text-emerald-700 dark:text-emerald-300 text-xs shrink-0 cursor-pointer active:scale-95 transition-all"
               >
-                {isFullscreen ? <Minimize2 className="w-3 h-3" /> : <Maximize2 className="w-3 h-3" />}
+                {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
               </button>
             </div>
           </div>
@@ -502,14 +502,14 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Menu / Settings Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden px-4 py-3 border-t border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] animate-fade-in space-y-3 shadow-md">
-          <div className="grid grid-cols-2 gap-2 text-xs">
+          <div className="grid grid-cols-2 gap-2 text-xs sm:text-sm">
             {/* Typography */}
             <button
               onClick={() => {
                 onOpenTypography();
                 setIsMobileMenuOpen(false);
               }}
-              className="flex items-center gap-2 p-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium text-left cursor-pointer"
+              className="flex items-center gap-2.5 p-3 min-h-[48px] rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium text-left cursor-pointer active:scale-95 transition-all shadow-xs"
             >
               <Sliders className="w-4 h-4 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>فونٹس و متن (Typography)</span>
@@ -521,7 +521,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onOpenDataModal();
                 setIsMobileMenuOpen(false);
               }}
-              className="flex items-center gap-2 p-2.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium text-left cursor-pointer"
+              className="flex items-center gap-2.5 p-3 min-h-[48px] rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium text-left cursor-pointer active:scale-95 transition-all shadow-xs"
             >
               <Database className="w-4 h-4 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>ڈیٹا و بیک اپ (Data)</span>
@@ -533,13 +533,13 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onOpenDisclaimer();
                 setIsMobileMenuOpen(false);
               }}
-              className="col-span-2 flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-300 font-medium text-left cursor-pointer"
+              className="col-span-2 flex items-center justify-between p-3.5 min-h-[50px] rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-300 font-medium text-left cursor-pointer active:scale-95 transition-all shadow-xs"
             >
               <div className="flex items-center gap-2">
-                <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
-                <span>علمی و تحقیقی وضاحت (AI Disclaimer)</span>
+                <ShieldAlert className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" />
+                <span className="font-urdu text-xs sm:text-sm font-bold">علمی و تحقیقی وضاحت (AI Disclaimer)</span>
               </div>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-500/20 uppercase">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-500/20 uppercase tracking-wide">
                 Experimental
               </span>
             </button>
@@ -547,10 +547,10 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Reading Layout Selector */}
           <div className="pt-2 border-t border-[var(--border-subtle)]">
-            <span className="text-[11px] font-bold text-[var(--text-muted)] block mb-1.5 uppercase">
+            <span className="text-xs font-bold text-[var(--text-muted)] block mb-2 uppercase">
               Reading Layout (اندازِ تلاوت):
             </span>
-            <div className="grid grid-cols-2 gap-1.5 text-xs">
+            <div className="grid grid-cols-2 gap-2 text-xs">
               {layouts.map((l) => (
                 <button
                   key={l.id}
@@ -558,7 +558,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     setReadingLayout(l.id);
                     setIsMobileMenuOpen(false);
                   }}
-                  className={`flex items-center gap-1.5 p-2 rounded-xl border text-[11px] font-medium transition-all cursor-pointer ${
+                  className={`flex items-center gap-2 p-2.5 min-h-[44px] rounded-xl border text-xs font-medium transition-all cursor-pointer active:scale-95 ${
                     readingLayout === l.id
                       ? 'bg-emerald-700 text-white border-emerald-700 font-bold shadow-xs'
                       : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)]'
@@ -575,50 +575,50 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* ── MOBILE EXCLUSIVE: DEDICATED FULL-WIDTH PERSPECTIVE CONTROL ── */}
       <div className="sm:hidden px-2 py-1.5 border-t border-[var(--border-subtle)] bg-[var(--bg-surface)]">
-        <div className="grid grid-cols-4 p-1 rounded-2xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] shadow-inner text-[11px]">
+        <div className="grid grid-cols-4 p-1 rounded-2xl bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] shadow-inner text-xs">
           <button
             onClick={() => setPerspectiveMode('passage_nuzul')}
-            className={`flex flex-col items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-xl font-bold transition-all cursor-pointer ${
+            className={`flex flex-col items-center justify-center gap-1 py-2 px-1 min-h-[48px] rounded-xl font-bold transition-all cursor-pointer active:scale-95 ${
               perspectiveMode === 'passage_nuzul'
                 ? 'bg-emerald-700 text-white shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
-            <Layers className="w-3.5 h-3.5 text-amber-400" />
-            <span className="font-urdu truncate font-bold">تدریجی</span>
+            <Layers className="w-4 h-4 text-amber-400" />
+            <span className="font-urdu truncate text-[11px] font-bold">تدریجی</span>
           </button>
           <button
             onClick={() => setPerspectiveMode('nuzul')}
-            className={`flex flex-col items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-xl font-bold transition-all cursor-pointer ${
+            className={`flex flex-col items-center justify-center gap-1 py-2 px-1 min-h-[48px] rounded-xl font-bold transition-all cursor-pointer active:scale-95 ${
               perspectiveMode === 'nuzul'
                 ? 'bg-emerald-700 text-white shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
-            <Compass className="w-3.5 h-3.5" />
-            <span className="font-urdu truncate">سورتیں</span>
+            <Compass className="w-4 h-4" />
+            <span className="font-urdu truncate text-[11px]">سورتیں</span>
           </button>
           <button
             onClick={() => setPerspectiveMode('mushaf')}
-            className={`flex flex-col items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-xl font-bold transition-all cursor-pointer ${
+            className={`flex flex-col items-center justify-center gap-1 py-2 px-1 min-h-[48px] rounded-xl font-bold transition-all cursor-pointer active:scale-95 ${
               perspectiveMode === 'mushaf'
                 ? 'bg-emerald-700 text-white shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
-            <BookOpen className="w-3.5 h-3.5" />
-            <span className="font-urdu truncate">مصحف</span>
+            <BookOpen className="w-4 h-4" />
+            <span className="font-urdu truncate text-[11px]">مصحف</span>
           </button>
           <button
             onClick={() => setPerspectiveMode('perspectives')}
-            className={`flex flex-col items-center justify-center gap-0.5 py-1.5 px-0.5 rounded-xl font-bold transition-all cursor-pointer ${
+            className={`flex flex-col items-center justify-center gap-1 py-2 px-1 min-h-[48px] rounded-xl font-bold transition-all cursor-pointer active:scale-95 ${
               perspectiveMode === 'perspectives'
                 ? 'bg-emerald-700 text-white shadow-xs'
                 : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
-            <LayoutGrid className="w-3.5 h-3.5" />
-            <span className="font-urdu truncate">مناظر</span>
+            <LayoutGrid className="w-4 h-4" />
+            <span className="font-urdu truncate text-[11px]">مناظر</span>
           </button>
         </div>
       </div>

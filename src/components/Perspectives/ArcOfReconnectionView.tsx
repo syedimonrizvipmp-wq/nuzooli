@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useQuran } from '@/context/QuranContext';
 import { ALL_114_CHRONOLOGICAL_EVENTS } from '@/data/allChronologicalEvents';
 import { CHRONOLOGICAL_PASSAGE_FLOW } from '@/data/passageFlowData';
@@ -20,6 +20,11 @@ import {
   Palette,
   Hash,
   Smartphone,
+  Maximize2,
+  Minimize2,
+  Lock,
+  Unlock,
+  Link2,
 } from 'lucide-react';
 
 interface ArcConnection {
@@ -52,12 +57,72 @@ export const ArcOfReconnectionView: React.FC = () => {
   const [hoveredSurahNum, setHoveredSurahNum] = useState<number | null>(null);
   const [selectedSurahNum, setSelectedSurahNum] = useState<number | null>(3); // Default to Aal-e-Imran to demonstrate fix
   const [deltaSearchQuery, setDeltaSearchQuery] = useState('');
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Readability & Display Options (Checkboxes)
-  const [isLargeBeads, setIsLargeBeads] = useState<boolean>(() => {
-    const saved = localStorage.getItem('tarteeb_arc_large_beads');
+  useEffect(() => {
+    const handleFsChange = () => {
+      setIsFullscreen(Boolean(document.fullscreenElement));
+    };
+    document.addEventListener('fullscreenchange', handleFsChange);
+    return () => document.removeEventListener('fullscreenchange', handleFsChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen?.().catch(() => {});
+    } else {
+      document.exitFullscreen?.().catch(() => {});
+    }
+  };
+
+  // Readability & Display Options (Checkboxes & Toggles)
+  type BeadSize = 'regular' | 'large' | 'jumbo';
+  const [beadSize, setBeadSize] = useState<BeadSize>(() => {
+    const saved = localStorage.getItem('tarteeb_arc_bead_size') as BeadSize | null;
+    if (saved === 'regular' || saved === 'large' || saved === 'jumbo') return saved;
+    const oldLarge = localStorage.getItem('tarteeb_arc_large_beads');
+    return oldLarge === 'false' ? 'regular' : 'large';
+  });
+
+  const cycleBeadSize = () => {
+    setBeadSize((prev) => {
+      const next: BeadSize = prev === 'regular' ? 'large' : prev === 'large' ? 'jumbo' : 'regular';
+      localStorage.setItem('tarteeb_arc_bead_size', next);
+      localStorage.setItem('tarteeb_arc_large_beads', String(next !== 'regular'));
+      return next;
+    });
+  };
+
+  const isLargeBeads = beadSize !== 'regular';
+
+  // Chapter Lock State: When enabled, mouse hover will not change the active Surah
+  const [isLockedChapter, setIsLockedChapter] = useState<boolean>(() => {
+    const saved = localStorage.getItem('tarteeb_arc_locked_chapter');
+    return saved === 'true';
+  });
+
+  const toggleLockChapter = () => {
+    setIsLockedChapter((prev) => {
+      const next = !prev;
+      localStorage.setItem('tarteeb_arc_locked_chapter', String(next));
+      return next;
+    });
+  };
+
+  // Synchronize Selection across all charts & views
+  const [isSyncAllCharts, setIsSyncAllCharts] = useState<boolean>(() => {
+    const saved = localStorage.getItem('tarteeb_arc_sync_all');
     return saved !== null ? saved === 'true' : true;
   });
+
+  const toggleSyncAllCharts = () => {
+    setIsSyncAllCharts((prev) => {
+      const next = !prev;
+      localStorage.setItem('tarteeb_arc_sync_all', String(next));
+      return next;
+    });
+  };
+
   const [isColorCoded, setIsColorCoded] = useState<boolean>(() => {
     const saved = localStorage.getItem('tarteeb_arc_color_coded');
     return saved !== null ? saved === 'true' : true;
@@ -70,14 +135,6 @@ export const ArcOfReconnectionView: React.FC = () => {
     const saved = localStorage.getItem('tarteeb_arc_mobile_scroll');
     return saved !== null ? saved === 'true' : true;
   });
-
-  const toggleLargeBeads = () => {
-    setIsLargeBeads((prev) => {
-      const next = !prev;
-      localStorage.setItem('tarteeb_arc_large_beads', String(next));
-      return next;
-    });
-  };
 
   const toggleColorCoded = () => {
     setIsColorCoded((prev) => {
@@ -258,8 +315,20 @@ export const ArcOfReconnectionView: React.FC = () => {
     });
   }, [pureOrderArcs, activeFilter]);
 
-  // Active surah state
-  const activeSurahNumber = hoveredSurahNum || selectedSurahNum;
+  // Active surah state: When locked, mouse hover is ignored and selectedSurahNum remains strictly active
+  const activeSurahNumber = isLockedChapter
+    ? (selectedSurahNum ?? 3)
+    : (hoveredSurahNum ?? selectedSurahNum ?? 3);
+
+  const handleSurahHover = (mushafOrder: number | null) => {
+    if (isLockedChapter) return; // Prevent any mouse movement from changing the active chapter!
+    setHoveredSurahNum(mushafOrder);
+  };
+
+  const handleSurahSelect = (mushafOrder: number) => {
+    setSelectedSurahNum(mushafOrder);
+    setHoveredSurahNum(null);
+  };
 
   const activeSurahDetails = useMemo(() => {
     if (!activeSurahNumber) return null;
@@ -281,12 +350,12 @@ export const ArcOfReconnectionView: React.FC = () => {
     setPerspectiveMode('nuzul');
   };
 
-  // Dual-rail coordinates
-  const svgWidth = 1600;
-  const svgHeight = 580;
-  const topY = 175;
-  const bottomY = svgHeight - 75; // 505
-  const padding = 90;
+  // Dual-rail coordinates with expansive breathing space between beads
+  const svgWidth = 2260; // 41% wider than before! 17.7px horizontal breathing space per dot
+  const svgHeight = 660; // Ample height for grand callouts and graceful arc curves
+  const topY = 200; // Positioned with generous clearance for top callout badge & staggered numbers
+  const bottomY = 560; // 360px separation between top & bottom rails
+  const padding = 130;
 
   const getTopX = (rank: number) => {
     return padding + ((rank - 1) / 113) * (svgWidth - 2 * padding);
@@ -557,89 +626,89 @@ export const ArcOfReconnectionView: React.FC = () => {
           </div>
         </div>
 
-        {/* 4-Way Mode Selector */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-2 border-t border-[var(--border-subtle)]">
+        {/* 4-Way Mode Selector with enlarged touch targets */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5 pt-2 border-t border-[var(--border-subtle)]">
           <button
             onClick={() => setChartViewMode('order_comparison')}
-            className={`p-3 rounded-2xl border text-start transition-all flex items-center gap-3 ${
+            className={`min-h-[58px] sm:min-h-[64px] p-3.5 rounded-2xl border text-start transition-all flex items-center gap-3 cursor-pointer ${
               chartViewMode === 'order_comparison'
                 ? 'bg-emerald-800 text-white border-emerald-800 shadow-md ring-2 ring-emerald-500/40'
                 : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500'
             }`}
           >
-            <div className={`p-2 rounded-xl shrink-0 ${chartViewMode === 'order_comparison' ? 'bg-white/20 text-white' : 'bg-emerald-500/10 text-emerald-600'}`}>
-              <GitCompare className="w-4 h-4" />
+            <div className={`p-2.5 rounded-xl shrink-0 ${chartViewMode === 'order_comparison' ? 'bg-white/20 text-white' : 'bg-emerald-500/10 text-emerald-600'}`}>
+              <GitCompare className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold font-urdu">۱۱۴ سورتوں کا خالص تقابلی ربط</div>
-              <div className="text-[10px] opacity-80 font-sans">Pure 1-to-1: Nuzul ⇄ Mushaf Dots</div>
+              <div className="text-xs sm:text-sm font-bold font-urdu">۱۱۴ سورتوں کا خالص تقابلی ربط</div>
+              <div className="text-[11px] opacity-80 font-sans">Pure 1-to-1: Nuzul ⇄ Mushaf Dots</div>
             </div>
           </button>
 
           <button
             onClick={() => setChartViewMode('timeline')}
-            className={`p-3 rounded-2xl border text-start transition-all flex items-center gap-3 ${
+            className={`min-h-[58px] sm:min-h-[64px] p-3.5 rounded-2xl border text-start transition-all flex items-center gap-3 cursor-pointer ${
               chartViewMode === 'timeline'
                 ? 'bg-emerald-800 text-white border-emerald-800 shadow-md ring-2 ring-emerald-500/40'
                 : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500'
             }`}
           >
-            <div className={`p-2 rounded-xl shrink-0 ${chartViewMode === 'timeline' ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600'}`}>
-              <Clock className="w-4 h-4" />
+            <div className={`p-2.5 rounded-xl shrink-0 ${chartViewMode === 'timeline' ? 'bg-white/20 text-white' : 'bg-amber-500/10 text-amber-600'}`}>
+              <Clock className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold font-urdu">۲۳ سالہ زمانی و مقطوعات ٹائم لائن</div>
-              <div className="text-[10px] opacity-80 font-sans">Historical Years & Multi-Part Arcs</div>
+              <div className="text-xs sm:text-sm font-bold font-urdu">۲۳ سالہ زمانی و مقطوعات ٹائم لائن</div>
+              <div className="text-[11px] opacity-80 font-sans">Historical Years & Multi-Part Arcs</div>
             </div>
           </button>
 
           <button
             onClick={() => setChartViewMode('delta_spectrum')}
-            className={`p-3 rounded-2xl border text-start transition-all flex items-center gap-3 ${
+            className={`min-h-[58px] sm:min-h-[64px] p-3.5 rounded-2xl border text-start transition-all flex items-center gap-3 cursor-pointer ${
               chartViewMode === 'delta_spectrum'
                 ? 'bg-emerald-800 text-white border-emerald-800 shadow-md ring-2 ring-emerald-500/40'
                 : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500'
             }`}
           >
-            <div className={`p-2 rounded-xl shrink-0 ${chartViewMode === 'delta_spectrum' ? 'bg-white/20 text-white' : 'bg-purple-500/10 text-purple-600'}`}>
-              <TrendingUp className="w-4 h-4" />
+            <div className={`p-2.5 rounded-xl shrink-0 ${chartViewMode === 'delta_spectrum' ? 'bg-white/20 text-white' : 'bg-purple-500/10 text-purple-600'}`}>
+              <TrendingUp className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold font-urdu">فاصلاتی تغیّر کا طیف (Delta Spectrum)</div>
-              <div className="text-[10px] opacity-80 font-sans">Leap Analysis & Permanent Anchors</div>
+              <div className="text-xs sm:text-sm font-bold font-urdu">فاصلاتی تغیّر کا طیف (Delta Spectrum)</div>
+              <div className="text-[11px] opacity-80 font-sans">Leap Analysis & Permanent Anchors</div>
             </div>
           </button>
 
           <button
             onClick={() => setChartViewMode('all')}
-            className={`p-3 rounded-2xl border text-start transition-all flex items-center gap-3 ${
+            className={`min-h-[58px] sm:min-h-[64px] p-3.5 rounded-2xl border text-start transition-all flex items-center gap-3 cursor-pointer ${
               chartViewMode === 'all'
                 ? 'bg-emerald-800 text-white border-emerald-800 shadow-md ring-2 ring-emerald-500/40'
                 : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500'
             }`}
           >
-            <div className={`p-2 rounded-xl shrink-0 ${chartViewMode === 'all' ? 'bg-white/20 text-white' : 'bg-sky-500/10 text-sky-600'}`}>
-              <LayoutGrid className="w-4 h-4" />
+            <div className={`p-2.5 rounded-xl shrink-0 ${chartViewMode === 'all' ? 'bg-white/20 text-white' : 'bg-sky-500/10 text-sky-600'}`}>
+              <LayoutGrid className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold font-urdu">تمام تقابلی چارٹس اکٹھے</div>
-              <div className="text-[10px] opacity-80 font-sans">Stacked Comprehensive View</div>
+              <div className="text-xs sm:text-sm font-bold font-urdu">تمام تقابلی چارٹس اکٹھے</div>
+              <div className="text-[11px] opacity-80 font-sans">Stacked Comprehensive View</div>
             </div>
           </button>
         </div>
       </div>
 
-      {/* Global Quick Selector Bar */}
-      <div className="p-3 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-wrap items-center justify-between gap-3 shadow-sm">
-        <div className="flex items-center gap-2 w-full sm:w-auto">
-          <span className="text-xs font-bold text-[var(--text-primary)] shrink-0 flex items-center gap-1.5 font-urdu">
+      {/* Global Quick Selector Bar with Large Touch Targets */}
+      <div className="p-3 sm:p-4 rounded-3xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] flex flex-wrap items-center justify-between gap-3 shadow-sm">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 w-full sm:w-auto">
+          <span className="text-xs sm:text-sm font-bold text-[var(--text-primary)] shrink-0 flex items-center gap-1.5 font-urdu">
             <Compass className="w-4 h-4 text-emerald-600" />
-            <span>سورت منتخب کریں:</span>
+            <span>سورت منتخب کریں (Select Surah):</span>
           </span>
           <select
             value={selectedSurahNum || 1}
             onChange={(e) => setSelectedSurahNum(Number(e.target.value))}
-            className="w-full sm:w-72 px-3 py-1.5 rounded-xl text-xs bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium focus:ring-2 focus:ring-emerald-500 shadow-sm"
+            className="w-full sm:w-80 min-h-[46px] px-3.5 py-2.5 rounded-2xl text-xs sm:text-sm bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-medium focus:ring-2 focus:ring-emerald-500 shadow-sm cursor-pointer"
           >
             {ALL_114_CHRONOLOGICAL_EVENTS.map((evt) => (
               <option key={`opt-${evt.mushafOrder}`} value={evt.mushafOrder}>
@@ -649,45 +718,50 @@ export const ArcOfReconnectionView: React.FC = () => {
           </select>
         </div>
 
-        <div className="flex items-center gap-1.5 w-full sm:w-auto justify-between sm:justify-end">
+        <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
           <button
             onClick={() => goToAdjacentSurah('prev')}
-            className="px-3 py-1.5 rounded-xl bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white border border-[var(--border-subtle)] text-xs font-medium transition-all"
+            className="min-h-[46px] flex-1 sm:flex-none px-5 py-2.5 rounded-2xl bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white border border-[var(--border-subtle)] text-xs sm:text-sm font-bold transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1 active:scale-95"
             title="Previous Surah"
           >
-            ◀ پچھلی سورت
+            <span>◀ پچھلی سورت</span>
           </button>
           <button
             onClick={() => goToAdjacentSurah('next')}
-            className="px-3 py-1.5 rounded-xl bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white border border-[var(--border-subtle)] text-xs font-medium transition-all"
+            className="min-h-[46px] flex-1 sm:flex-none px-5 py-2.5 rounded-2xl bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white border border-[var(--border-subtle)] text-xs sm:text-sm font-bold transition-all shadow-xs cursor-pointer flex items-center justify-center gap-1 active:scale-95"
             title="Next Surah"
           >
-            اگلی سورت ▶
+            <span>اگلی سورت ▶</span>
           </button>
+        </div>
 
-          {/* Key landmark quick chips */}
-          <div className="hidden lg:flex items-center gap-1 pl-2">
-            {[
-              { name: 'العلق (1)', mushaf: 96 },
-              { name: 'البقرۃ (87)', mushaf: 2 },
-              { name: 'آلِ عمران (89)', mushaf: 3 },
-              { name: 'الفاتحہ (5)', mushaf: 1 },
-              { name: 'ص (38, Δ=0)', mushaf: 38 },
-              { name: 'النصر (114)', mushaf: 110 },
-            ].map((chip) => (
-              <button
-                key={chip.mushaf}
-                onClick={() => setSelectedSurahNum(chip.mushaf)}
-                className={`px-2 py-1 rounded-lg text-[11px] font-semibold border transition-all ${
-                  activeSurahNumber === chip.mushaf
-                    ? 'bg-emerald-700 text-white border-emerald-700 shadow-sm'
-                    : 'bg-[var(--bg-surface-elevated)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:border-emerald-500'
-                }`}
-              >
-                {chip.name}
-              </button>
-            ))}
-          </div>
+        {/* Key landmark quick chips: Visible and horizontally scrollable on mobile */}
+        <div className="w-full flex items-center gap-1.5 overflow-x-auto pb-1 pt-1 border-t border-[var(--border-subtle)] custom-scrollbar-thin">
+          <span className="text-[11px] font-bold text-[var(--text-muted)] font-urdu shrink-0 ml-1">
+            فوری انتخاب:
+          </span>
+          {[
+            { name: 'العلق (1)', mushaf: 96 },
+            { name: 'البقرۃ (87)', mushaf: 2 },
+            { name: 'آلِ عمران (89)', mushaf: 3 },
+            { name: 'الفاتحہ (5)', mushaf: 1 },
+            { name: 'یٰس (41)', mushaf: 36 },
+            { name: 'الرحمن (97)', mushaf: 55 },
+            { name: 'ص (38, Δ=0)', mushaf: 38 },
+            { name: 'النصر (114)', mushaf: 110 },
+          ].map((chip) => (
+            <button
+              key={chip.mushaf}
+              onClick={() => setSelectedSurahNum(chip.mushaf)}
+              className={`min-h-[38px] px-3.5 py-1.5 rounded-xl text-xs font-bold border transition-all shrink-0 cursor-pointer ${
+                activeSurahNumber === chip.mushaf
+                  ? 'bg-emerald-700 text-white border-emerald-700 shadow-sm'
+                  : 'bg-[var(--bg-surface-elevated)] text-[var(--text-secondary)] border-[var(--border-subtle)] hover:border-emerald-500'
+              }`}
+            >
+              {chip.name}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -714,29 +788,71 @@ export const ArcOfReconnectionView: React.FC = () => {
           </span>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-xs">
           
-          {/* Checkbox 1: Large Beads */}
-          <label className={`flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
-            isLargeBeads 
-              ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-900 dark:text-emerald-200 font-semibold shadow-xs' 
-              : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500/40'
+          {/* Option 1: Bead Scale / Size Cycler (Regular -> Large -> Jumbo) */}
+          <button
+            onClick={cycleBeadSize}
+            className={`min-h-[52px] p-2.5 rounded-2xl border text-start transition-all cursor-pointer select-none flex items-center gap-2.5 active:scale-95 ${
+              beadSize === 'jumbo'
+                ? 'bg-emerald-600/20 border-emerald-500 text-emerald-950 dark:text-emerald-100 font-bold shadow-sm ring-2 ring-emerald-500/40'
+                : beadSize === 'large'
+                ? 'bg-emerald-500/10 border-emerald-500/40 text-emerald-900 dark:text-emerald-200 font-semibold shadow-xs'
+                : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-emerald-500/40'
+            }`}
+            title="نقطوں کا سائز تبدیل کریں: معمول ➔ بڑا ➔ جُمبو"
+          >
+            <Eye className="w-4 h-4 text-emerald-600 shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <span className="font-urdu leading-tight text-[12px] font-bold truncate">
+                موتی: {beadSize === 'jumbo' ? 'جُمبو (Jumbo)' : beadSize === 'large' ? 'بڑا (Large)' : 'معمول (Std)'}
+              </span>
+              <span className="text-[10px] opacity-75 font-sans">Click to Scale Beads</span>
+            </div>
+          </button>
+
+          {/* Option 2: Lock Chapter Selection */}
+          <button
+            onClick={toggleLockChapter}
+            className={`min-h-[52px] p-2.5 rounded-2xl border text-start transition-all cursor-pointer select-none flex items-center gap-2.5 active:scale-95 ${
+              isLockedChapter
+                ? 'bg-amber-500/20 border-amber-500 text-amber-950 dark:text-amber-100 font-bold shadow-sm ring-2 ring-amber-500/50'
+                : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-amber-500/40'
+            }`}
+            title={isLockedChapter ? 'سورت مقفل ہے (Hover Disabled). کلک کریں تاکہ ماؤس موو پر تبدیل ہو سکے' : 'سورت مقفل کریں تاکہ ماؤس گھمانے سے تبدیل نہ ہو'}
+          >
+            {isLockedChapter ? <Lock className="w-4 h-4 text-amber-600 shrink-0" /> : <Unlock className="w-4 h-4 text-gray-400 shrink-0" />}
+            <div className="flex flex-col min-w-0">
+              <span className="font-urdu leading-tight text-[12px] font-bold truncate">
+                {isLockedChapter ? 'سورت مقفل ہے' : 'سورت لاک کریں'}
+              </span>
+              <span className="text-[10px] opacity-75 font-sans">
+                {isLockedChapter ? '🔒 Frozen on Selection' : 'Freeze Selection'}
+              </span>
+            </div>
+          </button>
+
+          {/* Option 3: Sync All Charts */}
+          <label className={`min-h-[52px] flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
+            isSyncAllCharts
+              ? 'bg-teal-500/10 border-teal-500/40 text-teal-900 dark:text-teal-200 font-semibold shadow-xs'
+              : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-teal-500/40'
           }`}>
             <input
               type="checkbox"
-              checked={isLargeBeads}
-              onChange={toggleLargeBeads}
-              className="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 rounded border-gray-300 cursor-pointer"
+              checked={isSyncAllCharts}
+              onChange={toggleSyncAllCharts}
+              className="w-4 h-4 rounded text-teal-600 focus:ring-teal-500 rounded border-gray-300 cursor-pointer"
             />
-            <Eye className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-            <div className="flex flex-col">
-              <span className="font-urdu leading-tight text-[12px]">بڑے و واضح موتی</span>
-              <span className="text-[10px] opacity-75 font-sans">Enlarged Beads</span>
+            <Link2 className="w-4 h-4 text-teal-600 shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <span className="font-urdu leading-tight text-[12px] font-bold truncate">ہم آہنگ چارٹس</span>
+              <span className="text-[10px] opacity-75 font-sans">Sync Across All Charts</span>
             </div>
           </label>
 
-          {/* Checkbox 2: Period Colors */}
-          <label className={`flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
+          {/* Option 4: Period Colors */}
+          <label className={`min-h-[52px] flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
             isColorCoded 
               ? 'bg-amber-500/10 border-amber-500/40 text-amber-900 dark:text-amber-200 font-semibold shadow-xs' 
               : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-amber-500/40'
@@ -747,15 +863,15 @@ export const ArcOfReconnectionView: React.FC = () => {
               onChange={toggleColorCoded}
               className="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 rounded border-gray-300 cursor-pointer"
             />
-            <Palette className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-            <div className="flex flex-col">
-              <span className="font-urdu leading-tight text-[12px]">مکی و مدنی رنگ</span>
+            <Palette className="w-4 h-4 text-amber-600 shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <span className="font-urdu leading-tight text-[12px] font-bold truncate">مکی و مدنی رنگ</span>
               <span className="text-[10px] opacity-75 font-sans">Period Jewel Colors</span>
             </div>
           </label>
 
-          {/* Checkbox 3: Show Chapter Numbers */}
-          <label className={`flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
+          {/* Option 5: Show Chapter Numbers */}
+          <label className={`min-h-[52px] flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
             isShowNumbers 
               ? 'bg-sky-500/10 border-sky-500/40 text-sky-900 dark:text-sky-200 font-semibold shadow-xs' 
               : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-sky-500/40'
@@ -766,15 +882,15 @@ export const ArcOfReconnectionView: React.FC = () => {
               onChange={toggleShowNumbers}
               className="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 rounded border-gray-300 cursor-pointer"
             />
-            <Hash className="w-3.5 h-3.5 text-sky-600 shrink-0" />
-            <div className="flex flex-col">
-              <span className="font-urdu leading-tight text-[12px]">سورتوں کے نمبر</span>
-              <span className="text-[10px] opacity-75 font-sans">Chapter Numbers</span>
+            <Hash className="w-4 h-4 text-sky-600 shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <span className="font-urdu leading-tight text-[12px] font-bold truncate">سورتوں کے نمبر</span>
+              <span className="text-[10px] opacity-75 font-sans">Two-Tier Staggered</span>
             </div>
           </label>
 
-          {/* Checkbox 4: Mobile HD Scroll */}
-          <label className={`flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
+          {/* Option 6: Mobile HD Scroll */}
+          <label className={`min-h-[52px] flex items-center gap-2.5 p-2.5 rounded-2xl border transition-all cursor-pointer select-none ${
             isMobileHdScroll 
               ? 'bg-purple-500/10 border-purple-500/40 text-purple-900 dark:text-purple-200 font-semibold shadow-xs' 
               : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-purple-500/40'
@@ -785,10 +901,10 @@ export const ArcOfReconnectionView: React.FC = () => {
               onChange={toggleMobileHdScroll}
               className="w-4 h-4 rounded text-purple-600 focus:ring-purple-500 rounded border-gray-300 cursor-pointer"
             />
-            <Smartphone className="w-3.5 h-3.5 text-purple-600 shrink-0" />
-            <div className="flex flex-col">
-              <span className="font-urdu leading-tight text-[12px]">موبائل ایچ ڈی اسکرول</span>
-              <span className="text-[10px] opacity-75 font-sans">Mobile HD Scroll</span>
+            <Smartphone className="w-4 h-4 text-purple-600 shrink-0" />
+            <div className="flex flex-col min-w-0">
+              <span className="font-urdu leading-tight text-[12px] font-bold truncate">موبائل ایچ ڈی</span>
+              <span className="text-[10px] opacity-75 font-sans">Swipe / Fit View</span>
             </div>
           </label>
 
@@ -808,8 +924,18 @@ export const ArcOfReconnectionView: React.FC = () => {
                 چارٹ: ۱۱۴ سورتوں کا خالص تقابلی ربط (Pure 1-to-1 Order Mapping Arc)
               </span>
             </div>
-            <div className="text-xs text-[var(--text-muted)] font-medium">
-              اوپر ۱۱۴ نزولی سورتیں ⇄ نیچے ۱۱۴ مصحف سورتیں (۱ تا ۱۱۴ بالمقابل ۱ تا ۱۱۴)
+            <div className="flex items-center gap-3">
+              <div className="text-xs text-[var(--text-muted)] font-medium hidden sm:inline">
+                اوپر ۱۱۴ نزولی سورتیں ⇄ نیچے ۱۱۴ مصحف سورتیں (۱ تا ۱۱۴ بالمقابل ۱ تا ۱۱۴)
+              </div>
+              <button
+                onClick={toggleFullscreen}
+                className="flex items-center gap-1 px-3 py-1.5 rounded-xl bg-emerald-600/10 hover:bg-emerald-600/20 text-emerald-800 dark:text-emerald-300 text-xs font-bold transition-all border border-emerald-500/30 cursor-pointer"
+                title={isFullscreen ? 'Exit Full Screen' : 'Full Screen View (Landscape Optimized)'}
+              >
+                {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+                <span className="text-[11px] font-urdu">{isFullscreen ? 'عام اسکرین' : 'فل اسکرین (Full HD)'}</span>
+              </button>
             </div>
           </div>
 
@@ -833,14 +959,14 @@ export const ArcOfReconnectionView: React.FC = () => {
                 <span>👈 ۱۱۴ سورتوں کو دیکھنے کے لیے افقی اسکرول کریں (Swipe to explore)</span>
               </div>
             )}
-            <div className={isMobileHdScroll ? 'min-w-[1050px] sm:min-w-full' : 'w-full'}>
+            <div className={isMobileHdScroll ? 'min-w-[1250px] sm:min-w-full' : 'w-full'}>
               <svg
                 viewBox={`0 0 ${svgWidth} ${svgHeight}`}
                 className="w-full h-auto select-none block overflow-visible cursor-pointer touch-manipulation"
                 preserveAspectRatio="xMidYMid meet"
                 style={{ direction: 'ltr' }}
                 onClick={handlePureOrderSvgClick}
-                onMouseLeave={() => setHoveredSurahNum(null)}
+                onMouseLeave={() => handleSurahHover(null)}
               >
               <defs>
                 <filter id="glowPure" x="-20%" y="-20%" width="140%" height="140%">
@@ -1030,35 +1156,35 @@ export const ArcOfReconnectionView: React.FC = () => {
                     <circle cx={x2} cy={bottomY} r="14" fill={activePureArc.color} opacity="0.22" />
                     <circle cx={x2} cy={bottomY} r="7.5" fill={activePureArc.color} stroke="#FFFFFF" strokeWidth="2" />
 
-                    {/* Top Origin Callout Badge with elevated leader line floating far above Hijrah boundary */}
+                    {/* Top Origin Callout Badge with elevated leader line floating cleanly above Hijrah boundary */}
                     <line
                       x1={x1}
-                      y1={topY - 12}
+                      y1={topY - 14}
                       x2={x1}
-                      y2={topY - 118}
+                      y2={94}
                       stroke={activePureArc.color}
-                      strokeWidth="2"
+                      strokeWidth="2.5"
                       strokeDasharray="3 3"
                       opacity="0.9"
                     />
-                    <circle cx={x1} cy={topY - 12} r="3" fill={activePureArc.color} />
+                    <circle cx={x1} cy={topY - 14} r="4" fill={activePureArc.color} />
                     <rect
-                      x={Math.max(16, Math.min(svgWidth - 256, x1 - 120))}
-                      y={topY - 146}
-                      width="240"
-                      height="28"
-                      rx="14"
+                      x={Math.max(20, Math.min(svgWidth - 440, x1 - 210))}
+                      y={48}
+                      width="420"
+                      height="46"
+                      rx="23"
                       fill="var(--bg-surface-elevated)"
                       stroke={activePureArc.color}
-                      strokeWidth="2"
-                      className="shadow-lg"
+                      strokeWidth="3"
+                      className="shadow-2xl"
                     />
                     <text
-                      x={Math.max(16, Math.min(svgWidth - 256, x1 - 120)) + 120}
-                      y={topY - 128}
+                      x={Math.max(20, Math.min(svgWidth - 440, x1 - 210)) + 210}
+                      y={77}
                       textAnchor="middle"
-                      fontSize="11.5"
-                      fontWeight="800"
+                      fontSize="17"
+                      fontWeight="900"
                       fill="var(--text-primary)"
                       className="font-sans select-none"
                     >
@@ -1068,36 +1194,36 @@ export const ArcOfReconnectionView: React.FC = () => {
                     {/* Bottom Destination Callout Badge with lower leader line */}
                     <line
                       x1={x2}
-                      y1={bottomY + 10}
+                      y1={bottomY + 14}
                       x2={x2}
-                      y2={bottomY + 36}
+                      y2={bottomY + 44}
                       stroke="#0284C7"
-                      strokeWidth="2"
+                      strokeWidth="2.5"
                       strokeDasharray="3 3"
                       opacity="0.9"
                     />
-                    <circle cx={x2} cy={bottomY + 10} r="3" fill="#0284C7" />
+                    <circle cx={x2} cy={bottomY + 14} r="4" fill="#0284C7" />
                     <rect
-                      x={Math.max(16, Math.min(svgWidth - 256, x2 - 120))}
-                      y={bottomY + 36}
-                      width="240"
-                      height="28"
-                      rx="14"
+                      x={Math.max(20, Math.min(svgWidth - 440, x2 - 210))}
+                      y={bottomY + 44}
+                      width="420"
+                      height="46"
+                      rx="23"
                       fill="var(--bg-surface-elevated)"
                       stroke="#0284C7"
-                      strokeWidth="2"
-                      className="shadow-lg"
+                      strokeWidth="3"
+                      className="shadow-2xl"
                     />
                     <text
-                      x={Math.max(16, Math.min(svgWidth - 256, x2 - 120)) + 120}
-                      y={bottomY + 54}
+                      x={Math.max(20, Math.min(svgWidth - 440, x2 - 210)) + 210}
+                      y={bottomY + 73}
                       textAnchor="middle"
-                      fontSize="11.5"
-                      fontWeight="800"
+                      fontSize="17"
+                      fontWeight="900"
                       fill="var(--text-primary)"
                       className="font-sans select-none"
                     >
-                      مصحف #{activePureArc.mushafOrder}: {activePureArc.surahNameEnglish} (Δ {activePureArc.delta})
+                      مصحف #{activePureArc.mushafOrder}: {activePureArc.surahNameEnglish} ({activePureArc.surahNameArabic}) (Δ {activePureArc.delta})
                     </text>
                   </g>
                 );
@@ -1111,9 +1237,10 @@ export const ArcOfReconnectionView: React.FC = () => {
                   ? getPeriodColor(evt.revelationPeriod)
                   : (isSelected ? '#F59E0B' : 'var(--text-muted)');
                 const radius = isSelected
-                  ? (isLargeBeads ? 11 : 7.5)
-                  : (isLargeBeads ? 6.5 : 4);
-                const opacity = isSelected ? 1 : (isColorCoded ? 0.92 : (isLargeBeads ? 0.8 : 0.45));
+                  ? (beadSize === 'jumbo' ? 14 : beadSize === 'large' ? 11 : 8)
+                  : (beadSize === 'jumbo' ? 8.5 : beadSize === 'large' ? 6.5 : 4.5);
+                const auraRadius = beadSize === 'jumbo' ? 22 : beadSize === 'large' ? 17 : 13;
+                const opacity = isSelected ? 1 : (isColorCoded ? 0.95 : (isLargeBeads ? 0.85 : 0.5));
 
                 return (
                   <g key={`top-pure-dot-${evt.chronologicalOrder}`} className="group select-none">
@@ -1122,7 +1249,7 @@ export const ArcOfReconnectionView: React.FC = () => {
                       <circle
                         cx={cx}
                         cy={topY}
-                        r={isLargeBeads ? 18 : 13}
+                        r={auraRadius}
                         fill={dotColor}
                         opacity="0.25"
                       />
@@ -1136,37 +1263,50 @@ export const ArcOfReconnectionView: React.FC = () => {
                       fill={dotColor}
                       opacity={opacity}
                       stroke={isSelected ? '#FFFFFF' : (isLargeBeads ? '#FFFFFF' : 'transparent')}
-                      strokeWidth={isSelected ? '2' : (isLargeBeads ? '1.2' : '0')}
+                      strokeWidth={isSelected ? '2.5' : (isLargeBeads ? '1.2' : '0')}
                       className="cursor-pointer transition-all duration-200"
                     />
 
-                    {/* Chapter Number Badge (if isShowNumbers or on selected) */}
-                    {(isShowNumbers || isSelected) && (
-                      <g className="pointer-events-none">
-                        <rect
-                          x={cx - (evt.chronologicalOrder > 99 ? 12 : 9)}
-                          y={topY - (isLargeBeads ? 28 : 22)}
-                          width={evt.chronologicalOrder > 99 ? 24 : 18}
-                          height="14"
-                          rx="4"
-                          fill={isSelected ? '#F59E0B' : 'var(--bg-surface-elevated)'}
-                          stroke={dotColor}
-                          strokeWidth="1"
-                          className="shadow-xs"
-                        />
-                        <text
-                          x={cx}
-                          y={topY - (isLargeBeads ? 18 : 12)}
-                          textAnchor="middle"
-                          fontSize="8.5"
-                          fontWeight="bold"
-                          fill={isSelected ? '#000000' : 'var(--text-primary)'}
-                          className="font-sans"
-                        >
-                          {evt.chronologicalOrder}
-                        </text>
-                      </g>
-                    )}
+                    {/* Chapter Number Badge (if isShowNumbers or on selected) - Zero-Collision Dual-Tier Staggered System */}
+                    {(isShowNumbers || isSelected) && (() => {
+                      const isOdd = evt.chronologicalOrder % 2 !== 0;
+                      const badgeY = isSelected
+                        ? topY - (beadSize === 'jumbo' ? 44 : beadSize === 'large' ? 38 : 32)
+                        : (isOdd 
+                            ? topY - (beadSize === 'jumbo' ? 34 : beadSize === 'large' ? 28 : 22) 
+                            : topY - (beadSize === 'jumbo' ? 56 : beadSize === 'large' ? 48 : 42));
+                      const badgeH = isSelected ? 20 : 15;
+                      const badgeW = isSelected ? (evt.chronologicalOrder > 99 ? 34 : 28) : (evt.chronologicalOrder > 99 ? 24 : 19);
+                      const badgeR = isSelected ? 10 : 4;
+                      const textY = badgeY + (isSelected ? 14.5 : 11);
+
+                      return (
+                        <g className="pointer-events-none select-none">
+                          <rect
+                            x={cx - badgeW / 2}
+                            y={badgeY}
+                            width={badgeW}
+                            height={badgeH}
+                            rx={badgeR}
+                            fill={isSelected ? '#F59E0B' : (isOdd ? 'var(--bg-surface-elevated)' : 'var(--bg-surface)')}
+                            stroke={isSelected ? '#FFFFFF' : dotColor}
+                            strokeWidth={isSelected ? '2' : '1'}
+                            className="shadow-sm"
+                          />
+                          <text
+                            x={cx}
+                            y={textY}
+                            textAnchor="middle"
+                            fontSize={isSelected ? '11' : '9'}
+                            fontWeight={isSelected ? '900' : '700'}
+                            fill={isSelected ? '#000000' : 'var(--text-primary)'}
+                            className="font-sans"
+                          >
+                            {evt.chronologicalOrder}
+                          </text>
+                        </g>
+                      );
+                    })()}
 
                     {/* Invisible Touch Magnet Target (44px Diameter Hitbox) */}
                     <circle
@@ -1175,10 +1315,10 @@ export const ArcOfReconnectionView: React.FC = () => {
                       r="22"
                       fill="transparent"
                       className="cursor-pointer touch-manipulation"
-                      onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
+                      onMouseEnter={() => handleSurahHover(evt.mushafOrder)}
                       onClick={(e) => {
                         e.stopPropagation();
-                        setSelectedSurahNum(evt.mushafOrder);
+                        handleSurahSelect(evt.mushafOrder);
                       }}
                     />
                   </g>
@@ -1193,9 +1333,10 @@ export const ArcOfReconnectionView: React.FC = () => {
                   ? getPeriodColor(evt.revelationPeriod)
                   : (isSelected ? '#0284C7' : 'var(--text-muted)');
                 const radius = isSelected
-                  ? (isLargeBeads ? 11 : 7.5)
-                  : (isLargeBeads ? 6.5 : 4);
-                const opacity = isSelected ? 1 : (isColorCoded ? 0.92 : (isLargeBeads ? 0.8 : 0.45));
+                  ? (beadSize === 'jumbo' ? 14 : beadSize === 'large' ? 11 : 8)
+                  : (beadSize === 'jumbo' ? 8.5 : beadSize === 'large' ? 6.5 : 4.5);
+                const auraRadius = beadSize === 'jumbo' ? 22 : beadSize === 'large' ? 17 : 13;
+                const opacity = isSelected ? 1 : (isColorCoded ? 0.95 : (isLargeBeads ? 0.85 : 0.5));
 
                 return (
                   <g key={`bot-pure-dot-${evt.mushafOrder}`} className="group select-none">
@@ -1204,7 +1345,7 @@ export const ArcOfReconnectionView: React.FC = () => {
                       <circle
                         cx={cx}
                         cy={bottomY}
-                        r={isLargeBeads ? 18 : 13}
+                        r={auraRadius}
                         fill={dotColor}
                         opacity="0.25"
                       />
@@ -1218,37 +1359,50 @@ export const ArcOfReconnectionView: React.FC = () => {
                       fill={dotColor}
                       opacity={opacity}
                       stroke={isSelected ? '#FFFFFF' : (isLargeBeads ? '#FFFFFF' : 'transparent')}
-                      strokeWidth={isSelected ? '2' : (isLargeBeads ? '1.2' : '0')}
+                      strokeWidth={isSelected ? '2.5' : (isLargeBeads ? '1.2' : '0')}
                       className="cursor-pointer transition-all duration-200"
                     />
 
-                    {/* Chapter Number Badge (if isShowNumbers or on selected) */}
-                    {(isShowNumbers || isSelected) && (
-                      <g className="pointer-events-none">
-                        <rect
-                          x={cx - (evt.mushafOrder > 99 ? 12 : 9)}
-                          y={bottomY + (isLargeBeads ? 16 : 12)}
-                          width={evt.mushafOrder > 99 ? 24 : 18}
-                          height="14"
-                          rx="4"
-                          fill={isSelected ? '#0284C7' : 'var(--bg-surface-elevated)'}
-                          stroke={dotColor}
-                          strokeWidth="1"
-                          className="shadow-xs"
-                        />
-                        <text
-                          x={cx}
-                          y={bottomY + (isLargeBeads ? 26 : 22)}
-                          textAnchor="middle"
-                          fontSize="8.5"
-                          fontWeight="bold"
-                          fill={isSelected ? '#FFFFFF' : 'var(--text-primary)'}
-                          className="font-sans"
-                        >
-                          {evt.mushafOrder}
-                        </text>
-                      </g>
-                    )}
+                    {/* Chapter Number Badge (if isShowNumbers or on selected) - Zero-Collision Dual-Tier Staggered System */}
+                    {(isShowNumbers || isSelected) && (() => {
+                      const isOdd = evt.mushafOrder % 2 !== 0;
+                      const badgeY = isSelected
+                        ? bottomY + (beadSize === 'jumbo' ? 32 : beadSize === 'large' ? 26 : 22)
+                        : (isOdd 
+                            ? bottomY + (beadSize === 'jumbo' ? 20 : beadSize === 'large' ? 16 : 13) 
+                            : bottomY + (beadSize === 'jumbo' ? 42 : beadSize === 'large' ? 36 : 30));
+                      const badgeH = isSelected ? 20 : 15;
+                      const badgeW = isSelected ? (evt.mushafOrder > 99 ? 34 : 28) : (evt.mushafOrder > 99 ? 24 : 19);
+                      const badgeR = isSelected ? 10 : 4;
+                      const textY = badgeY + (isSelected ? 14.5 : 11);
+
+                      return (
+                        <g className="pointer-events-none select-none">
+                          <rect
+                            x={cx - badgeW / 2}
+                            y={badgeY}
+                            width={badgeW}
+                            height={badgeH}
+                            rx={badgeR}
+                            fill={isSelected ? '#0284C7' : (isOdd ? 'var(--bg-surface-elevated)' : 'var(--bg-surface)')}
+                            stroke={isSelected ? '#FFFFFF' : dotColor}
+                            strokeWidth={isSelected ? '2' : '1'}
+                            className="shadow-sm"
+                          />
+                          <text
+                            x={cx}
+                            y={textY}
+                            textAnchor="middle"
+                            fontSize={isSelected ? '11' : '9'}
+                            fontWeight={isSelected ? '900' : '700'}
+                            fill={isSelected ? '#FFFFFF' : 'var(--text-primary)'}
+                            className="font-sans"
+                          >
+                            {evt.mushafOrder}
+                          </text>
+                        </g>
+                      );
+                    })()}
 
                     {/* Invisible Touch Magnet Target (44px Diameter Hitbox) */}
                     <circle
@@ -1257,10 +1411,10 @@ export const ArcOfReconnectionView: React.FC = () => {
                       r="22"
                       fill="transparent"
                       className="cursor-pointer touch-manipulation"
-                      onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
+                      onMouseEnter={() => handleSurahHover(evt.mushafOrder)}
                       onClick={(e) => {
                         e.stopPropagation();
-                        setSelectedSurahNum(evt.mushafOrder);
+                        handleSurahSelect(evt.mushafOrder);
                       }}
                     />
                   </g>
@@ -1298,8 +1452,18 @@ export const ArcOfReconnectionView: React.FC = () => {
                 چارٹ: ۲۳ سالہ زمانی و مقطوعات ٹائم لائن (23-Year Historical Timeline Arc)
               </span>
             </div>
-            <div className="text-xs text-[var(--text-muted)] font-medium">
-              اوپر ۲۳ سالہ تاریخ (۶۱۰ تا ۶۳۲ عیسوی) اور کثیر حصوں والی سورتوں کے جداگانہ نزولی مقامات
+            <div className="flex items-center gap-3">
+              <span className="text-xs text-[var(--text-muted)] font-medium hidden sm:inline">
+                اوپر ۲۳ سالہ تاریخ (۶۱۰ تا ۶۳۲ عیسوی) اور کثیر حصوں والی سورتوں کے جداگانہ نزولی مقامات
+              </span>
+              <button
+                onClick={toggleFullscreen}
+                className="px-2.5 py-1.5 rounded-xl border border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] text-[var(--text-primary)] hover:border-amber-500 transition-all flex items-center gap-1.5 shadow-xs cursor-pointer active:scale-95"
+                title={isFullscreen ? 'Exit Full Screen' : 'Full Screen View (Landscape Optimized)'}
+              >
+                {isFullscreen ? <Minimize2 className="w-3.5 h-3.5" /> : <Maximize2 className="w-3.5 h-3.5" />}
+                <span className="text-[11px] font-urdu">{isFullscreen ? 'عام اسکرین' : 'فل اسکرین (Full HD)'}</span>
+              </button>
             </div>
           </div>
 
@@ -1323,14 +1487,14 @@ export const ArcOfReconnectionView: React.FC = () => {
                 <span>👈 ۲۳ سالہ زمانی و مقطوعات ٹریک کو دیکھنے کے لیے افقی اسکرول کریں</span>
               </div>
             )}
-            <div className={isMobileHdScroll ? 'min-w-[1050px] sm:min-w-full' : 'w-full'}>
+            <div className={isMobileHdScroll ? 'min-w-[1250px] sm:min-w-full' : 'w-full'}>
               <svg
                 viewBox={`0 0 ${svgWidth} ${svgHeight}`}
                 className="w-full h-auto select-none block overflow-visible cursor-pointer touch-manipulation"
                 preserveAspectRatio="xMidYMid meet"
                 style={{ direction: 'ltr' }}
                 onClick={handleTimelineSvgClick}
-                onMouseLeave={() => setHoveredSurahNum(null)}
+                onMouseLeave={() => handleSurahHover(null)}
               >
               <defs>
                 <filter id="glowTimeline" x="-20%" y="-20%" width="140%" height="140%">
@@ -1433,10 +1597,10 @@ export const ArcOfReconnectionView: React.FC = () => {
                     strokeWidth={activeSurahNumber ? '0.7' : '1.2'}
                     strokeOpacity={activeSurahNumber ? '0.08' : '0.2'}
                     className="cursor-pointer transition-opacity duration-200"
-                    onMouseEnter={() => setHoveredSurahNum(arc.surahNumber)}
+                    onMouseEnter={() => handleSurahHover(arc.surahNumber)}
                     onClick={(e) => {
                       e.stopPropagation();
-                      setSelectedSurahNum(arc.surahNumber);
+                      handleSurahSelect(arc.surahNumber);
                     }}
                   />
                 );
@@ -1484,15 +1648,16 @@ export const ArcOfReconnectionView: React.FC = () => {
                   ? getPeriodColor(evt.revelationPeriod) 
                   : (isSelected ? '#F59E0B' : 'var(--text-muted)');
                 const radius = isSelected 
-                  ? (isLargeBeads ? 11 : 7.5) 
-                  : (isLargeBeads ? 6.5 : 4);
-                const opacity = isSelected ? 1 : (isColorCoded ? 0.92 : (isLargeBeads ? 0.8 : 0.45));
+                  ? (beadSize === 'jumbo' ? 14 : beadSize === 'large' ? 11 : 8)
+                  : (beadSize === 'jumbo' ? 8.5 : beadSize === 'large' ? 6.5 : 4.5);
+                const auraRadius = beadSize === 'jumbo' ? 22 : beadSize === 'large' ? 17 : 13;
+                const opacity = isSelected ? 1 : (isColorCoded ? 0.95 : (isLargeBeads ? 0.85 : 0.5));
 
                 return (
                   <g key={`top-timeline-tick-${evt.chronologicalOrder}`} className="group select-none">
                     {/* Glowing Aura Ring */}
                     {isSelected && (
-                      <circle cx={cx} cy={topY} r={isLargeBeads ? 18 : 13} fill={dotColor} opacity="0.25" />
+                      <circle cx={cx} cy={topY} r={auraRadius} fill={dotColor} opacity="0.25" />
                     )}
 
                     {/* Visible Chapter Bead */}
@@ -1503,37 +1668,50 @@ export const ArcOfReconnectionView: React.FC = () => {
                       fill={dotColor}
                       opacity={opacity}
                       stroke={isSelected ? '#FFFFFF' : (isLargeBeads ? '#FFFFFF' : 'transparent')}
-                      strokeWidth={isSelected ? '2' : (isLargeBeads ? '1.2' : '0')}
+                      strokeWidth={isSelected ? '2.5' : (isLargeBeads ? '1.2' : '0')}
                       className="cursor-pointer transition-all duration-200"
                     />
 
-                    {/* Chapter Number Badge (if isShowNumbers or on selected) */}
-                    {(isShowNumbers || isSelected) && (
-                      <g className="pointer-events-none">
-                        <rect
-                          x={cx - (evt.chronologicalOrder > 99 ? 12 : 9)}
-                          y={topY - (isLargeBeads ? 28 : 22)}
-                          width={evt.chronologicalOrder > 99 ? 24 : 18}
-                          height="14"
-                          rx="4"
-                          fill={isSelected ? '#F59E0B' : 'var(--bg-surface-elevated)'}
-                          stroke={dotColor}
-                          strokeWidth="1"
-                          className="shadow-xs"
-                        />
-                        <text
-                          x={cx}
-                          y={topY - (isLargeBeads ? 18 : 12)}
-                          textAnchor="middle"
-                          fontSize="8.5"
-                          fontWeight="bold"
-                          fill={isSelected ? '#000000' : 'var(--text-primary)'}
-                          className="font-sans"
-                        >
-                          {evt.chronologicalOrder}
-                        </text>
-                      </g>
-                    )}
+                    {/* Chapter Number Badge (if isShowNumbers or on selected) - Zero-Collision Dual-Tier Staggered System */}
+                    {(isShowNumbers || isSelected) && (() => {
+                      const isOdd = evt.chronologicalOrder % 2 !== 0;
+                      const badgeY = isSelected
+                        ? topY - (beadSize === 'jumbo' ? 44 : beadSize === 'large' ? 38 : 32)
+                        : (isOdd 
+                            ? topY - (beadSize === 'jumbo' ? 34 : beadSize === 'large' ? 28 : 22) 
+                            : topY - (beadSize === 'jumbo' ? 56 : beadSize === 'large' ? 48 : 42));
+                      const badgeH = isSelected ? 20 : 15;
+                      const badgeW = isSelected ? (evt.chronologicalOrder > 99 ? 34 : 28) : (evt.chronologicalOrder > 99 ? 24 : 19);
+                      const badgeR = isSelected ? 10 : 4;
+                      const textY = badgeY + (isSelected ? 14.5 : 11);
+
+                      return (
+                        <g className="pointer-events-none select-none">
+                          <rect
+                            x={cx - badgeW / 2}
+                            y={badgeY}
+                            width={badgeW}
+                            height={badgeH}
+                            rx={badgeR}
+                            fill={isSelected ? '#F59E0B' : (isOdd ? 'var(--bg-surface-elevated)' : 'var(--bg-surface)')}
+                            stroke={isSelected ? '#FFFFFF' : dotColor}
+                            strokeWidth={isSelected ? '2' : '1'}
+                            className="shadow-sm"
+                          />
+                          <text
+                            x={cx}
+                            y={textY}
+                            textAnchor="middle"
+                            fontSize={isSelected ? '11' : '9'}
+                            fontWeight={isSelected ? '900' : '700'}
+                            fill={isSelected ? '#000000' : 'var(--text-primary)'}
+                            className="font-sans"
+                          >
+                            {evt.chronologicalOrder}
+                          </text>
+                        </g>
+                      );
+                    })()}
 
                     {/* Invisible Touch Magnet Target (44px Diameter Hitbox) */}
                     <circle
@@ -1542,10 +1720,10 @@ export const ArcOfReconnectionView: React.FC = () => {
                       r="22"
                       fill="transparent"
                       className="cursor-pointer touch-manipulation"
-                      onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
+                      onMouseEnter={() => handleSurahHover(evt.mushafOrder)}
                       onClick={(e) => {
                         e.stopPropagation();
-                        setSelectedSurahNum(evt.mushafOrder);
+                        handleSurahSelect(evt.mushafOrder);
                       }}
                     />
                   </g>
@@ -1595,31 +1773,32 @@ export const ArcOfReconnectionView: React.FC = () => {
                 <g key={`bot-dest-${activeSurahDetails.mushafOrder}`}>
                   <line
                     x1={getBottomX(activeSurahDetails.mushafOrder)}
-                    y1={bottomY + 10}
+                    y1={bottomY + 14}
                     x2={getBottomX(activeSurahDetails.mushafOrder)}
-                    y2={bottomY + 36}
+                    y2={bottomY + 44}
                     stroke="#0284C7"
-                    strokeWidth="1.8"
-                    strokeDasharray="2.5 2.5"
+                    strokeWidth="2.5"
+                    strokeDasharray="3 3"
+                    opacity="0.9"
                   />
-                  <circle cx={getBottomX(activeSurahDetails.mushafOrder)} cy={bottomY + 10} r="2.5" fill="#0284C7" />
+                  <circle cx={getBottomX(activeSurahDetails.mushafOrder)} cy={bottomY + 14} r="4" fill="#0284C7" />
                   <rect
-                    x={Math.max(16, Math.min(svgWidth - 236, getBottomX(activeSurahDetails.mushafOrder) - 110))}
-                    y={bottomY + 36}
-                    width="220"
-                    height="28"
-                    rx="14"
+                    x={Math.max(20, Math.min(svgWidth - 440, getBottomX(activeSurahDetails.mushafOrder) - 210))}
+                    y={bottomY + 44}
+                    width="420"
+                    height="46"
+                    rx="23"
                     fill="var(--bg-surface-elevated)"
                     stroke="#0284C7"
-                    strokeWidth="1.8"
-                    className="shadow-md"
+                    strokeWidth="3"
+                    className="shadow-2xl"
                   />
                   <text
-                    x={Math.max(16, Math.min(svgWidth - 236, getBottomX(activeSurahDetails.mushafOrder) - 110)) + 110}
-                    y={bottomY + 54}
+                    x={Math.max(20, Math.min(svgWidth - 440, getBottomX(activeSurahDetails.mushafOrder) - 210)) + 210}
+                    y={bottomY + 73}
                     textAnchor="middle"
-                    fontSize="11"
-                    fontWeight="800"
+                    fontSize="17"
+                    fontWeight="900"
                     fill="var(--text-primary)"
                     className="font-sans select-none"
                   >
@@ -1636,15 +1815,16 @@ export const ArcOfReconnectionView: React.FC = () => {
                   ? getPeriodColor(evt.revelationPeriod) 
                   : (isSelected ? '#0284C7' : 'var(--text-muted)');
                 const radius = isSelected 
-                  ? (isLargeBeads ? 11 : 7.5) 
-                  : (isLargeBeads ? 6.5 : 4);
-                const opacity = isSelected ? 1 : (isColorCoded ? 0.92 : (isLargeBeads ? 0.8 : 0.45));
+                  ? (beadSize === 'jumbo' ? 14 : beadSize === 'large' ? 11 : 8)
+                  : (beadSize === 'jumbo' ? 8.5 : beadSize === 'large' ? 6.5 : 4.5);
+                const auraRadius = beadSize === 'jumbo' ? 22 : beadSize === 'large' ? 17 : 13;
+                const opacity = isSelected ? 1 : (isColorCoded ? 0.95 : (isLargeBeads ? 0.85 : 0.5));
 
                 return (
                   <g key={`bot-tick-${evt.mushafOrder}`} className="group select-none">
                     {/* Glowing Aura Ring */}
                     {isSelected && (
-                      <circle cx={cx} cy={bottomY} r={isLargeBeads ? 18 : 13} fill={dotColor} opacity="0.25" />
+                      <circle cx={cx} cy={bottomY} r={auraRadius} fill={dotColor} opacity="0.25" />
                     )}
 
                     {/* Visible Chapter Bead */}
@@ -1655,37 +1835,50 @@ export const ArcOfReconnectionView: React.FC = () => {
                       fill={dotColor}
                       opacity={opacity}
                       stroke={isSelected ? '#FFFFFF' : (isLargeBeads ? '#FFFFFF' : 'transparent')}
-                      strokeWidth={isSelected ? '2' : (isLargeBeads ? '1.2' : '0')}
+                      strokeWidth={isSelected ? '2.5' : (isLargeBeads ? '1.2' : '0')}
                       className="cursor-pointer transition-all duration-200"
                     />
 
-                    {/* Chapter Number Badge (if isShowNumbers or on selected) */}
-                    {(isShowNumbers || isSelected) && (
-                      <g className="pointer-events-none">
-                        <rect
-                          x={cx - (evt.mushafOrder > 99 ? 12 : 9)}
-                          y={bottomY + (isLargeBeads ? 16 : 12)}
-                          width={evt.mushafOrder > 99 ? 24 : 18}
-                          height="14"
-                          rx="4"
-                          fill={isSelected ? '#0284C7' : 'var(--bg-surface-elevated)'}
-                          stroke={dotColor}
-                          strokeWidth="1"
-                          className="shadow-xs"
-                        />
-                        <text
-                          x={cx}
-                          y={bottomY + (isLargeBeads ? 26 : 22)}
-                          textAnchor="middle"
-                          fontSize="8.5"
-                          fontWeight="bold"
-                          fill={isSelected ? '#FFFFFF' : 'var(--text-primary)'}
-                          className="font-sans"
-                        >
-                          {evt.mushafOrder}
-                        </text>
-                      </g>
-                    )}
+                    {/* Chapter Number Badge (if isShowNumbers or on selected) - Zero-Collision Dual-Tier Staggered System */}
+                    {(isShowNumbers || isSelected) && (() => {
+                      const isOdd = evt.mushafOrder % 2 !== 0;
+                      const badgeY = isSelected
+                        ? bottomY + (beadSize === 'jumbo' ? 32 : beadSize === 'large' ? 26 : 22)
+                        : (isOdd 
+                            ? bottomY + (beadSize === 'jumbo' ? 20 : beadSize === 'large' ? 16 : 13) 
+                            : bottomY + (beadSize === 'jumbo' ? 42 : beadSize === 'large' ? 36 : 30));
+                      const badgeH = isSelected ? 20 : 15;
+                      const badgeW = isSelected ? (evt.mushafOrder > 99 ? 34 : 28) : (evt.mushafOrder > 99 ? 24 : 19);
+                      const badgeR = isSelected ? 10 : 4;
+                      const textY = badgeY + (isSelected ? 14.5 : 11);
+
+                      return (
+                        <g className="pointer-events-none select-none">
+                          <rect
+                            x={cx - badgeW / 2}
+                            y={badgeY}
+                            width={badgeW}
+                            height={badgeH}
+                            rx={badgeR}
+                            fill={isSelected ? '#0284C7' : (isOdd ? 'var(--bg-surface-elevated)' : 'var(--bg-surface)')}
+                            stroke={isSelected ? '#FFFFFF' : dotColor}
+                            strokeWidth={isSelected ? '2' : '1'}
+                            className="shadow-sm"
+                          />
+                          <text
+                            x={cx}
+                            y={textY}
+                            textAnchor="middle"
+                            fontSize={isSelected ? '11' : '9'}
+                            fontWeight={isSelected ? '900' : '700'}
+                            fill={isSelected ? '#FFFFFF' : 'var(--text-primary)'}
+                            className="font-sans"
+                          >
+                            {evt.mushafOrder}
+                          </text>
+                        </g>
+                      );
+                    })()}
 
                     {/* Invisible Touch Magnet Target (44px Diameter Hitbox) */}
                     <circle
@@ -1694,10 +1887,10 @@ export const ArcOfReconnectionView: React.FC = () => {
                       r="22"
                       fill="transparent"
                       className="cursor-pointer touch-manipulation"
-                      onMouseEnter={() => setHoveredSurahNum(evt.mushafOrder)}
+                      onMouseEnter={() => handleSurahHover(evt.mushafOrder)}
                       onClick={(e) => {
                         e.stopPropagation();
-                        setSelectedSurahNum(evt.mushafOrder);
+                        handleSurahSelect(evt.mushafOrder);
                       }}
                     />
                   </g>
@@ -1882,48 +2075,66 @@ export const ArcOfReconnectionView: React.FC = () => {
             borderColor: activeTimelineArcs[0]?.color || '#059669',
           }}
         >
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-amber-600 text-white">
+              <div className="flex flex-wrap items-center gap-2 mb-2">
+                <span className="px-3 py-1 rounded-lg text-xs sm:text-sm font-bold bg-amber-600 text-white shadow-xs">
                   ترتیبِ نزول #{activeSurahDetails.chronologicalOrder}
                 </span>
-                <span className="text-amber-500 font-bold">⇄</span>
-                <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-sky-600 text-white">
+                <span className="text-amber-500 font-bold text-base">⇄</span>
+                <span className="px-3 py-1 rounded-lg text-xs sm:text-sm font-bold bg-sky-600 text-white shadow-xs">
                   ترتیبِ مصحف #{activeSurahDetails.mushafOrder}
                 </span>
-                <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-purple-500/10 text-purple-800 dark:text-purple-200 border border-purple-500/30">
+                <span className="px-3 py-1 rounded-lg text-xs sm:text-sm font-bold bg-purple-500/10 text-purple-800 dark:text-purple-200 border border-purple-500/30">
                   فاصلاتی چھلانگ: Δ {Math.abs(activeSurahDetails.chronologicalOrder - activeSurahDetails.mushafOrder)} مقامات
                 </span>
-                <span className="px-2.5 py-0.5 rounded-md text-xs font-bold bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 border border-emerald-500/30 flex items-center gap-1 shadow-sm">
+                <span className="px-3 py-1 rounded-lg text-xs sm:text-sm font-bold bg-emerald-500/10 text-emerald-950 dark:text-emerald-100 border border-emerald-500/30 flex items-center gap-1 shadow-sm">
                   <span>📅 سالِ نزول:</span>
                   <span>{activeTimelineArcs[0]?.yearLabel || `${activeSurahDetails.approximateYearCE} CE`}</span>
                 </span>
               </div>
 
-              <h4 className="text-xl sm:text-2xl font-bold font-serif text-[var(--text-primary)] flex items-center gap-2">
-                <span>{activeSurahDetails.surahNameEnglish}</span>
-                <span className="text-sm font-normal text-[var(--text-muted)]">
+              <div className="flex items-center gap-3">
+                <h4 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold font-serif text-[var(--text-primary)] tracking-tight">
+                  {activeSurahDetails.surahNameEnglish}
+                </h4>
+                <span className="text-base sm:text-lg font-medium text-[var(--text-muted)]">
                   ({activeSurahDetails.totalVersesInSurah} Ayahs)
                 </span>
-              </h4>
+              </div>
             </div>
 
-            <div className="text-left sm:text-right">
-              <span className="text-3xl font-bold font-arabic text-emerald-800 dark:text-emerald-300">
-                {activeSurahDetails.surahNameArabic}
-              </span>
-              <p className="text-xs text-[var(--text-secondary)] font-urdu font-medium">
-                {activeSurahDetails.surahNameUrdu}
-              </p>
+            <div className="flex flex-row sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3">
+              <div className="text-left sm:text-right">
+                <span className="text-5xl sm:text-6xl font-extrabold font-arabic text-emerald-800 dark:text-emerald-300 block drop-shadow-xs">
+                  {activeSurahDetails.surahNameArabic}
+                </span>
+                <p className="text-lg sm:text-xl text-[var(--text-secondary)] font-urdu font-bold mt-1">
+                  {activeSurahDetails.surahNameUrdu}
+                </p>
+              </div>
+
+              {/* Chapter Lock/Unlock Toggle in Card Header */}
+              <button
+                onClick={toggleLockChapter}
+                className={`min-h-[46px] px-4 py-2 rounded-2xl border text-xs sm:text-sm font-bold flex items-center gap-2 transition-all cursor-pointer shadow-sm active:scale-95 ${
+                  isLockedChapter
+                    ? 'bg-amber-500/20 border-amber-500 text-amber-950 dark:text-amber-100 ring-2 ring-amber-400/50'
+                    : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:border-amber-500'
+                }`}
+                title={isLockedChapter ? 'سورت مقفل ہے (Chapter Locked). کلک کر کے ان لاک کریں' : 'سورت مقفل کریں (Lock Chapter)'}
+              >
+                {isLockedChapter ? <Lock className="w-4 h-4 text-amber-600 shrink-0" /> : <Unlock className="w-4 h-4 text-gray-400 shrink-0" />}
+                <span>{isLockedChapter ? '🔒 سورت مقفل ہے (Locked)' : '🔓 سورت لاک کریں (Lock)'}</span>
+              </button>
             </div>
           </div>
 
           {/* If Multi-Part Converging Arcs */}
           {activeTimelineArcs.length > 1 ? (
-            <div className="p-3.5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] space-y-2">
-              <div className="text-xs font-bold text-[var(--text-primary)] flex items-center gap-1.5">
-                <Layers className="w-3.5 h-3.5 text-amber-500" />
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] space-y-2.5">
+              <div className="text-xs sm:text-sm font-bold text-[var(--text-primary)] flex items-center gap-1.5 font-urdu">
+                <Layers className="w-4 h-4 text-amber-500" />
                 <span>
                   کثیر حصوں والی تدریجی سورت (Multi-Part Convergence): {activeTimelineArcs.length} مختلف ادوار کی لکیریں سورۃ #{activeSurahDetails.mushafOrder} میں یکجا ہوتی ہیں:
                 </span>
@@ -1933,31 +2144,31 @@ export const ArcOfReconnectionView: React.FC = () => {
                 {activeTimelineArcs.map((arc) => (
                   <div
                     key={arc.id}
-                    className="p-2.5 rounded-xl border text-xs space-y-1"
+                    className="p-3 rounded-xl border text-xs space-y-1.5"
                     style={{
                       borderColor: `${arc.color}40`,
                       backgroundColor: `${arc.color}10`,
                     }}
                   >
-                    <div className="font-bold text-[var(--text-primary)]">
+                    <div className="font-bold text-[var(--text-primary)] text-sm">
                       Part {arc.segmentIndex} ({arc.verseRange})
                     </div>
-                    <div className="text-[11px] text-[var(--text-primary)] font-semibold">
+                    <div className="text-xs text-[var(--text-primary)] font-bold">
                       📅 {arc.yearLabel}
                     </div>
-                    <div className="text-[10px] text-[var(--text-muted)] flex items-center justify-between">
+                    <div className="text-[11px] text-[var(--text-muted)] flex items-center justify-between">
                       <span>ترتیبِ نزول: #{arc.nuzulRank}</span>
-                      <span className="font-semibold text-emerald-700 dark:text-emerald-400">({arc.period})</span>
+                      <span className="font-bold text-emerald-700 dark:text-emerald-400">({arc.period})</span>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
           ) : (
-            <div className="p-3.5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-xs text-[var(--text-secondary)]">
+            <div className="p-3.5 sm:p-4 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-xs sm:text-sm text-[var(--text-secondary)]">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                <span className="font-semibold text-[var(--text-primary)]">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+                <span className="font-bold text-[var(--text-primary)]">
                   نزولِ کلی (Complete Surah):
                 </span>
                 <span>
@@ -1968,17 +2179,17 @@ export const ArcOfReconnectionView: React.FC = () => {
           )}
 
           {/* Context & Navigation Button */}
-          <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
-            <p className="font-urdu text-[var(--text-secondary)] text-right leading-relaxed max-w-2xl">
+          <div className="pt-3 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs sm:text-sm">
+            <p className="font-urdu text-[var(--text-secondary)] text-right leading-loose max-w-2xl text-xs sm:text-sm">
               {activeSurahDetails.asbabUnNuzul.summaryUrdu}
             </p>
 
             <button
               onClick={() => navigateToReader(activeSurahDetails.chronologicalOrder)}
-              className="px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold transition-all flex items-center gap-1.5 shrink-0 self-start sm:self-auto shadow-md"
+              className="min-h-[50px] px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-700 to-teal-700 hover:from-emerald-800 hover:to-teal-800 text-white font-bold text-sm sm:text-base transition-all flex items-center justify-center gap-2 shrink-0 self-stretch sm:self-auto shadow-lg hover:scale-[1.02] active:scale-95 cursor-pointer"
             >
-              <span>سورت کا مطالعہ کریں (Read Surah)</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <span>سورت کا مطالعہ کریں (Read Full Surah)</span>
+              <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
