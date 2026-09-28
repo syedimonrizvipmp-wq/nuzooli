@@ -25,6 +25,11 @@ The chronological sequencing and situational commentaries implemented in this pr
 - *Majma' al-Bayan fi Tafsir al-Qur'an* (مجمع البيان) — Allamah Shaykh Tabarsi
 - Canonical Hadith records from the Ahl al-Bayt (ع) and early companions.
 
+### Academic Disclaimer, Experimental Status & AI-Assisted Research Notice
+- **Experimental Scholarly Status**: This platform is an evolving exploratory and pedagogical research project designed to visualize the chronological revelations and thematic progressions of the Holy Quran.
+- **AI-Assisted Synthesis**: Advanced computational models and Artificial Intelligence (AI) are utilized alongside classical texts for data indexing, cross-referencing, multi-perspective thematic mapping, and linguistic categorization.
+- **Disclaimer of Liability (عدمِ ذمہ داری)**: All analytical frameworks and correlations are provided strictly for educational and academic research. The compiler(s), developer(s), and research contributors assume no doctrinal, legal, or religious liability for unintended computational anomalies or experimental hypotheses. Users must independently cross-reference with accredited traditional scholars and primary classical exegeses.
+
 ---
 
 ## 2. Technical Stack & Repository Structure

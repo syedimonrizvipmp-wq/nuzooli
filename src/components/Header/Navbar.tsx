@@ -19,18 +19,21 @@ import {
   Menu,
   X,
   Layers,
+  ShieldAlert,
 } from 'lucide-react';
 
 interface NavbarProps {
   onOpenTypography: () => void;
   onOpenBookmarks: () => void;
   onOpenDataModal: () => void;
+  onOpenDisclaimer: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenTypography,
   onOpenBookmarks,
   onOpenDataModal,
+  onOpenDisclaimer,
 }) => {
   const {
     perspectiveMode,
@@ -403,6 +406,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Database className="w-4 h-4" />
               </button>
 
+              {/* Academic & AI Disclaimer Modal Trigger */}
+              <button
+                onClick={onOpenDisclaimer}
+                title="Academic & AI Research Notice / علمی و تحقیقی وضاحت"
+                className="p-2.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-700 dark:text-amber-400 hover:bg-amber-500/20 hover:text-amber-800 dark:hover:text-amber-300 transition-all shadow-2xs cursor-pointer flex items-center gap-1.5"
+              >
+                <ShieldAlert className="w-4 h-4" />
+                <span className="hidden xl:inline text-xs font-semibold">وضاحت</span>
+              </button>
+
             </div>
 
             {/* Mobile / Tablet Quick Action Bar (< lg) */}
@@ -512,6 +525,23 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Database className="w-4 h-4 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span>ڈیٹا و بیک اپ (Data)</span>
+            </button>
+
+            {/* Disclaimer & AI Notice */}
+            <button
+              onClick={() => {
+                onOpenDisclaimer();
+                setIsMobileMenuOpen(false);
+              }}
+              className="col-span-2 flex items-center justify-between p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-300 font-medium text-left cursor-pointer"
+            >
+              <div className="flex items-center gap-2">
+                <ShieldAlert className="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" />
+                <span>علمی و تحقیقی وضاحت (AI Disclaimer)</span>
+              </div>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-500/20 uppercase">
+                Experimental
+              </span>
             </button>
           </div>
 

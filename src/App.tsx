@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useQuran } from '@/context/QuranContext';
 import { Navbar } from '@/components/Header/Navbar';
+import { DisclaimerBanner } from '@/components/Header/DisclaimerBanner';
 import { TimeRibbon } from '@/components/Timeline/TimeRibbon';
 import { EventCard } from '@/components/Reader/EventCard';
 import { MushafView } from '@/components/Reader/MushafView';
@@ -9,7 +10,9 @@ import { ChronologicalPassageReader } from '@/components/Reader/ChronologicalPas
 import { TypographyModal } from '@/components/Modals/TypographyModal';
 import { BookmarksModal } from '@/components/Modals/BookmarksModal';
 import { DataImportExportModal } from '@/components/Modals/DataImportExportModal';
+import { DisclaimerModal } from '@/components/Modals/DisclaimerModal';
 import { AudioPlayerBar } from '@/components/Reader/AudioPlayerBar';
+import { ShieldAlert } from 'lucide-react';
 
 export const AppContent: React.FC = () => {
   const { perspectiveMode, activeEvent } = useQuran();
@@ -17,15 +20,20 @@ export const AppContent: React.FC = () => {
   const [isTypographyOpen, setIsTypographyOpen] = useState(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isDataModalOpen, setIsDataModalOpen] = useState(false);
+  const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors">
       
+      {/* Top Academic & AI Research Notice Banner */}
+      <DisclaimerBanner onOpenDisclaimerModal={() => setIsDisclaimerOpen(true)} />
+
       {/* Top Navigation */}
       <Navbar
         onOpenTypography={() => setIsTypographyOpen(true)}
         onOpenBookmarks={() => setIsBookmarksOpen(true)}
         onOpenDataModal={() => setIsDataModalOpen(true)}
+        onOpenDisclaimer={() => setIsDisclaimerOpen(true)}
       />
 
       {/* Interactive 23-Year Time-Ribbon Discovery Engine (Surah Chronology) */}
@@ -55,6 +63,10 @@ export const AppContent: React.FC = () => {
         isOpen={isDataModalOpen}
         onClose={() => setIsDataModalOpen(false)}
       />
+      <DisclaimerModal
+        isOpen={isDisclaimerOpen}
+        onClose={() => setIsDisclaimerOpen(false)}
+      />
 
       {/* Sacred Footer */}
       <footer className="w-full mt-auto py-8 border-t border-[var(--border-subtle)] bg-[var(--bg-surface)] text-xs text-[var(--text-muted)] transition-colors">
@@ -82,6 +94,39 @@ export const AppContent: React.FC = () => {
             </span>
           </div>
         </div>
+
+        {/* Academic & AI Disclaimer Footer Notice */}
+        <div className="max-w-[1780px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 mt-6 pt-6 border-t border-[var(--border-subtle)]">
+          <div className="p-4 sm:p-5 rounded-2xl bg-amber-500/5 border border-amber-500/25 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-start gap-3 text-left">
+              <div className="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-700 dark:text-amber-400 flex items-center justify-center shrink-0 border border-amber-500/30">
+                <ShieldAlert className="w-4 h-4" />
+              </div>
+              <div className="space-y-1">
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="font-bold text-amber-800 dark:text-amber-300 text-xs">
+                    Academic Disclaimer & AI Integration Notice / علمی و تحقیقی دستبرداری
+                  </span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
+                    Experimental (تجرباتی)
+                  </span>
+                </div>
+                <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed max-w-3xl">
+                  This platform is an experimental educational initiative utilizing AI-assisted modeling for chronological research. The creator assumes no religious or legal liability. Please cross-reference all historical contexts with certified classical exegeses and religious scholars.
+                </p>
+                <p className="text-[11px] font-urdu text-[var(--text-secondary)] text-right leading-relaxed" dir="rtl">
+                  یہ ایک خالصتاً تعلیمی و تجرباتی منصوبہ ہے جس میں AI معاونت شامل ہے۔ مصنف یا ڈویلپرز پر کوئی شرعی یا قانونی ذمہ داری عائد نہیں ہوتی؛ حتمی تصدیق کے لیے مستند تفاسیر و علمائے کرام سے رجوع کریں۔
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={() => setIsDisclaimerOpen(true)}
+              className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-bold text-xs shadow-xs transition-colors shrink-0 cursor-pointer flex items-center gap-1.5"
+            >
+              <span>مکمل دستبرداری پڑھیں (Full Disclaimer)</span>
+            </button>
+          </div>
+        </div>
       </footer>
 
     </div>
@@ -91,3 +136,4 @@ export const AppContent: React.FC = () => {
 export default function App() {
   return <AppContent />;
 }
+
