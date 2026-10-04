@@ -976,14 +976,35 @@ export const ChronologicalPassageReader: React.FC = () => {
                     (!showTafsir && expandedTafsirAyahs[v.ayahNumber])) &&
                     getAyahTafsir(v.surahNumber, v.ayahNumber) && (
                       <div className="mt-3 p-3.5 sm:p-4 rounded-2xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/30 border-s-4 border-s-amber-600 space-y-2 text-right">
-                        <div className="flex items-center justify-between text-xs font-urdu font-bold text-amber-900 dark:text-amber-300 pb-1.5 border-b border-amber-500/20">
-                          <span className="flex items-center gap-1">
+                        <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-urdu font-bold text-amber-900 dark:text-amber-300 pb-1.5 border-b border-amber-500/20">
+                          <span className="flex items-center gap-1.5">
                             <Sparkles className="w-3.5 h-3.5 text-amber-600" />
                             شرح و تفسیرِ آیت ({v.surahNumber}:{v.ayahNumber})
                           </span>
-                          <span className="text-[11px] font-normal opacity-85">
-                            {getAyahTafsir(v.surahNumber, v.ayahNumber)?.scholarlySources}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            {/* Quick Tafsir font-size steppers */}
+                            <div className="flex items-center gap-1 bg-[var(--bg-surface)] px-2 py-0.5 rounded-lg border border-[var(--border-subtle)] text-[10px]">
+                              <span className="text-[var(--text-muted)] font-urdu hidden xs:inline">خط:</span>
+                              <button
+                                onClick={() => updateTypography({ tafsirFontSize: Math.max(14, (typography.tafsirFontSize || 18) - 1) })}
+                                className="px-1.5 py-0.5 hover:bg-amber-500/20 rounded font-bold transition-all cursor-pointer"
+                                title="تفسیر کا خط چھوٹا کریں (A-)"
+                              >
+                                A-
+                              </button>
+                              <span className="font-mono text-amber-700 dark:text-amber-400 font-bold">{typography.tafsirFontSize || 18}px</span>
+                              <button
+                                onClick={() => updateTypography({ tafsirFontSize: Math.min(32, (typography.tafsirFontSize || 18) + 1) })}
+                                className="px-1.5 py-0.5 hover:bg-amber-500/20 rounded font-bold transition-all cursor-pointer"
+                                title="تفسیر کا خط بڑا کریں (A+)"
+                              >
+                                A+
+                              </button>
+                            </div>
+                            <span className="text-[11px] font-normal opacity-85 px-2 py-0.5 rounded-md bg-amber-500/10">
+                              {getAyahTafsir(v.surahNumber, v.ayahNumber)?.scholarlySources}
+                            </span>
+                          </div>
                         </div>
                         <p
                           className="font-urdu leading-relaxed text-[var(--text-primary)]"
