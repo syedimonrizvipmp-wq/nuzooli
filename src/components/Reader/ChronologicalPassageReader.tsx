@@ -11,6 +11,9 @@ import {
 import { loadSurahVerses } from '@/utils/quranVerseLoader';
 import { Verse } from '@/types/quran';
 import { URDU_TRANSLATORS, ENGLISH_TRANSLATORS } from '@/data/translations';
+import { getAyahTafsir, hasAyahTafsir } from '@/data/ayahTafsirData';
+import { getAyahWords, hasCuratedAyahVocabulary, QuranWordData } from '@/data/quranVocabularyData';
+import { WordInspectorPopover } from '@/components/Reader/WordInspectorPopover';
 import {
   Sparkles,
   ChevronRight,
@@ -34,6 +37,7 @@ import {
   Eye,
   EyeOff,
   BookMarked,
+  GraduationCap,
 } from 'lucide-react';
 
 export const ChronologicalPassageReader: React.FC = () => {
@@ -60,10 +64,27 @@ export const ChronologicalPassageReader: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isContextExpanded, setIsContextExpanded] = useState<boolean>(true);
   const [isFocusMode, setIsFocusMode] = useState<boolean>(false);
+  const [showTafsir, setShowTafsir] = useState<boolean>(true);
+  const [expandedTafsirAyahs, setExpandedTafsirAyahs] = useState<Record<number, boolean>>({});
+
+  // Word-by-word Vocabulary & Farhang state
+  const [showVocabulary, setShowVocabulary] = useState<boolean>(true);
+  const [vocabularyTrigger, setVocabularyTrigger] = useState<'click' | 'hover'>('click');
+  const [selectedWord, setSelectedWord] = useState<{
+    word: QuranWordData;
+    ayahNumber: number;
+    surahNumber: number;
+  } | null>(null);
+  const [showAyahFarhangTable, setShowAyahFarhangTable] = useState<Record<number, boolean>>({});
 
   // Historical breakdown state for multi-stage Surahs (like An-Nisa, Al-Baqarah, etc.)
   const [selectedCustomBlock, setSelectedCustomBlock] = useState<SurahHistoricalBlock | null>(null);
   const [showAllSurahBlocks, setShowAllSurahBlocks] = useState<boolean>(false);
+
+  // Available verses with exegesis count in active passage
+  const passageTafsirCount = useMemo(() => {
+    return verses.filter((v) => hasAyahTafsir(v.surahNumber, v.ayahNumber)).length;
+  }, [verses]);
 
   // Active stream determination: 36 Milestones or Full 114 Surahs (6,236 Ayahs)
   const currentStream = useMemo(() => {
@@ -209,7 +230,7 @@ export const ChronologicalPassageReader: React.FC = () => {
           <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3.5 border-b border-[var(--border-subtle)]">
             
             {/* Left: Stream Mode Toggle & Continuous Recitation */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-2">
               <div className="flex items-center gap-1 p-1 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] shadow-xs">
                 <button
                   onClick={() => setPassageStreamMode('curated_milestones')}
@@ -241,7 +262,7 @@ export const ChronologicalPassageReader: React.FC = () => {
               {/* Continuous Recitation Button */}
               <button
                 onClick={toggleContinuousPlay}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-3 py-2 rounded-2xl text-xs font-bold border transition-all cursor-pointer ${
                   isContinuousPlay
                     ? 'bg-emerald-700/15 border-emerald-500 text-emerald-800 dark:text-emerald-300 shadow-xs'
                     : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-muted)] hover:text-[var(--text-primary)]'
@@ -254,14 +275,14 @@ export const ChronologicalPassageReader: React.FC = () => {
             </div>
 
             {/* Right: Quick Stepper & Step Selector */}
-            <div className="flex items-center gap-2 self-start md:self-auto">
+            <div className="w-full md:w-auto flex items-center justify-center gap-2">
               <button
                 onClick={goToPrev}
                 disabled={activePassageStep <= 1}
-                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
+                className={`flex items-center justify-center gap-1 min-h-[44px] px-3.5 sm:px-4 rounded-2xl text-xs font-bold border transition-all shrink-0 ${
                   activePassageStep <= 1
                     ? 'opacity-40 cursor-not-allowed bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-subtle)]'
-                    : 'bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white text-[var(--text-primary)] border-[var(--border-subtle)] shadow-xs cursor-pointer'
+                    : 'bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white text-[var(--text-primary)] border-[var(--border-subtle)] shadow-xs cursor-pointer active:scale-95'
                 }`}
               >
                 <ChevronRight className="w-4 h-4" />
@@ -274,7 +295,7 @@ export const ChronologicalPassageReader: React.FC = () => {
                   setActivePassageStep(Number(e.target.value));
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
-                className="px-3 py-1.5 rounded-xl text-xs bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-primary)] font-semibold focus:ring-2 focus:ring-emerald-500 cursor-pointer max-w-[200px] sm:max-w-[320px] truncate font-urdu"
+                className="flex-1 md:flex-initial min-h-[44px] min-w-0 sm:min-w-[280px] max-w-full md:max-w-[340px] px-3 py-2 rounded-2xl text-xs sm:text-sm bg-[var(--bg-surface-elevated)] border-2 border-[var(--border-subtle)] text-[var(--text-primary)] font-bold focus:border-emerald-600 focus:ring-2 focus:ring-emerald-500 cursor-pointer truncate font-urdu text-center shadow-xs"
               >
                 {currentStream.map((p) => (
                   <option key={`p-opt-${p.stepNumber}`} value={p.stepNumber}>
@@ -286,10 +307,10 @@ export const ChronologicalPassageReader: React.FC = () => {
               <button
                 onClick={goToNext}
                 disabled={activePassageStep >= totalPassages}
-                className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-bold border transition-all ${
+                className={`flex items-center justify-center gap-1 min-h-[44px] px-3.5 sm:px-4 rounded-2xl text-xs font-bold border transition-all shrink-0 ${
                   activePassageStep >= totalPassages
                     ? 'opacity-40 cursor-not-allowed bg-[var(--bg-surface)] text-[var(--text-muted)] border-[var(--border-subtle)]'
-                    : 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700 shadow-xs cursor-pointer'
+                    : 'bg-emerald-700 hover:bg-emerald-800 text-white border-emerald-700 shadow-xs cursor-pointer active:scale-95'
                 }`}
               >
                 <span className="font-urdu">اگلا</span>
@@ -299,99 +320,132 @@ export const ChronologicalPassageReader: React.FC = () => {
           </div>
 
           {/* Centerpiece: The Divine Revelation Display */}
-          <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between gap-4 pt-1">
-            <div className="w-full">
-              <div className="flex flex-wrap items-center gap-2 mb-2 text-xs">
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-600/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/25 font-bold font-sans">
-                  مرحلہ {activePassageStep} از {totalPassages}
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-200 border border-amber-500/25 font-semibold flex items-center gap-1.5 font-urdu">
-                  <Calendar className="w-3.5 h-3.5 text-amber-600" />
-                  <span>سنِ نزول: {activePassage.yearNabawiOrHijri}</span>
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-800 dark:text-sky-200 border border-sky-500/25 font-semibold flex items-center gap-1.5 font-urdu">
-                  <MapPin className="w-3.5 h-3.5 text-sky-600" />
-                  <span>{activePassage.location}</span>
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-800 dark:text-purple-200 border border-purple-500/25 font-semibold flex items-center gap-1.5 font-urdu">
-                  <Clock className="w-3.5 h-3.5 text-purple-600" />
-                  <span>مصحف سورۃ #{activePassage.surahNumber}</span>
-                </span>
-                {activePassage.isSegmented && (
-                  <span className="px-2.5 py-0.5 rounded-full bg-rose-500/10 text-rose-800 dark:text-rose-200 border border-rose-500/25 font-bold font-urdu">
-                    تدریجی حصہ: {activePassage.segmentIndex} از {activePassage.totalSegments}
-                  </span>
-                )}
-              </div>
-
-              <div className="flex flex-wrap items-baseline gap-3">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-[var(--text-primary)]">
-                  {activePassage.surahNameEnglish}
-                </h2>
-                <span className="font-arabic text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-800 dark:text-emerald-300">
-                  {activePassage.surahNameArabic}
-                </span>
-                <span className="text-base sm:text-lg font-normal text-[var(--text-muted)] font-urdu">
-                  ({activePassage.surahNameUrdu})
-                </span>
-                <span className="text-xs sm:text-sm font-bold text-emerald-800 dark:text-emerald-300 font-urdu px-3 py-1 rounded-xl bg-emerald-500/15 border border-emerald-500/30">
-                  آیات {currentVerseRange.fromVerse} تا {currentVerseRange.toVerse}
-                </span>
-                {selectedCustomBlock && (
-                  <span className="text-xs font-bold text-amber-800 dark:text-amber-300 font-urdu px-2.5 py-1 rounded-xl bg-amber-500/20 border border-amber-500/30">
-                    فعال بلاک: {selectedCustomBlock.blockIndex} از {selectedCustomBlock.totalBlocks}
-                  </span>
-                )}
-              </div>
-
-              {/* Segmented Passage Notice & Direct Sister Jump */}
+          <div className="relative z-10 flex flex-col items-center justify-center text-center pt-3 pb-1 w-full max-w-4xl mx-auto">
+            {/* 1. Harmonious Metadata Pill Ribbon - Centered & Symmetrical */}
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 mb-3.5 text-xs w-full">
+              <span className="px-3 py-1 sm:py-1.5 rounded-full bg-emerald-600/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/25 font-bold font-sans shadow-2xs inline-flex items-center gap-1.5">
+                مرحلہ {activePassageStep} از {totalPassages}
+              </span>
+              <span className="px-3 py-1 sm:py-1.5 rounded-full bg-amber-500/10 text-amber-800 dark:text-amber-200 border border-amber-500/25 font-semibold inline-flex items-center gap-1.5 font-urdu shadow-2xs">
+                <Calendar className="w-3.5 h-3.5 text-amber-600" />
+                <span>سنِ نزول: {activePassage.yearNabawiOrHijri}</span>
+              </span>
+              <span className="px-3 py-1 sm:py-1.5 rounded-full bg-sky-500/10 text-sky-800 dark:text-sky-200 border border-sky-500/25 font-semibold inline-flex items-center gap-1.5 font-urdu shadow-2xs">
+                <MapPin className="w-3.5 h-3.5 text-sky-600" />
+                <span>{activePassage.location}</span>
+              </span>
+              <span className="px-3 py-1 sm:py-1.5 rounded-full bg-purple-500/10 text-purple-800 dark:text-purple-200 border border-purple-500/25 font-semibold inline-flex items-center gap-1.5 font-urdu shadow-2xs">
+                <Clock className="w-3.5 h-3.5 text-purple-600" />
+                <span>مصحف سورۃ #{activePassage.surahNumber}</span>
+              </span>
               {activePassage.isSegmented && (
-                <div className="mt-3 p-3 sm:p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/25 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-amber-600 shrink-0" />
-                    <span className="font-urdu text-amber-950 dark:text-amber-200 leading-relaxed">
-                      <strong>تدریجی نزول:</strong> اس تاریخی واقعے میں صرف <strong>آیات {activePassage.verseRange.fromVerse} تا {activePassage.verseRange.toVerse}</strong> نازل ہوئیں۔
-                      {activePassage.timeGapNote && (
-                        <span className="ms-1.5 font-bold text-amber-800 dark:text-amber-300">
-                          ({activePassage.timeGapNote})
-                        </span>
-                      )}
-                    </span>
-                  </div>
-
-                  {sisterPassages.length > 0 && (
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      {sisterPassages.map((sis) => (
-                        <button
-                          key={sis.id}
-                          onClick={() => {
-                            setActivePassageStep(sis.stepNumber);
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                          }}
-                          className="px-3 py-1.5 rounded-xl bg-amber-600/20 hover:bg-amber-600 hover:text-white border border-amber-500/30 text-amber-900 dark:text-amber-100 font-urdu font-bold transition-all cursor-pointer flex items-center gap-1 text-[11px] shadow-2xs"
-                        >
-                          <span>
-                            {sis.segmentIndex > activePassage.segmentIndex ? 'اگلا حصہ' : 'پچھلا حصہ'} (مرحلہ #{sis.stepNumber} — آیات {sis.verseRange.fromVerse} تا {sis.verseRange.toVerse})
-                          </span>
-                          <ChevronLeft className="w-3.5 h-3.5" />
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <span className="px-3 py-1 sm:py-1.5 rounded-full bg-rose-500/10 text-rose-800 dark:text-rose-200 border border-rose-500/25 font-bold font-urdu shadow-2xs inline-flex items-center gap-1.5">
+                  <Layers className="w-3.5 h-3.5 text-rose-600" />
+                  <span>تدریجی حصہ: {activePassage.segmentIndex} از {activePassage.totalSegments}</span>
+                </span>
               )}
             </div>
 
-            {/* Direct Context Toggle in Header */}
-            <button
-              onClick={() => setIsContextExpanded(!isContextExpanded)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white border border-[var(--border-subtle)] text-xs font-semibold text-[var(--text-secondary)] transition-all cursor-pointer shrink-0 shadow-xs self-start md:self-auto"
-              title="شانِ نزول و تفسیری پس منظر دکھائیں یا چھپائیں"
-            >
-              <BookMarked className="w-3.5 h-3.5 text-amber-500" />
-              <span>شانِ نزول</span>
-              {isContextExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-            </button>
+            {/* 2. Grand Revelation Centerpiece */}
+            <div className="space-y-2 w-full my-1">
+              {/* Grand Arabic Calligraphic Title */}
+              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold font-arabic text-emerald-800 dark:text-emerald-300 tracking-wide drop-shadow-xs leading-tight">
+                {activePassage.surahNameArabic}
+              </h2>
+
+              {/* Sub-titles: English & Urdu */}
+              <div className="flex items-center justify-center flex-wrap gap-2 text-base sm:text-xl font-medium text-[var(--text-secondary)]">
+                <span className="font-serif font-bold text-[var(--text-primary)]">
+                  {activePassage.surahNameEnglish}
+                </span>
+                <span className="text-[var(--text-muted)]">•</span>
+                <span className="font-urdu font-semibold">
+                  (سورۃ {activePassage.surahNameUrdu})
+                </span>
+              </div>
+
+              {/* Badges & Actions Row (Verse Range + Active Block + Shan-e-Nuzul Toggle) */}
+              <div className="flex flex-wrap items-center justify-center gap-2 pt-1">
+                <span className="text-xs sm:text-sm font-bold text-emerald-800 dark:text-emerald-300 font-urdu px-3.5 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 shadow-2xs">
+                  آیات {currentVerseRange.fromVerse} تا {currentVerseRange.toVerse}
+                </span>
+
+                {selectedCustomBlock && (
+                  <span className="text-xs sm:text-sm font-bold text-amber-800 dark:text-amber-300 font-urdu px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/30 shadow-2xs">
+                    فعال بلاک: {selectedCustomBlock.blockIndex} از {selectedCustomBlock.totalBlocks}
+                  </span>
+                )}
+
+                {/* Direct Context Toggle in Header */}
+                <button
+                  onClick={() => setIsContextExpanded(!isContextExpanded)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[var(--bg-surface-elevated)] hover:bg-emerald-700 hover:text-white border border-[var(--border-subtle)] text-xs font-bold text-[var(--text-secondary)] transition-all cursor-pointer shadow-xs"
+                  title="شانِ نزول و تفسیری پس منظر دکھائیں یا چھپائیں"
+                >
+                  <BookMarked className="w-3.5 h-3.5 text-amber-500" />
+                  <span className="font-urdu">شانِ نزول</span>
+                  {isContextExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
+                </button>
+
+                {/* Direct Tafsir Toggle in Header */}
+                <button
+                  onClick={() => setShowTafsir(!showTafsir)}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer shadow-xs ${
+                    showTafsir
+                      ? 'bg-amber-600 text-white border-amber-600 shadow-sm'
+                      : 'bg-[var(--bg-surface-elevated)] hover:bg-amber-600 hover:text-white border-[var(--border-subtle)] text-[var(--text-secondary)]'
+                  }`}
+                  title="آیت بہ آیت شرح و تفسیر دکھائیں یا چھپائیں"
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span className="font-urdu">آیت بہ آیت تفسیر</span>
+                  {passageTafsirCount > 0 && (
+                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full font-sans font-bold ${
+                      showTafsir ? 'bg-amber-800 text-amber-100' : 'bg-amber-500/20 text-amber-800 dark:text-amber-300'
+                    }`}>
+                      {passageTafsirCount}
+                    </span>
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* 3. Segmented Passage Notice & Direct Sister Jump */}
+            {activePassage.isSegmented && (
+              <div className="w-full mt-3.5 p-3 sm:p-4 rounded-2xl bg-amber-500/10 border border-amber-500/25 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-center sm:text-start">
+                <div className="flex items-center justify-center sm:justify-start gap-2">
+                  <Clock className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span className="font-urdu text-amber-950 dark:text-amber-200 leading-relaxed">
+                    <strong>تدریجی نزول:</strong> اس تاریخی واقعے میں صرف <strong>آیات {activePassage.verseRange.fromVerse} تا {activePassage.verseRange.toVerse}</strong> نازل ہوئیں۔
+                    {activePassage.timeGapNote && (
+                      <span className="ms-1.5 font-bold text-amber-800 dark:text-amber-300">
+                        ({activePassage.timeGapNote})
+                      </span>
+                    )}
+                  </span>
+                </div>
+
+                {sisterPassages.length > 0 && (
+                  <div className="flex items-center justify-center gap-1.5 shrink-0">
+                    {sisterPassages.map((sis) => (
+                      <button
+                        key={sis.id}
+                        onClick={() => {
+                          setActivePassageStep(sis.stepNumber);
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className="px-3 py-1.5 rounded-xl bg-amber-600/20 hover:bg-amber-600 hover:text-white border border-amber-500/30 text-amber-900 dark:text-amber-100 font-urdu font-bold transition-all cursor-pointer flex items-center gap-1 text-[11px] shadow-2xs"
+                      >
+                        <span>
+                          {sis.segmentIndex > activePassage.segmentIndex ? 'اگلا حصہ' : 'پچھلا حصہ'} (مرحلہ #{sis.stepNumber} — آیات {sis.verseRange.fromVerse} تا {sis.verseRange.toVerse})
+                        </span>
+                        <ChevronLeft className="w-3.5 h-3.5" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Integrated 23-Year Luminous Timeline Bar */}
@@ -685,6 +739,73 @@ export const ChronologicalPassageReader: React.FC = () => {
             </select>
           </div>
 
+          {/* Verse-by-verse Tafsir Toggle Checkbox */}
+          <label
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer select-none ${
+              showTafsir
+                ? 'bg-amber-500/15 text-amber-900 dark:text-amber-200 border-amber-500/40 shadow-xs ring-1 ring-amber-500/20'
+                : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-amber-500/30'
+            }`}
+            title="آیت بہ آیت مستند تفاسیر (المیزان، مجمع البیان، نمونہ، انوار القرآن) کا مطالعہ فرمائیں"
+          >
+            <input
+              type="checkbox"
+              checked={showTafsir}
+              onChange={(e) => setShowTafsir(e.target.checked)}
+              className="w-4 h-4 rounded text-amber-600 focus:ring-amber-500 accent-amber-600 cursor-pointer"
+            />
+            <BookOpen className={`w-3.5 h-3.5 ${showTafsir ? 'text-amber-600 dark:text-amber-400' : 'text-[var(--text-muted)]'}`} />
+            <span className="font-urdu">شرح و تفسیر</span>
+          </label>
+
+          {/* Word-by-word Farhang & Vocabulary Checkbox */}
+          <label
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-xl border text-xs font-bold transition-all cursor-pointer select-none ${
+              showVocabulary
+                ? 'bg-sky-500/15 text-sky-900 dark:text-sky-200 border-sky-500/40 shadow-xs ring-1 ring-sky-500/20'
+                : 'bg-[var(--bg-surface)] border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-sky-500/30'
+            }`}
+            title="لفظ بہ لفظ مفردات، لغت، مادہ (Root) اور اعراب و قواعد دیکھیں"
+          >
+            <input
+              type="checkbox"
+              checked={showVocabulary}
+              onChange={(e) => setShowVocabulary(e.target.checked)}
+              className="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 accent-sky-600 cursor-pointer"
+            />
+            <GraduationCap className={`w-3.5 h-3.5 ${showVocabulary ? 'text-sky-600 dark:text-sky-400' : 'text-[var(--text-muted)]'}`} />
+            <span className="font-urdu">مفردات و لغت</span>
+          </label>
+
+          {/* Trigger Mode Selector (Click vs Hover) */}
+          {showVocabulary && (
+            <div className="flex items-center gap-1 bg-[var(--bg-surface)] p-1 rounded-xl border border-[var(--border-subtle)] text-[11px] font-urdu shadow-2xs">
+              <span className="text-[var(--text-muted)] ps-1 font-semibold">طریقہ:</span>
+              <button
+                onClick={() => setVocabularyTrigger('click')}
+                className={`px-2 py-1 rounded-lg font-bold transition-all cursor-pointer ${
+                  vocabularyTrigger === 'click'
+                    ? 'bg-sky-700 text-white shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)]'
+                }`}
+                title="کلک موڈ: جب آپ کسی لفظ پر کلک کریں گے صرف تب معنی ظاہر ہوں گے (پر سکون، بغیر کسی انتشار کے)"
+              >
+                صرف کلک (Click)
+              </button>
+              <button
+                onClick={() => setVocabularyTrigger('hover')}
+                className={`px-2 py-1 rounded-lg font-bold transition-all cursor-pointer ${
+                  vocabularyTrigger === 'hover'
+                    ? 'bg-sky-700 text-white shadow-xs'
+                    : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-surface-elevated)]'
+                }`}
+                title="ہاور موڈ: ماؤس لفظ پر لے جانے سے فوری معنی ظاہر ہوں گے"
+              >
+                ماؤس ہاور (Hover)
+              </button>
+            </div>
+          )}
+
           {/* Focus / Zen Mode Toggle */}
           <button
             onClick={() => setIsFocusMode(!isFocusMode)}
@@ -746,7 +867,32 @@ export const ChronologicalPassageReader: React.FC = () => {
                         isPlaying ? 'bg-emerald-500/20 text-emerald-950 dark:text-emerald-100 ring-1 ring-emerald-500/30' : ''
                       }`}
                     >
-                      {v.textArabic}
+                      {showVocabulary ? (
+                        getAyahWords(v.surahNumber, v.ayahNumber, v.textArabic).map((w, wIdx) => {
+                          const isSelected = selectedWord?.word.id === w.id;
+                          return (
+                            <span
+                              key={w.id || `ar-only-${wIdx}`}
+                              onClick={() => setSelectedWord({ word: w, ayahNumber: v.ayahNumber, surahNumber: v.surahNumber })}
+                              onMouseEnter={() => {
+                                if (vocabularyTrigger === 'hover') {
+                                  setSelectedWord({ word: w, ayahNumber: v.ayahNumber, surahNumber: v.surahNumber });
+                                }
+                              }}
+                              className={`inline-block mx-0.5 px-1 py-0.5 rounded-lg cursor-pointer transition-all ${
+                                isSelected
+                                  ? 'bg-sky-500/25 text-sky-950 dark:text-sky-100 ring-2 ring-sky-500'
+                                  : 'hover:bg-sky-500/15'
+                              }`}
+                              title={`${w.meaningUrdu} (${w.partOfSpeechUrdu})`}
+                            >
+                              {w.wordArabic}
+                            </span>
+                          );
+                        })
+                      ) : (
+                        v.textArabic
+                      )}
                       <span
                         onClick={() => {
                           if (isPlaying) pauseAudio();
@@ -801,6 +947,26 @@ export const ChronologicalPassageReader: React.FC = () => {
                       {getEnglishText(v)}
                     </p>
                   )}
+
+                  {/* Verse Exegesis in Translation-only mode */}
+                  {((showTafsir && expandedTafsirAyahs[v.ayahNumber] !== false) ||
+                    (!showTafsir && expandedTafsirAyahs[v.ayahNumber])) &&
+                    getAyahTafsir(v.surahNumber, v.ayahNumber) && (
+                      <div className="mt-3 p-3.5 sm:p-4 rounded-2xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/30 border-s-4 border-s-amber-600 space-y-2 text-right">
+                        <div className="flex items-center justify-between text-xs font-urdu font-bold text-amber-900 dark:text-amber-300 pb-1.5 border-b border-amber-500/20">
+                          <span className="flex items-center gap-1">
+                            <Sparkles className="w-3.5 h-3.5 text-amber-600" />
+                            شرح و تفسیرِ آیت ({v.surahNumber}:{v.ayahNumber})
+                          </span>
+                          <span className="text-[11px] font-normal opacity-85">
+                            {getAyahTafsir(v.surahNumber, v.ayahNumber)?.scholarlySources}
+                          </span>
+                        </div>
+                        <p className="font-urdu text-sm sm:text-base leading-relaxed text-[var(--text-primary)]">
+                          {getAyahTafsir(v.surahNumber, v.ayahNumber)?.tafsirUrdu}
+                        </p>
+                      </div>
+                    )}
                 </div>
               ))}
             </div>
@@ -888,18 +1054,87 @@ export const ChronologicalPassageReader: React.FC = () => {
                         >
                           <Bookmark className="w-3.5 h-3.5" />
                         </button>
+
+                        {/* Ayah-level Tafsir button */}
+                        {hasAyahTafsir(v.surahNumber, v.ayahNumber) && (
+                          <button
+                            onClick={() =>
+                              setExpandedTafsirAyahs((prev) => ({
+                                ...prev,
+                                [v.ayahNumber]: !(showTafsir ? prev[v.ayahNumber] !== false : prev[v.ayahNumber]),
+                              }))
+                            }
+                            className={`px-2.5 py-1.5 rounded-xl text-xs font-urdu font-bold transition-all cursor-pointer flex items-center gap-1 ${
+                              (showTafsir && expandedTafsirAyahs[v.ayahNumber] !== false) ||
+                              (!showTafsir && expandedTafsirAyahs[v.ayahNumber])
+                                ? 'bg-amber-600 text-white shadow-xs'
+                                : 'bg-[var(--bg-surface)] hover:bg-amber-500/20 text-amber-800 dark:text-amber-300 border border-[var(--border-subtle)]'
+                            }`}
+                            title="اس آیت کی مفصل تفسیر و شرح"
+                          >
+                            <BookOpen className="w-3.5 h-3.5" />
+                            <span>تفسیر</span>
+                          </button>
+                        )}
+
+                        {/* Ayah Farhang Table Button */}
+                        <button
+                          onClick={() =>
+                            setShowAyahFarhangTable((prev) => ({
+                              ...prev,
+                              [v.ayahNumber]: !prev[v.ayahNumber],
+                            }))
+                          }
+                          className={`px-2.5 py-1.5 rounded-xl text-xs font-urdu font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                            showAyahFarhangTable[v.ayahNumber]
+                              ? 'bg-sky-700 text-white shadow-xs'
+                              : 'bg-[var(--bg-surface)] hover:bg-sky-500/20 text-sky-850 dark:text-sky-300 border border-[var(--border-subtle)]'
+                          }`}
+                          title="اس آیت کے تمام الفاظ کی لغت، مادہ اور اعراب کا جدول دیکھیں"
+                        >
+                          <GraduationCap className="w-3.5 h-3.5" />
+                          <span>فرہنگ</span>
+                          {hasCuratedAyahVocabulary(v.surahNumber, v.ayahNumber) && (
+                            <span className="w-1.5 h-1.5 rounded-full bg-sky-400" title="مفصل لغت و اعراب دستیاب ہے" />
+                          )}
+                        </button>
                       </div>
                     </div>
 
-                    {/* Arabic Verse Text */}
+                    {/* Arabic Verse Text with Interactive Word Tokens */}
                     <div
-                      className="font-arabic text-right leading-[2.4] text-[var(--text-primary)] mb-4"
+                      className="font-arabic text-right leading-[2.6] text-[var(--text-primary)] mb-4 select-text"
                       style={{
                         fontFamily: typography.arabicFont,
                         fontSize: `${typography.arabicFontSize}px`,
                       }}
                     >
-                      {v.textArabic}
+                      {showVocabulary ? (
+                        getAyahWords(v.surahNumber, v.ayahNumber, v.textArabic).map((w, wIdx) => {
+                          const isSelected = selectedWord?.word.id === w.id;
+                          return (
+                            <span
+                              key={w.id || `word-${wIdx}`}
+                              onClick={() => setSelectedWord({ word: w, ayahNumber: v.ayahNumber, surahNumber: v.surahNumber })}
+                              onMouseEnter={() => {
+                                if (vocabularyTrigger === 'hover') {
+                                  setSelectedWord({ word: w, ayahNumber: v.ayahNumber, surahNumber: v.surahNumber });
+                                }
+                              }}
+                              className={`inline-block mx-0.5 sm:mx-1 px-1.5 py-0.5 rounded-xl cursor-pointer transition-all duration-200 ${
+                                isSelected
+                                  ? 'bg-sky-500/25 text-sky-950 dark:text-sky-100 ring-2 ring-sky-500 shadow-xs scale-105'
+                                  : 'hover:bg-sky-500/15 hover:text-sky-850 dark:hover:text-sky-200'
+                              }`}
+                              title={`${w.meaningUrdu} (${w.partOfSpeechUrdu})`}
+                            >
+                              {w.wordArabic}
+                            </span>
+                          );
+                        })
+                      ) : (
+                        v.textArabic
+                      )}
                     </div>
 
                     {/* Urdu Translation */}
@@ -926,6 +1161,105 @@ export const ChronologicalPassageReader: React.FC = () => {
                         >
                           {getEnglishText(v)}
                         </p>
+                      </div>
+                    )}
+
+                    {/* Verse Exegesis Panel (آیت بہ آیت مستند شیعہ تفاسیر) */}
+                    {((showTafsir && expandedTafsirAyahs[v.ayahNumber] !== false) ||
+                      (!showTafsir && expandedTafsirAyahs[v.ayahNumber])) &&
+                      getAyahTafsir(v.surahNumber, v.ayahNumber) && (() => {
+                        const tafsir = getAyahTafsir(v.surahNumber, v.ayahNumber)!;
+                        return (
+                          <div className="mt-4 p-4 sm:p-5 rounded-2xl bg-amber-500/5 dark:bg-amber-950/20 border border-amber-500/30 border-s-4 border-s-amber-600 space-y-2.5 text-right animate-fade-in shadow-xs">
+                            <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-amber-500/20 text-xs">
+                              <div className="flex items-center gap-1.5 font-urdu font-bold text-amber-900 dark:text-amber-200">
+                                <Sparkles className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+                                <span>شرح و تفسیرِ آیت</span>
+                                <span className="text-[10px] font-sans font-normal opacity-75">
+                                  ({v.surahNumber}:{v.ayahNumber})
+                                </span>
+                              </div>
+                              <div className="flex items-center gap-1.5 text-[11px] font-urdu">
+                                <span className="px-2.5 py-0.5 rounded-lg bg-amber-500/20 text-amber-900 dark:text-amber-100 border border-amber-500/30 font-semibold">
+                                  {tafsir.scholarlySources}
+                                </span>
+                              </div>
+                            </div>
+
+                            <p className="font-urdu text-sm sm:text-base leading-relaxed text-[var(--text-primary)]">
+                              {tafsir.tafsirUrdu}
+                            </p>
+
+                            {tafsir.periodAndLocationUrdu && (
+                              <div className="pt-2 border-t border-amber-500/15 text-[11px] text-[var(--text-muted)] font-urdu flex items-center justify-end gap-1.5">
+                                <span>{tafsir.periodAndLocationUrdu}</span>
+                                <MapPin className="w-3 h-3 text-amber-600 shrink-0" />
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })()}
+
+                    {/* Ayah Farhang Table (مفردات و اعراب کا منظم جدول) */}
+                    {showAyahFarhangTable[v.ayahNumber] && (
+                      <div className="mt-4 p-4 rounded-2xl bg-sky-500/5 dark:bg-sky-950/20 border border-sky-500/30 border-s-4 border-s-sky-600 space-y-3 animate-fade-in shadow-xs text-right">
+                        <div className="flex items-center justify-between gap-2 pb-2 border-b border-sky-500/20 text-xs">
+                          <div className="flex items-center gap-1.5 font-urdu font-bold text-sky-900 dark:text-sky-200">
+                            <GraduationCap className="w-4 h-4 text-sky-600" />
+                            <span>فرہنگِ الفاظ و لغوی اعراب — آیت {v.surahNumber}:{v.ayahNumber}</span>
+                          </div>
+                          <span className="text-[11px] text-[var(--text-muted)] font-urdu">
+                            کل {getAyahWords(v.surahNumber, v.ayahNumber, v.textArabic).length} کلمات
+                          </span>
+                        </div>
+
+                        {/* Responsive Word Matrix Table */}
+                        <div className="overflow-x-auto">
+                          <table className="w-full text-right text-xs font-urdu">
+                            <thead>
+                              <tr className="border-b border-sky-500/20 text-[var(--text-muted)] font-bold">
+                                <th className="py-2 px-2.5">کلمہ</th>
+                                <th className="py-2 px-2.5">اردو معنی</th>
+                                <th className="py-2 px-2.5">مادہ (Root)</th>
+                                <th className="py-2 px-2.5">نوعیت (صرف)</th>
+                                <th className="py-2 px-2.5">نحوی اعراب و تدریسی نکتہ</th>
+                              </tr>
+                            </thead>
+                            <tbody className="divide-y divide-sky-500/10">
+                              {getAyahWords(v.surahNumber, v.ayahNumber, v.textArabic).map((w) => (
+                                <tr
+                                  key={w.id}
+                                  onClick={() => setSelectedWord({ word: w, ayahNumber: v.ayahNumber, surahNumber: v.surahNumber })}
+                                  className="hover:bg-sky-500/10 cursor-pointer transition-colors"
+                                >
+                                  <td className="py-2 px-2.5 font-arabic font-bold text-base text-emerald-800 dark:text-emerald-300">
+                                    {w.wordArabic}
+                                  </td>
+                                  <td className="py-2 px-2.5 font-bold text-[var(--text-primary)]">
+                                    {w.meaningUrdu}
+                                  </td>
+                                  <td className="py-2 px-2.5 font-arabic text-amber-700 dark:text-amber-300 font-semibold">
+                                    {w.root || '—'}
+                                  </td>
+                                  <td className="py-2 px-2.5">
+                                    <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                                      w.type === 'verb'
+                                        ? 'bg-emerald-500/20 text-emerald-800 dark:text-emerald-300'
+                                        : w.type === 'noun'
+                                        ? 'bg-sky-500/20 text-sky-800 dark:text-sky-300'
+                                        : 'bg-purple-500/20 text-purple-800 dark:text-purple-300'
+                                    }`}>
+                                      {w.partOfSpeechUrdu}
+                                    </span>
+                                  </td>
+                                  <td className="py-2 px-2.5 text-[11px] text-[var(--text-secondary)] leading-relaxed max-w-xs">
+                                    {w.grammarNoteUrdu || w.teachingNoteUrdu || '—'}
+                                  </td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -969,6 +1303,16 @@ export const ChronologicalPassageReader: React.FC = () => {
 
         </div>
       )}
+
+      {/* ── 5. FLOATING WORD INSPECTOR (POPOVER) ── */}
+      <WordInspectorPopover
+        word={selectedWord?.word || null}
+        surahNumber={selectedWord?.surahNumber || activePassage.surahNumber}
+        ayahNumber={selectedWord?.ayahNumber || 1}
+        surahNameUrdu={activePassage.surahNameUrdu}
+        onClose={() => setSelectedWord(null)}
+        triggerMode={vocabularyTrigger}
+      />
 
     </div>
   );
