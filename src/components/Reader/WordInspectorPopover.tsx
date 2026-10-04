@@ -50,28 +50,27 @@ export const WordInspectorPopover: React.FC<WordInspectorPopoverProps> = ({
   })();
 
   // ── 1. ELEVATED HOVER CARD (NON-OVERLAPPING & ENLARGED TEXT) ──
-  // Positioned strictly above (or below if at the very top) with a 30px clearance gap so it NEVER touches or covers the verse!
+  // Positioned strictly above (or below if at the very top) with a 36px clearance gap so it NEVER touches or covers the verse!
   if (triggerMode === 'hover' && rect) {
-    const clearance = 30; // 30px gap to ensure absolute non-touching clearance
-    const isNearTop = rect.top < 230;
+    const clearance = 36; // 36px generous gap to ensure absolute non-touching and zero-overlapping clearance
+    const isNearTop = rect.top < 240;
+    const cardWidth = typeof window !== 'undefined' ? Math.min(400, window.innerWidth - 32) : 380;
+    const cardLeft = Math.min(
+      Math.max(16, rect.left + rect.width / 2 - cardWidth / 2),
+      typeof window !== 'undefined' ? window.innerWidth - cardWidth - 16 : 200
+    );
 
     // Use bottom positioning when above so card height automatically flows upwards without touching the word
     const positionStyle: React.CSSProperties = isNearTop
       ? {
           top: `${rect.bottom + clearance}px`,
-          left: `${Math.min(
-            Math.max(16, rect.left + rect.width / 2 - 180),
-            typeof window !== 'undefined' ? window.innerWidth - 380 : 200
-          )}px`,
-          width: '360px',
+          left: `${cardLeft}px`,
+          width: `${cardWidth}px`,
         }
       : {
           bottom: `${typeof window !== 'undefined' ? window.innerHeight - rect.top + clearance : 320}px`,
-          left: `${Math.min(
-            Math.max(16, rect.left + rect.width / 2 - 180),
-            typeof window !== 'undefined' ? window.innerWidth - 380 : 200
-          )}px`,
-          width: '360px',
+          left: `${cardLeft}px`,
+          width: `${cardWidth}px`,
         };
 
     return (
@@ -80,16 +79,16 @@ export const WordInspectorPopover: React.FC<WordInspectorPopoverProps> = ({
         style={positionStyle}
         dir="rtl"
       >
-        <div className="p-4 sm:p-5 rounded-3xl sacred-glass sacred-border shadow-[0_20px_50px_rgba(0,0,0,0.35)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.7)] border-2 border-emerald-600/50 dark:border-emerald-500/50 backdrop-blur-2xl bg-[var(--bg-surface-elevated)] space-y-3 relative overflow-hidden">
+        <div className="p-4 sm:p-5 rounded-3xl sacred-glass sacred-border shadow-[0_25px_60px_rgba(0,0,0,0.45)] dark:shadow-[0_25px_60px_rgba(0,0,0,0.8)] border-2 border-emerald-600/60 dark:border-emerald-500/60 backdrop-blur-2xl bg-[var(--bg-surface-elevated)] space-y-3.5 relative overflow-hidden">
           {/* Subtle spiritual radiant glow */}
-          <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-36 h-36 bg-emerald-500/20 rounded-full blur-2xl pointer-events-none" />
 
           {/* Word & Part of Speech Badge */}
           <div className="flex items-center justify-between gap-3 border-b border-[var(--border-subtle)] pb-2.5 relative z-10">
             <span className="font-arabic font-bold text-3xl sm:text-4xl text-emerald-800 dark:text-emerald-300 leading-tight">
               {word.wordArabic}
             </span>
-            <span className={`text-xs sm:text-sm px-3 py-1 rounded-full font-urdu font-bold border shadow-sm ${typeBadge.classes}`}>
+            <span className={`text-xs sm:text-sm px-3.5 py-1 rounded-full font-urdu font-bold border shadow-sm ${typeBadge.classes}`}>
               {word.partOfSpeechUrdu || typeBadge.label}
             </span>
           </div>
@@ -98,19 +97,19 @@ export const WordInspectorPopover: React.FC<WordInspectorPopoverProps> = ({
           <div className="space-y-1 relative z-10">
             <div className="text-xs font-bold font-urdu text-[var(--text-muted)] flex items-center gap-1.5">
               <BookOpen className="w-3.5 h-3.5 text-emerald-600" />
-              <span>معنی و مفہوم:</span>
+              <span>معنی و مفہوم (Meaning):</span>
             </div>
-            <p className="font-urdu text-xl sm:text-2xl font-extrabold text-[var(--text-primary)] leading-relaxed">
+            <p className="font-urdu text-2xl sm:text-3xl font-extrabold text-emerald-950 dark:text-emerald-100 leading-relaxed tracking-wide">
               {word.meaningUrdu}
             </p>
           </div>
 
           {/* Root Word & Grammar Tag */}
           <div className="flex items-center justify-between gap-2 pt-2 border-t border-[var(--border-subtle)] relative z-10 font-urdu">
-            <div className="flex items-center gap-1.5 text-amber-850 dark:text-amber-300 font-bold text-sm">
+            <div className="flex items-center gap-2 text-amber-850 dark:text-amber-300 font-bold text-sm sm:text-base">
               <Layers className="w-4 h-4 text-amber-600" />
               <span>مادہ (Root):</span>
-              <span className="font-arabic font-extrabold text-base sm:text-lg">{word.root || '—'}</span>
+              <span className="font-arabic font-extrabold text-lg sm:text-xl text-emerald-800 dark:text-emerald-300">{word.root || '—'}</span>
             </div>
             <span className="text-xs text-[var(--text-muted)] font-urdu font-semibold">
               {surahNameUrdu || `سورۃ #${surahNumber}`} ({ayahNumber})
@@ -122,8 +121,8 @@ export const WordInspectorPopover: React.FC<WordInspectorPopoverProps> = ({
         <div
           className={`w-0 h-0 border-x-8 border-x-transparent mx-auto ${
             isNearTop
-              ? '-mt-[3px] border-b-8 border-b-emerald-600/50'
-              : 'mt-1 border-t-8 border-t-emerald-600/50'
+              ? '-mt-[3px] border-b-8 border-b-emerald-600/60'
+              : 'mt-1 border-t-8 border-t-emerald-600/60'
           }`}
         />
       </div>

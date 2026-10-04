@@ -69,7 +69,7 @@ export const ChronologicalPassageReader: React.FC = () => {
 
   // Word-by-word Vocabulary & Farhang state
   const [showVocabulary, setShowVocabulary] = useState<boolean>(true);
-  const [vocabularyTrigger, setVocabularyTrigger] = useState<'click' | 'hover'>('click');
+  const [vocabularyTrigger, setVocabularyTrigger] = useState<'click' | 'hover'>('hover');
   const [selectedWord, setSelectedWord] = useState<{
     word: QuranWordData;
     ayahNumber: number;
@@ -907,7 +907,6 @@ export const ChronologicalPassageReader: React.FC = () => {
                                   ? 'bg-sky-500/25 text-sky-950 dark:text-sky-100 ring-2 ring-sky-500'
                                   : 'hover:bg-sky-500/15'
                               }`}
-                              title={`${w.meaningUrdu} (${w.partOfSpeechUrdu})`}
                             >
                               {w.wordArabic}
                             </span>
@@ -1198,7 +1197,6 @@ export const ChronologicalPassageReader: React.FC = () => {
                                   ? 'bg-sky-500/25 text-sky-950 dark:text-sky-100 ring-2 ring-sky-500 shadow-xs scale-105'
                                   : 'hover:bg-sky-500/15 hover:text-sky-850 dark:hover:text-sky-200'
                               }`}
-                              title={`${w.meaningUrdu} (${w.partOfSpeechUrdu})`}
                             >
                               {w.wordArabic}
                             </span>
