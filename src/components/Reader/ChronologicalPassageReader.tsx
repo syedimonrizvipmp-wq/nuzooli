@@ -772,7 +772,10 @@ export const ChronologicalPassageReader: React.FC = () => {
             <input
               type="checkbox"
               checked={showVocabulary}
-              onChange={(e) => setShowVocabulary(e.target.checked)}
+              onChange={(e) => {
+                setShowVocabulary(e.target.checked);
+                if (!e.target.checked) setSelectedWord(null);
+              }}
               className="w-4 h-4 rounded text-sky-600 focus:ring-sky-500 accent-sky-600 cursor-pointer"
             />
             <GraduationCap className={`w-3.5 h-3.5 ${showVocabulary ? 'text-sky-600 dark:text-sky-400' : 'text-[var(--text-muted)]'}`} />
@@ -895,11 +898,6 @@ export const ChronologicalPassageReader: React.FC = () => {
                                     rect: r,
                                     isHover: true,
                                   });
-                                }
-                              }}
-                              onMouseLeave={() => {
-                                if (vocabularyTrigger === 'hover') {
-                                  setSelectedWord((prev) => (prev?.isHover ? null : prev));
                                 }
                               }}
                               className={`inline-block mx-0.5 px-1 py-0.5 rounded-lg cursor-pointer transition-all ${
@@ -1185,11 +1183,6 @@ export const ChronologicalPassageReader: React.FC = () => {
                                     rect: r,
                                     isHover: true,
                                   });
-                                }
-                              }}
-                              onMouseLeave={() => {
-                                if (vocabularyTrigger === 'hover') {
-                                  setSelectedWord((prev) => (prev?.isHover ? null : prev));
                                 }
                               }}
                               className={`inline-block mx-0.5 sm:mx-1 px-1.5 py-0.5 rounded-xl cursor-pointer transition-all duration-200 ${
