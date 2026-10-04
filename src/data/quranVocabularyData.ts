@@ -9,6 +9,8 @@
  * - Pedagogical Teaching Insight (تدریسی نکتہ برائے فہمِ طلبہ)
  */
 
+import { QURAN_VOCABULARY_MODULE_2 } from './quranVocabularyModule2';
+
 export interface QuranWordData {
   id: string;
   wordArabic: string;
@@ -884,6 +886,12 @@ export const QURAN_VOCABULARY_DATA: Record<string, QuranWordData[]> = {
       teachingNoteUrdu: 'پہلے اس کی تدبیر کی بربادی کا اعلان ہوا، پھر اس کی ذات کے مکمل خاتمے کا قطعی اعلان۔',
     },
   ],
+
+  // ══════════════════════════════════════════════════════════════════
+  // ماڈیول ۲: تمام ۸۸ آیات کی مفردات، لغوی تحقیق، اعراب و تفسیری نکات (سال ۴ تا ۵ بعثت)
+  // سورۃ التکویر (۲۹)، سورۃ الاعلٰی (۱۹)، سورۃ اللیل (۲۱)، سورۃ الضحیٰ (۱۱)، سورۃ الشرح (۸)
+  // ══════════════════════════════════════════════════════════════════
+  ...QURAN_VOCABULARY_MODULE_2,
 };
 
 /**
