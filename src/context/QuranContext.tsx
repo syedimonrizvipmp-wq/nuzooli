@@ -26,6 +26,7 @@ const DEFAULT_TYPOGRAPHY: TypographySettings = {
   englishFont: 'Plus Jakarta Sans',
   arabicFontSize: 32,
   translationFontSize: 20,
+  tafsirFontSize: 18,
   lineHeight: 2.3,
   showUrdu: true,
   showEnglish: true,

@@ -139,6 +139,23 @@ export const TypographyModal: React.FC<TypographyModalProps> = ({ isOpen, onClos
               />
             </div>
 
+            {/* Tafsir Font Size */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5 text-xs font-bold text-[var(--text-primary)]">
+                <span>Tafsir Exegesis Font Size (حجمِ خطِ شرح و تفسیر)</span>
+                <span className="text-amber-700 dark:text-amber-400 font-mono">{typography.tafsirFontSize || 18}px</span>
+              </div>
+              <input
+                type="range"
+                min="14"
+                max="32"
+                step="1"
+                value={typography.tafsirFontSize || 18}
+                onChange={(e) => updateTypography({ tafsirFontSize: parseInt(e.target.value, 10) })}
+                className="w-full accent-amber-600 cursor-pointer"
+              />
+            </div>
+
             {/* Line Height / Leading */}
             <div>
               <div className="flex items-center justify-between mb-1.5 text-xs font-bold text-[var(--text-primary)]">

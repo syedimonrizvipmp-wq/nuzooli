@@ -140,6 +140,7 @@ export interface TypographySettings {
   englishFont: string;
   arabicFontSize: number;      // 20 to 50
   translationFontSize: number; // 14 to 30
+  tafsirFontSize: number;      // 14 to 32
   lineHeight: number;           // 1.5 to 3.0
   showUrdu: boolean;
   showEnglish: boolean;

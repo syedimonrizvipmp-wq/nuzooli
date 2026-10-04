@@ -74,6 +74,8 @@ export const ChronologicalPassageReader: React.FC = () => {
     word: QuranWordData;
     ayahNumber: number;
     surahNumber: number;
+    rect?: DOMRect | null;
+    isHover?: boolean;
   } | null>(null);
   const [showAyahFarhangTable, setShowAyahFarhangTable] = useState<Record<number, boolean>>({});
 
@@ -873,10 +875,31 @@ export const ChronologicalPassageReader: React.FC = () => {
                           return (
                             <span
                               key={w.id || `ar-only-${wIdx}`}
-                              onClick={() => setSelectedWord({ word: w, ayahNumber: v.ayahNumber, surahNumber: v.surahNumber })}
-                              onMouseEnter={() => {
+                              onClick={(e) => {
+                                const r = e.currentTarget.getBoundingClientRect();
+                                setSelectedWord({
+                                  word: w,
+                                  ayahNumber: v.ayahNumber,
+                                  surahNumber: v.surahNumber,
+                                  rect: r,
+                                  isHover: false,
+                                });
+                              }}
+                              onMouseEnter={(e) => {
                                 if (vocabularyTrigger === 'hover') {
-                                  setSelectedWord({ word: w, ayahNumber: v.ayahNumber, surahNumber: v.surahNumber });
+                                  const r = e.currentTarget.getBoundingClientRect();
+                                  setSelectedWord({
+                                    word: w,
+                                    ayahNumber: v.ayahNumber,
+                                    surahNumber: v.surahNumber,
+                                    rect: r,
+                                    isHover: true,
+                                  });
+                                }
+                              }}
+                              onMouseLeave={() => {
+                                if (vocabularyTrigger === 'hover') {
+                                  setSelectedWord((prev) => (prev?.isHover ? null : prev));
                                 }
                               }}
                               className={`inline-block mx-0.5 px-1 py-0.5 rounded-lg cursor-pointer transition-all ${
@@ -962,7 +985,14 @@ export const ChronologicalPassageReader: React.FC = () => {
                             {getAyahTafsir(v.surahNumber, v.ayahNumber)?.scholarlySources}
                           </span>
                         </div>
-                        <p className="font-urdu text-sm sm:text-base leading-relaxed text-[var(--text-primary)]">
+                        <p
+                          className="font-urdu leading-relaxed text-[var(--text-primary)]"
+                          style={{
+                            fontSize: `${typography.tafsirFontSize || 18}px`,
+                            fontFamily: typography.urduFont,
+                            lineHeight: typography.lineHeight || 2.2,
+                          }}
+                        >
                           {getAyahTafsir(v.surahNumber, v.ayahNumber)?.tafsirUrdu}
                         </p>
                       </div>
@@ -1115,10 +1145,31 @@ export const ChronologicalPassageReader: React.FC = () => {
                           return (
                             <span
                               key={w.id || `word-${wIdx}`}
-                              onClick={() => setSelectedWord({ word: w, ayahNumber: v.ayahNumber, surahNumber: v.surahNumber })}
-                              onMouseEnter={() => {
+                              onClick={(e) => {
+                                const r = e.currentTarget.getBoundingClientRect();
+                                setSelectedWord({
+                                  word: w,
+                                  ayahNumber: v.ayahNumber,
+                                  surahNumber: v.surahNumber,
+                                  rect: r,
+                                  isHover: false,
+                                });
+                              }}
+                              onMouseEnter={(e) => {
                                 if (vocabularyTrigger === 'hover') {
-                                  setSelectedWord({ word: w, ayahNumber: v.ayahNumber, surahNumber: v.surahNumber });
+                                  const r = e.currentTarget.getBoundingClientRect();
+                                  setSelectedWord({
+                                    word: w,
+                                    ayahNumber: v.ayahNumber,
+                                    surahNumber: v.surahNumber,
+                                    rect: r,
+                                    isHover: true,
+                                  });
+                                }
+                              }}
+                              onMouseLeave={() => {
+                                if (vocabularyTrigger === 'hover') {
+                                  setSelectedWord((prev) => (prev?.isHover ? null : prev));
                                 }
                               }}
                               className={`inline-block mx-0.5 sm:mx-1 px-1.5 py-0.5 rounded-xl cursor-pointer transition-all duration-200 ${
@@ -1179,14 +1230,40 @@ export const ChronologicalPassageReader: React.FC = () => {
                                   ({v.surahNumber}:{v.ayahNumber})
                                 </span>
                               </div>
-                              <div className="flex items-center gap-1.5 text-[11px] font-urdu">
+                              <div className="flex items-center gap-2 text-[11px] font-urdu">
+                                {/* Quick Tafsir font-size steppers */}
+                                <div className="flex items-center gap-1 bg-[var(--bg-surface)] px-2 py-0.5 rounded-lg border border-[var(--border-subtle)] text-[10px]">
+                                  <span className="text-[var(--text-muted)] font-urdu hidden xs:inline">خط:</span>
+                                  <button
+                                    onClick={() => updateTypography({ tafsirFontSize: Math.max(14, (typography.tafsirFontSize || 18) - 1) })}
+                                    className="px-1.5 py-0.5 hover:bg-amber-500/20 rounded font-bold transition-all cursor-pointer"
+                                    title="تفسیر کا خط چھوٹا کریں (A-)"
+                                  >
+                                    A-
+                                  </button>
+                                  <span className="font-mono text-amber-700 dark:text-amber-400 font-bold">{typography.tafsirFontSize || 18}px</span>
+                                  <button
+                                    onClick={() => updateTypography({ tafsirFontSize: Math.min(32, (typography.tafsirFontSize || 18) + 1) })}
+                                    className="px-1.5 py-0.5 hover:bg-amber-500/20 rounded font-bold transition-all cursor-pointer"
+                                    title="تفسیر کا خط بڑا کریں (A+)"
+                                  >
+                                    A+
+                                  </button>
+                                </div>
                                 <span className="px-2.5 py-0.5 rounded-lg bg-amber-500/20 text-amber-900 dark:text-amber-100 border border-amber-500/30 font-semibold">
                                   {tafsir.scholarlySources}
                                 </span>
                               </div>
                             </div>
 
-                            <p className="font-urdu text-sm sm:text-base leading-relaxed text-[var(--text-primary)]">
+                            <p
+                              className="font-urdu leading-relaxed text-[var(--text-primary)]"
+                              style={{
+                                fontSize: `${typography.tafsirFontSize || 18}px`,
+                                fontFamily: typography.urduFont,
+                                lineHeight: typography.lineHeight || 2.2,
+                              }}
+                            >
                               {tafsir.tafsirUrdu}
                             </p>
 
@@ -1311,7 +1388,8 @@ export const ChronologicalPassageReader: React.FC = () => {
         ayahNumber={selectedWord?.ayahNumber || 1}
         surahNameUrdu={activePassage.surahNameUrdu}
         onClose={() => setSelectedWord(null)}
-        triggerMode={vocabularyTrigger}
+        triggerMode={selectedWord?.isHover ? 'hover' : 'click'}
+        rect={selectedWord?.rect || null}
       />
 
     </div>
