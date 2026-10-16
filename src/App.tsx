@@ -18,7 +18,7 @@ import { CiteResearchModal } from '@/components/Modals/CiteResearchModal';
 import { ResearchEcosystemModal } from '@/components/Modals/ResearchEcosystemModal';
 import { ResearchEcosystemGrid } from '@/components/Footer/ResearchEcosystemGrid';
 import { AudioPlayerBar } from '@/components/Reader/AudioPlayerBar';
-import { ShieldAlert } from 'lucide-react';
+import { ShieldAlert, Mail } from 'lucide-react';
 
 export const AppContent: React.FC = () => {
   const { perspectiveMode, activeEvent } = useQuran();
@@ -167,11 +167,19 @@ export const AppContent: React.FC = () => {
               Exegesis, chronology & Asbab al-Nuzul sourced from authentic Shia scholarship: <em>Al-Tamhid fi Ulum al-Quran</em> (Ayatollah Ma'rifat), <em>Tafsir al-Mizan</em> (Allamah Tabataba'i), <em>Majma' al-Bayan</em> (Shaykh Tabarsi), and translations by Allamah Zeeshan Haider Jawadi & Ayatollah Najafi.
             </p>
           </div>
-          <div className="flex flex-col items-center sm:items-end gap-1 text-[11px]">
+          <div className="flex flex-col items-center sm:items-end gap-1.5 text-[11px]">
             <span className="font-urdu text-[12px] text-emerald-800 dark:text-emerald-300 font-bold">
               ایک علمی و قرآنی تحقیقی خدمت — مولانا سید آئمن رضوی
             </span>
-            <span className="text-emerald-700 dark:text-emerald-400 font-semibold">
+            <a
+              href="mailto:syedimonrizvipmp@gmail.com"
+              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-700/10 hover:bg-emerald-700/20 text-emerald-800 dark:text-emerald-300 font-bold text-xs border border-emerald-500/30 transition-all cursor-pointer shadow-2xs"
+              title="Send Academic Inquiries to Maulana Syed Imon Rizvi"
+            >
+              <Mail className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+              <span>syedimonrizvipmp@gmail.com</span>
+            </a>
+            <span className="text-emerald-700 dark:text-emerald-400 font-semibold text-[10px]">
               Prophetic Mission 610 CE – 632 CE (23-Year Divine Timeline)
             </span>
           </div>

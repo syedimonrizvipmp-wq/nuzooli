@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuran } from '@/context/QuranContext';
-import { X, GraduationCap, Copy, Check, ExternalLink, BookOpen, Quote } from 'lucide-react';
+import { X, GraduationCap, Copy, Check, ExternalLink, BookOpen, Quote, Mail } from 'lucide-react';
 
 interface CiteResearchModalProps {
   isOpen: boolean;
@@ -75,9 +75,18 @@ export const CiteResearchModal: React.FC<CiteResearchModalProps> = ({ isOpen, on
             <span className="font-bold text-emerald-800 dark:text-emerald-300 block">
               Principal Investigator & Architect: Maulana Syed Imon Rizvi (مولانا سید آئمن رضوی)
             </span>
-            <span className="text-[11px] text-[var(--text-secondary)]">
-              Project Nuzooli (v2.0.0) • Digital Humanities Computational Exegesis Framework
-            </span>
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 mt-0.5 text-[11px]">
+              <span className="text-[var(--text-secondary)]">
+                Project Nuzooli (v2.0.0) • Digital Humanities Laboratory
+              </span>
+              <a
+                href="mailto:syedimonrizvipmp@gmail.com"
+                className="inline-flex items-center gap-1 text-emerald-700 dark:text-emerald-400 font-semibold hover:underline"
+              >
+                <Mail className="w-3 h-3" />
+                <span>syedimonrizvipmp@gmail.com</span>
+              </a>
+            </div>
           </div>
           <a
             href="https://github.com/syedimonrizvipmp-wq/nuzooli"

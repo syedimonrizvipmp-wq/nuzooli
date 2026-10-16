@@ -16,7 +16,7 @@
 **Maulana Syed Imon Rizvi**  
 *11-Year Advanced Hawzah Immersion • MBA • PGD-PA • PMP® • PSM II*  
 Lead Architect, Digital Quranic Hermeneutics Laboratory  
-📧 **Academic Correspondence:** `syedimonrizvi@gmail.com` • 🌐 **Platform:** [nuzooli.vercel.app](https://nuzooli.vercel.app) • 🏛️ **ORCID:** [0009-0000-0000-0000](https://orcid.org/)
+📧 **Academic Correspondence:** `syedimonrizvipmp@gmail.com` • 🌐 **Platform:** [nuzooli.vercel.app](https://nuzooli.vercel.app) • 🏛️ **ORCID:** [0009-0000-0000-0000](https://orcid.org/)
 
 </div>
 
@@ -212,6 +212,7 @@ Project Nuzooli forms the foundational diachronic node within an interconnected 
 We welcome inquiries regarding **collaborative research grants**, **Digital Humanities partnerships**, and **theological cross-verification**:
 
 - **Principal Investigator:** Maulana Syed Imon Rizvi
+- **Academic Email:** `syedimonrizvipmp@gmail.com`
 - **GitHub Discussions / Issues:** [https://github.com/syedimonrizvipmp-wq/nuzooli/issues](https://github.com/syedimonrizvipmp-wq/nuzooli/issues)
 - **Interactive Platform:** [https://nuzooli.vercel.app](https://nuzooli.vercel.app)
 

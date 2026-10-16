@@ -7,6 +7,7 @@ authors:
     name-particle: "Maulana"
     orcid: "https://orcid.org/0009-0000-0000-0000"
     affiliation: "Independent Digital Humanities & Quranic Hermeneutics Researcher"
+    email: "syedimonrizvipmp@gmail.com"
 url: "https://nuzooli.vercel.app"
 repository-code: "https://github.com/syedimonrizvipmp-wq/nuzooli"
 abstract: "Project Nuzooli is a peer-reviewed-standard computational Digital Humanities framework providing diachronic revelation mapping, mathematical delta displacement analysis (|Nuzul - Mushaf|), and stratified legal evolution tracking (Tadrij al-Ahkam) across classical Islamic primary sources."

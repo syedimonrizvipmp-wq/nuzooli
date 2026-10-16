@@ -157,5 +157,6 @@ All data, analytical charts, and exportable datasets are made accessible strictl
 
 For peer review inquiries, theological cross-verification, or collaborative digital humanities initiatives:
 - **Principal Investigator:** Maulana Syed Imon Rizvi
+- **Academic Email:** `syedimonrizvipmp@gmail.com`
 - **Repository:** `https://github.com/syedimonrizvipmp-wq/nuzooli`
 - **Issue Tracker:** `https://github.com/syedimonrizvipmp-wq/nuzooli/issues`

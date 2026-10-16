@@ -8,7 +8,8 @@ import {
   Compass,
   ArrowUpRight,
   Sparkles,
-  Layers
+  Layers,
+  Mail
 } from 'lucide-react';
 import { ECOSYSTEM_PROJECTS, EcosystemProject } from '@/data/ecosystemProjectsData';
 
@@ -134,17 +135,19 @@ export const ResearchEcosystemGrid: React.FC<ResearchEcosystemGridProps> = ({ on
 
         {/* Banner note */}
         <div className="p-3.5 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 text-xs flex flex-col sm:flex-row items-center justify-between gap-2 text-[var(--text-secondary)]">
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span className="font-semibold text-[var(--text-primary)]">
               Digital Quranic Hermeneutics Laboratory &bull; Maulana Syed Imon Rizvi
             </span>
             <span className="hidden md:inline">&bull;</span>
-            <span className="hidden md:inline text-[11px]">
-              {language === 'en'
-                ? 'All computational frameworks operate under open-access non-commercial licenses (CC BY-NC 4.0).'
-                : 'تمام کمپیوٹیشنل فریم ورکس اوپن سائنس کے تحت مفت دستیاب ہیں۔'}
-            </span>
+            <a
+              href="mailto:syedimonrizvipmp@gmail.com"
+              className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-700 dark:text-emerald-400 hover:underline"
+            >
+              <Mail className="w-3 h-3" />
+              <span>syedimonrizvipmp@gmail.com</span>
+            </a>
           </div>
           <span className="text-[10px] font-mono text-[var(--text-muted)]">
             Ecosystem v2.0 &bull; 7 Integrated Platforms
