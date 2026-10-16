@@ -176,17 +176,20 @@ export const AppContent: React.FC = () => {
               <div className="space-y-1">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="font-bold text-amber-800 dark:text-amber-300 text-xs">
-                    Academic Disclaimer & AI Integration Notice / علمی و تحقیقی دستبرداری
+                    Methodological Transparency & AI Governance / علمی شفافیت و شرعی ضابطۂ کار
                   </span>
                   <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-700 dark:text-amber-300 border border-amber-500/30">
-                    Experimental (تجرباتی)
+                    Human-in-the-Loop (HITL)
+                  </span>
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30">
+                    Hawzah Oversight
                   </span>
                 </div>
                 <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed max-w-3xl">
-                  This platform is an experimental educational initiative utilizing AI-assisted modeling for chronological research. The creator assumes no religious or legal liability. Please cross-reference all historical contexts with certified classical exegeses and religious scholars.
+                  Project Nuzooli utilizes AI/NLP strictly as computational research instruments audited under seminary-trained (Hawzah / Dars-e-Nizami) oversight. It does not constitute a legal fatwa; users are encouraged to verify contexts directly against cited classical exegeses.
                 </p>
                 <p className="text-[11px] font-urdu text-[var(--text-secondary)] text-right leading-relaxed" dir="rtl">
-                  یہ ایک خالصتاً تعلیمی و تجرباتی منصوبہ ہے جس میں AI معاونت شامل ہے۔ مصنف یا ڈویلپرز پر کوئی شرعی یا قانونی ذمہ داری عائد نہیں ہوتی؛ حتمی تصدیق کے لیے مستند تفاسیر و علمائے کرام سے رجوع کریں۔
+                  منظومہ ترتیبِ نزولی میں AI ماڈلز کو صرف بطورِ تحقیقی معاون ۱۱ سالہ روایتی حوزوی نگرانی کے تحت استعمال کیا گیا ہے۔ یہ شرعی فتویٰ نہیں؛ حتمی تصدیق کے لیے مستند تفاسیر سے رجوع فرمائیں۔
                 </p>
               </div>
             </div>

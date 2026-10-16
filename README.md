@@ -149,6 +149,39 @@ Rizvi, M. S. I. (2026). Project Nuzooli: Diachronic Computational Framework for 
 
 ---
 
+## ⚖️ Methodological Transparency, AI Governance & Scholarly Disclaimer
+
+### English
+**1. Human-in-the-Loop (HITL) Computational Architecture:**  
+Project Nuzooli utilizes advanced natural language processing (NLP) and large language models (LLMs) strictly as computational research instruments—accelerating corpus indexing, structural cross-referencing, and multi-perspective chronological synthesis. All algorithmic outputs, thematic taxonomies, and diachronic alignments are critically audited, cross-verified, and contextualized under traditional philological and seminary-trained (*Hawzah / Dars-e-Nizami*) oversight.
+
+**2. Non-Prescriptive & Historical-Analytical Scope:**  
+This platform is an academic research instrument dedicated to diachronic text exploration (*Tarteeb-e-Nuzul*) and comparative legal pedagogy (*Tadrij al-Ahkam*). It does not constitute a canonical legislative edict (*fatwa*), nor does it seek to alter the universally consecrated canonical sequence of the *Uthmanic Mushaf*. All chronological sequences are investigative frameworks grounded in classical historical reports and modern hermeneutical models.
+
+**3. Primary Source Provenance & Continuous Peer Review:**  
+While data models strive for the highest philological fidelity against canonical authorities—principally Ayatollah Muhammad Hadi Ma'rifat's *Al-Tamhid fi 'Ulum al-Qur'an*, Allamah Muhammad Husayn Tabataba'i's *Tafsir al-Mizan*, and classical *Asbab al-Nuzul* literature—this repository operates under open-science principles. It is subject to continuous scholarly peer review, critical refinement, and academic versioning. Users and researchers are encouraged to verify textual contexts directly against cited classical editions.
+
+**4. Complete Limitation of Theological & Legal Liability:**  
+All data, analytical charts, and exportable datasets are made accessible strictly for non-commercial academic inquiry, scientific research, and pedagogical study. The principal investigator, developers, and affiliated contributors disclaim any religious, sectarian, or legal liability for any third-party interpretations, typographical oversights, or derivative uses of this computational framework.
+
+---
+
+### علمی شفافیت، جدید ٹیکنالوجی (AI) کا ضابطۂ کار اور شرعی وضاحت (Academic Urdu)
+
+**۱. ٹیکنالوجی اور حوزوی علمی نگرانی (Human-in-the-Loop):**  
+منظومہ ترتیبِ نزولی (Project Nuzooli) میں جدید کمپیوٹیشنل ماڈلز اور مصنوعی ذہانت (AI) کو صرف بطورِ تحقیقی و انتظامی معاون استعمال کیا گیا ہے، تاکہ تفسیری و تاریخی مواد کی درجہ بندی اور تقابلی جائزے کو تیز تر بنایا جا سکے۔ پلیٹ فارم پر موجود تمام تر تاریخی مراحل، تدریجِ احکام اور مآخذ کی حتمی جانچ اور تصدیق ۱۱ سالہ روایتی حوزوی علوم (*درسِ نظامی / حوزہ علمیہ*) کی روشنی میں باقاعدہ علمی بنیادوں پر کی جاتی ہے۔
+
+**۲. تحقیقی و تاریخی حیثیت (عدمِ فتویٰ):**  
+یہ پلیٹ فارم خالصتاً ایک علمی و قرآنی ریسرچ پروجیکٹ ہے جس کا مقصد ترتیبِ نزولی اور تاریخی سیاق و سباق کا تحقیقی مطالعہ ہے۔ یہ کسی بھی طرح سے کوئی شرعی فتویٰ یا حتمی مذہبی حکم نہیں ہے، اور نہ ہی اس سے مصحفِ عثمانی کی متفقہ اور متواتر تلاوتی ترتیب میں کسی تغیر کا ادعا مقصود ہے۔
+
+**۳. کلاسیکی و مستند مآخذ کی پاسداری:**  
+پلیٹ فارم پر تمام تر تراتیب و اسباب کو ائمۂ تفسیر—خصوصاً آیت اللہ محمد ہادی معرفتؒ (*التمہید فی علوم القرآن*)، علامہ محمد حسین طباطبائیؒ (*تفسیر المیزان*)، اور امام واحدیؒ (*اسباب النزول*)—کے مستند مآخذ سے مربوط کیا گیا ہے۔ اوپن سائنس کے اصولوں کے تحت یہ پروجیکٹ مسلسل علمی نظرِ ثانی اور محققین کی آراء کے لیے کھلا ہے۔
+
+**۴. براءتِ ذمہ داری (قانونی و شرعی استثنا):**  
+یہ تمام تر تحقیقی مواد اور ڈیٹاسیٹس بلا معاوضہ، صرف علمی و تحقیقی استفادے کے لیے فراہم کیے جا رہے ہیں۔ مرتبین، محقق اور معاونین کسی بھی نادانستہ خطاء، ذاتی تفہیم یا خارجی تعبیر کی شرعی یا قانونی ذمہ داری سے مکمل براءت کا اعلان کرتے ہیں۔
+
+---
+
 ## 🛠️ Technology Stack & Engineering Benchmarks
 
 - **Runtime & UI Architecture:** React 18 with TypeScript 5.5, Vite 8.3
