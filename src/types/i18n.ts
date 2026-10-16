@@ -30,6 +30,7 @@ export interface TranslationDictionary {
     bookmarks: string;
     dataModal: string;
     citeResearch: string;
+    ecosystem: string;
     disclaimer: string;
   };
   epochs: {

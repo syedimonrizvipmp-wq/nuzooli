@@ -182,6 +182,21 @@ All data, analytical charts, and exportable datasets are made accessible strictl
 
 ---
 
+## 🌐 The Digital Islamicate Research Ecosystem (نیٹ ورک)
+
+Project Nuzooli forms the foundational diachronic node within an interconnected digital humanities ecosystem founded and directed by **Maulana Syed Imon Rizvi**:
+
+| Sister Platform | Primary Research Domain | Technology & Scope | Access URL |
+|---|---|---|---|
+| **Quran-Samjho (قرآن سمجھو)** | 40+ Translation Comparative Hermeneutics | Cross-translation analytical engine (Qarai, Jawadi, Najafi) | [getmorefromlife.github.io/quran-samjho](https://getmorefromlife.github.io/quran-samjho/) |
+| **Ayyām Allāh Timeline (ایام اللہ)** | 5,946-Year Historical Engine | Millennial Islamic & Prophetic Chronology | [ayyam-allah-timeline.vercel.app](https://ayyam-allah-timeline.vercel.app/) |
+| **Radiant Quranic Academy (رسم الخط و تجوید)** | Computational Phonetics & Orthoepy | Biomechanical Makharij & Tajweed wave acoustics | [radiant-quranic-academy.vercel.app](https://radiant-quranic-academy.vercel.app/) |
+| **Aligile (علوی اخلاقیات و فرائض)** | Applied Ethics & Governance | Nahj al-Balagha Virtue Ethics for Agile Systems | [getmorefromlife.github.io/aligile](https://getmorefromlife.github.io/aligile/) |
+| **Sacred Pages Archive (اوراقِ مقدسہ)** | Thematic Exegetical Library | 40+ Peer-Level Theological Treatises & Monographs | [sacred-pages-booklets.pages.dev](https://sacred-pages-booklets.pages.dev/) |
+| **Quran-Parho (قرآن پڑھو)** | Native Mobile Exegesis | Native Android Kotlin Offline Database | [github.com/syedimonrizvipmp-wq/nuzooli](https://github.com/syedimonrizvipmp-wq/nuzooli) |
+
+---
+
 ## 🛠️ Technology Stack & Engineering Benchmarks
 
 - **Runtime & UI Architecture:** React 18 with TypeScript 5.5, Vite 8.3

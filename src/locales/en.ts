@@ -30,6 +30,7 @@ export const en: TranslationDictionary = {
     bookmarks: 'Bookmarks',
     dataModal: 'Data Management',
     citeResearch: 'Cite Research',
+    ecosystem: 'Research Ecosystem',
     disclaimer: 'Scholarly Disclaimer',
   },
   epochs: {

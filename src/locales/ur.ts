@@ -30,6 +30,7 @@ export const ur: TranslationDictionary = {
     bookmarks: 'محفوظ شدہ آیات',
     dataModal: 'ڈیٹا مینجمنٹ و بیک اپ',
     citeResearch: 'تحقیقی حوالہ (Cite)',
+    ecosystem: 'ریسرچ ایکو سسٹم (پورٹ فولیو)',
     disclaimer: 'علمی و شرعی وضاحت',
   },
   epochs: {

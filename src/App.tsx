@@ -15,6 +15,8 @@ import { BookmarksModal } from '@/components/Modals/BookmarksModal';
 import { DataImportExportModal } from '@/components/Modals/DataImportExportModal';
 import { DisclaimerModal } from '@/components/Modals/DisclaimerModal';
 import { CiteResearchModal } from '@/components/Modals/CiteResearchModal';
+import { ResearchEcosystemModal } from '@/components/Modals/ResearchEcosystemModal';
+import { ResearchEcosystemGrid } from '@/components/Footer/ResearchEcosystemGrid';
 import { AudioPlayerBar } from '@/components/Reader/AudioPlayerBar';
 import { ShieldAlert } from 'lucide-react';
 
@@ -26,6 +28,7 @@ export const AppContent: React.FC = () => {
   const [isDataModalOpen, setIsDataModalOpen] = useState(false);
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
   const [isCiteModalOpen, setIsCiteModalOpen] = useState(false);
+  const [isEcosystemOpen, setIsEcosystemOpen] = useState(false);
 
   // Dedicated Standalone Pages Detection
   const [isDedicatedTimeline, setIsDedicatedTimeline] = useState<boolean>(() => {
@@ -99,6 +102,7 @@ export const AppContent: React.FC = () => {
         onOpenDataModal={() => setIsDataModalOpen(true)}
         onOpenDisclaimer={() => setIsDisclaimerOpen(true)}
         onOpenCite={() => setIsCiteModalOpen(true)}
+        onOpenEcosystem={() => setIsEcosystemOpen(true)}
       />
 
       {/* Interactive 23-Year Time-Ribbon Discovery Engine (Surah Chronology) */}
@@ -138,6 +142,13 @@ export const AppContent: React.FC = () => {
         isOpen={isCiteModalOpen}
         onClose={() => setIsCiteModalOpen(false)}
       />
+      <ResearchEcosystemModal
+        isOpen={isEcosystemOpen}
+        onClose={() => setIsEcosystemOpen(false)}
+      />
+
+      {/* Digital Islamicate Research Ecosystem Grid */}
+      <ResearchEcosystemGrid onOpenModal={() => setIsEcosystemOpen(true)} />
 
       {/* Sacred Footer */}
       <footer className="w-full mt-auto py-8 border-t border-[var(--border-subtle)] bg-[var(--bg-surface)] text-xs text-[var(--text-muted)] transition-colors">

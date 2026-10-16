@@ -22,6 +22,7 @@ import {
   ShieldAlert,
   GitBranch,
   GraduationCap,
+  Network,
 } from 'lucide-react';
 import { LanguageToggle } from './LanguageToggle';
 
@@ -31,6 +32,7 @@ interface NavbarProps {
   onOpenDataModal: () => void;
   onOpenDisclaimer: () => void;
   onOpenCite?: () => void;
+  onOpenEcosystem?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -39,6 +41,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenDataModal,
   onOpenDisclaimer,
   onOpenCite,
+  onOpenEcosystem,
 }) => {
   const {
     language,
@@ -384,6 +387,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </button>
               )}
 
+              {/* Research Ecosystem Modal Trigger */}
+              {onOpenEcosystem && (
+                <button
+                  onClick={onOpenEcosystem}
+                  title={t.navigation.ecosystem}
+                  className="p-2.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 hover:bg-emerald-500/20 hover:text-emerald-900 dark:hover:text-emerald-200 transition-all shadow-2xs cursor-pointer flex items-center gap-1.5"
+                >
+                  <Network className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
+                  <span className={`hidden xl:inline text-xs font-semibold ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
+                    {language === 'en' ? 'Ecosystem' : 'نیٹ ورک'}
+                  </span>
+                </button>
+              )}
+
               {/* Academic & AI Disclaimer Modal Trigger */}
               <button
                 onClick={onOpenDisclaimer}
@@ -651,6 +668,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <GraduationCap className="w-4 h-4 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
                 <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>{t.navigation.citeResearch}</span>
+              </button>
+            )}
+
+            {/* Research Ecosystem Modal Trigger */}
+            {onOpenEcosystem && (
+              <button
+                onClick={() => {
+                  onOpenEcosystem();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="col-span-2 flex items-center gap-2.5 p-3 min-h-[48px] rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-800 dark:text-teal-300 font-medium text-left cursor-pointer active:scale-95 transition-all shadow-xs"
+              >
+                <Network className="w-4 h-4 text-teal-700 dark:text-teal-400 flex-shrink-0" />
+                <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>{t.navigation.ecosystem}</span>
               </button>
             )}
 
