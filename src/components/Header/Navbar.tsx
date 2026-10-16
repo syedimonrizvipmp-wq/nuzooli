@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { useQuran } from '@/context/QuranContext';
 import { ThemeId, ReadingLayout } from '@/types/quran';
 import {
@@ -55,6 +55,8 @@ export const Navbar: React.FC<NavbarProps> = ({
     bookmarks,
     searchQuery,
     setSearchQuery,
+    events,
+    setActiveEventOrder,
   } = useQuran();
 
   const [isThemeOpen, setIsThemeOpen] = useState(false);
@@ -62,6 +64,77 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+  const mobileSearchRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(target) &&
+        mobileSearchRef.current &&
+        !mobileSearchRef.current.contains(target)
+      ) {
+        setIsSearchFocused(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const searchResults = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return [];
+
+    return events.filter((evt) => {
+      const qNum = parseInt(q, 10);
+      const isNumMatch = !isNaN(qNum) && (evt.chronologicalOrder === qNum || evt.mushafOrder === qNum);
+      const isNameMatch =
+        evt.surahNameEnglish.toLowerCase().includes(q) ||
+        evt.surahNameArabic.includes(q) ||
+        evt.surahNameUrdu.includes(q);
+      const isPeriodMatch =
+        evt.revelationPeriod.toLowerCase().includes(q) ||
+        (q === 'مکی' && evt.revelationPeriod.includes('Meccan')) ||
+        (q === 'مدنی' && evt.revelationPeriod.includes('Medinan'));
+      const isAsbabMatch =
+        Boolean(evt.asbabUnNuzul?.titleUrdu && evt.asbabUnNuzul.titleUrdu.includes(q)) ||
+        Boolean(evt.asbabUnNuzul?.titleEnglish && evt.asbabUnNuzul.titleEnglish.toLowerCase().includes(q));
+
+      return isNumMatch || isNameMatch || isPeriodMatch || isAsbabMatch;
+    }).slice(0, 10);
+  }, [events, searchQuery]);
+
+  const handleSelectSearchResult = (chronologicalOrder: number) => {
+    setActiveEventOrder(chronologicalOrder);
+    if (perspectiveMode !== 'nuzul' && perspectiveMode !== 'passage_nuzul') {
+      setPerspectiveMode('nuzul');
+    }
+    setSearchQuery('');
+    setIsSearchFocused(false);
+    setIsMobileSearchOpen(false);
+
+    setTimeout(() => {
+      const targetEl = document.querySelector('article') || document.querySelector('main');
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 60);
+  };
+
+  const handleSearchKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Escape') {
+      setIsSearchFocused(false);
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (searchResults.length > 0) {
+        handleSelectSearchResult(searchResults[0].chronologicalOrder);
+      }
+    }
+  };
 
   useEffect(() => {
     const handleFsChange = () => {
@@ -225,25 +298,98 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Center: Search Bar with generous breathing space (Desktop) */}
-            <div className="hidden lg:flex items-center flex-1 max-w-sm xl:max-w-md mx-2">
+            <div ref={searchContainerRef} className="hidden lg:flex items-center flex-1 max-w-sm xl:max-w-md mx-2 relative">
               <div className="relative w-full">
                 <Search className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
                 <input
                   type="text"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setIsSearchFocused(true);
+                  }}
+                  onKeyDown={handleSearchKeyDown}
                   placeholder={t.app.searchPlaceholder}
                   className={`w-full ps-10 pe-9 py-2 text-xs rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-emerald-500/40 transition-all shadow-2xs h-9 ${language === 'en' ? 'font-sans' : 'font-urdu'}`}
                 />
                 {searchQuery && (
                   <button
-                    onClick={() => setSearchQuery('')}
-                    className="absolute end-3.5 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                    onClick={() => {
+                      setSearchQuery('');
+                      setIsSearchFocused(false);
+                    }}
+                    className="absolute end-3.5 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
                   >
                     ✕
                   </button>
                 )}
               </div>
+
+              {/* Desktop Live Search Results Dropdown */}
+              {isSearchFocused && searchQuery.trim().length > 0 && (
+                <div className="absolute top-full start-0 end-0 mt-2 bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] rounded-2xl shadow-2xl overflow-hidden z-50 backdrop-blur-md max-h-[440px] flex flex-col animate-fade-in">
+                  <div className="px-3.5 py-2 border-b border-[var(--border-subtle)] bg-[var(--bg-surface)] flex items-center justify-between text-[11px] text-[var(--text-muted)] font-urdu">
+                    <span>
+                      {language === 'en'
+                        ? `Found ${searchResults.length} matching Surah${searchResults.length === 1 ? '' : 's'}:`
+                        : `تلاش کے نتائج (${searchResults.length} سورتیں):`}
+                    </span>
+                    <span className="text-[10px] text-[var(--text-muted)] font-sans">
+                      Press ↵ to open
+                    </span>
+                  </div>
+
+                  <div className="overflow-y-auto divide-y divide-[var(--border-subtle)]/50 no-scrollbar">
+                    {searchResults.length > 0 ? (
+                      searchResults.map((evt) => (
+                        <button
+                          key={evt.chronologicalOrder}
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            handleSelectSearchResult(evt.chronologicalOrder);
+                          }}
+                          onClick={() => handleSelectSearchResult(evt.chronologicalOrder)}
+                          className="w-full text-start px-3.5 py-2.5 hover:bg-emerald-500/10 transition-colors flex items-center justify-between gap-3 group cursor-pointer"
+                        >
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <span className="shrink-0 px-2 py-0.5 rounded-lg text-[10px] font-bold bg-emerald-700 text-white shadow-xs">
+                              نزول #{evt.chronologicalOrder}
+                            </span>
+                            <span className="shrink-0 px-2 py-0.5 rounded-lg text-[10px] font-semibold bg-sky-500/15 text-sky-800 dark:text-sky-300 border border-sky-500/30">
+                              مصحف #{evt.mushafOrder}
+                            </span>
+                            <div className="min-w-0">
+                              <div className="font-bold text-xs text-[var(--text-primary)] group-hover:text-emerald-700 dark:group-hover:text-emerald-300 flex items-center gap-1.5 truncate">
+                                <span className="font-serif">{evt.surahNameEnglish}</span>
+                                <span className="text-[var(--text-muted)]">•</span>
+                                <span className="font-urdu font-bold">{evt.surahNameUrdu}</span>
+                              </div>
+                              <div className="text-[10px] text-[var(--text-muted)] truncate">
+                                {evt.revelationPeriod} • {evt.totalVersesInSurah} آیات ({evt.location})
+                              </div>
+                            </div>
+                          </div>
+
+                          <div className="text-end shrink-0">
+                            <span className="font-arabic font-extrabold text-base text-emerald-800 dark:text-emerald-300 block leading-tight">
+                              {evt.surahNameArabic}
+                            </span>
+                          </div>
+                        </button>
+                      ))
+                    ) : (
+                      <div className="p-6 text-center space-y-1">
+                        <p className={`text-xs font-bold text-[var(--text-muted)] ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
+                          {language === 'en'
+                            ? 'No matching Surah found. Try searching by name, number, or keyword.'
+                            : 'کوئی سورت یا نتیجہ نہیں ملا — برائے مہربانی درست نام یا نمبر تلاش فرمائیں۔'}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
           {/* Right: Reading Utility Controls & Settings */}
@@ -602,26 +748,86 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* Mobile Search Bar Drawer */}
       {isMobileSearchOpen && (
-        <div className="lg:hidden px-4 py-2.5 border-t border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] animate-fade-in shadow-inner">
+        <div ref={mobileSearchRef} className="lg:hidden px-4 py-2.5 border-t border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] animate-fade-in shadow-inner relative">
           <div className="relative w-full">
             <Search className="absolute start-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-emerald-700 dark:text-emerald-400" />
             <input
               type="text"
               autoFocus
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onFocus={() => setIsSearchFocused(true)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setIsSearchFocused(true);
+              }}
+              onKeyDown={handleSearchKeyDown}
               placeholder={t.app.searchPlaceholder}
               className={`w-full ps-10 pe-8 py-2 text-xs rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:ring-2 focus:ring-emerald-500/40 shadow-2xs ${language === 'en' ? 'font-sans' : 'font-urdu'}`}
             />
             {searchQuery && (
               <button
-                onClick={() => setSearchQuery('')}
-                className="absolute end-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)]"
+                onClick={() => {
+                  setSearchQuery('');
+                  setIsSearchFocused(false);
+                }}
+                className="absolute end-3 top-1/2 -translate-y-1/2 text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] cursor-pointer"
               >
                 ✕
               </button>
             )}
           </div>
+
+          {/* Mobile Search Results */}
+          {searchQuery.trim().length > 0 && (
+            <div className="mt-2 bg-[var(--bg-surface)] border border-[var(--border-subtle)] rounded-xl shadow-xl overflow-hidden max-h-[320px] flex flex-col">
+              <div className="px-3 py-1.5 border-b border-[var(--border-subtle)] bg-[var(--bg-surface-elevated)] text-[11px] text-[var(--text-muted)] font-urdu flex items-center justify-between">
+                <span>
+                  {language === 'en'
+                    ? `Results (${searchResults.length}):`
+                    : `نتائجِ تلاش (${searchResults.length}):`}
+                </span>
+                <span className="text-[10px] text-[var(--text-muted)] font-sans">
+                  Tap to view
+                </span>
+              </div>
+              <div className="overflow-y-auto divide-y divide-[var(--border-subtle)]/40 no-scrollbar">
+                {searchResults.length > 0 ? (
+                  searchResults.map((evt) => (
+                    <button
+                      key={evt.chronologicalOrder}
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        handleSelectSearchResult(evt.chronologicalOrder);
+                      }}
+                      onClick={() => handleSelectSearchResult(evt.chronologicalOrder)}
+                      className="w-full text-start px-3 py-2 hover:bg-emerald-500/10 transition-colors flex items-center justify-between gap-2 cursor-pointer"
+                    >
+                      <div className="flex items-center gap-2 min-w-0">
+                        <span className="shrink-0 px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-700 text-white">
+                          #{evt.chronologicalOrder}
+                        </span>
+                        <div className="min-w-0">
+                          <div className="font-bold text-xs truncate text-[var(--text-primary)]">
+                            {evt.surahNameEnglish} • <span className="font-urdu font-bold">{evt.surahNameUrdu}</span>
+                          </div>
+                          <div className="text-[10px] text-[var(--text-muted)] truncate">
+                            مصحف #{evt.mushafOrder} • {evt.revelationPeriod}
+                          </div>
+                        </div>
+                      </div>
+                      <span className="font-arabic font-bold text-sm text-emerald-800 dark:text-emerald-300 shrink-0">
+                        {evt.surahNameArabic}
+                      </span>
+                    </button>
+                  ))
+                ) : (
+                  <div className="p-4 text-center text-xs text-[var(--text-muted)] font-urdu">
+                    کوئی سورت نہیں ملی — برائے مہربانی درست نام یا نمبر تلاش فرمائیں
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       )}
 

@@ -71,12 +71,12 @@ export const ResearchEcosystemModal: React.FC<ResearchEcosystemModalProps> = ({
                   Digital Islamicate Laboratory
                 </span>
               </div>
-              <h3 className="text-lg sm:text-xl font-bold text-[var(--text-primary)] font-serif mt-1">
+              <h3 className={`text-lg sm:text-xl font-bold text-[var(--text-primary)] mt-1 ${language === 'en' ? 'font-serif' : 'font-urdu'}`}>
                 {language === 'en'
                   ? 'Digital Islamicate Research Ecosystem'
                   : 'ڈیجیٹل علومِ اسلامیہ ریسرچ ایکو سسٹم'}
               </h3>
-              <p className="text-xs text-[var(--text-muted)] mt-0.5">
+              <p className={`text-xs text-[var(--text-muted)] mt-0.5 ${language === 'en' ? 'font-sans' : 'font-urdu leading-normal'}`}>
                 {language === 'en'
                   ? 'An interconnected network of computational hermeneutics, diachronic timelines & applied ethics by Maulana Syed Imon Rizvi'
                   : 'مولانا سید آئمن رضوی کے زیرِ سرپرستی قرآنی زمانیات، تفسیری علوم اور اخلاقیات کا باہم مربوط نیٹ ورک'}
@@ -102,7 +102,9 @@ export const ResearchEcosystemModal: React.FC<ResearchEcosystemModalProps> = ({
                 : 'bg-[var(--bg-primary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)]'
             }`}
           >
-            {language === 'en' ? 'All Platforms (7)' : 'تمام منصوبے (۷)'}
+            <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>
+              {language === 'en' ? 'All Platforms (7)' : 'تمام منصوبے (۷)'}
+            </span>
           </button>
           {ECOSYSTEM_CATEGORIES.map((cat) => (
             <button
@@ -115,7 +117,9 @@ export const ResearchEcosystemModal: React.FC<ResearchEcosystemModalProps> = ({
               }`}
             >
               {getCategoryIcon(cat.id)}
-              <span>{language === 'en' ? cat.titleEnglish : cat.titleUrdu}</span>
+              <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>
+                {language === 'en' ? cat.titleEnglish : cat.titleUrdu}
+              </span>
             </button>
           ))}
         </div>
@@ -136,7 +140,7 @@ export const ResearchEcosystemModal: React.FC<ResearchEcosystemModalProps> = ({
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
                     {getCategoryIcon(project.category)}
-                    <span className="text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
+                    <span className={`text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)] ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
                       {language === 'en' ? project.categoryLabelEnglish : project.categoryLabelUrdu}
                     </span>
                   </div>
@@ -153,20 +157,20 @@ export const ResearchEcosystemModal: React.FC<ResearchEcosystemModalProps> = ({
                           : 'bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20'
                       }`}
                     >
-                      {project.statusTag}
+                      <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>{project.statusTag}</span>
                     </span>
                   </div>
                 </div>
 
                 {/* Content */}
                 <div className="space-y-1.5">
-                  <h4 className="text-sm sm:text-base font-bold text-[var(--text-primary)] font-serif group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors flex items-center justify-between">
+                  <h4 className={`text-sm sm:text-base font-bold text-[var(--text-primary)] group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors flex items-center justify-between ${language === 'en' ? 'font-serif' : 'font-urdu leading-normal'}`}>
                     <span>{language === 'en' ? project.titleEnglish : project.titleUrdu}</span>
                   </h4>
-                  <p className="text-[11px] font-semibold text-emerald-800 dark:text-emerald-300">
+                  <p className={`text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
                     {language === 'en' ? project.subtitleEnglish : project.subtitleUrdu}
                   </p>
-                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                  <p className={`leading-relaxed ${language === 'en' ? 'font-sans text-xs text-[var(--text-secondary)]' : 'font-urdu text-[12px] leading-loose text-right text-[var(--text-secondary)]'}`} dir={language === 'ur' ? 'rtl' : 'ltr'}>
                     {language === 'en' ? project.descriptionEnglish : project.descriptionUrdu}
                   </p>
                 </div>
@@ -176,7 +180,9 @@ export const ResearchEcosystemModal: React.FC<ResearchEcosystemModalProps> = ({
                   {project.isCurrent ? (
                     <span className="inline-flex items-center gap-1.5 text-xs font-bold text-emerald-700 dark:text-emerald-400">
                       <CheckCircle2 className="w-4 h-4" />
-                      <span>{language === 'en' ? 'Currently Active Platform' : 'موجودہ فعال پلیٹ فارم'}</span>
+                      <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>
+                        {language === 'en' ? 'Currently Active Platform' : 'موجودہ فعال پلیٹ فارم'}
+                      </span>
                     </span>
                   ) : (
                     <a
@@ -185,7 +191,9 @@ export const ResearchEcosystemModal: React.FC<ResearchEcosystemModalProps> = ({
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition-all shadow-xs cursor-pointer group-hover:translate-x-0.5"
                     >
-                      <span>{language === 'en' ? 'Launch Platform' : 'پلیٹ فارم کھولیں'}</span>
+                      <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>
+                        {language === 'en' ? 'Launch Platform' : 'پلیٹ فارم کھولیں'}
+                      </span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   )}

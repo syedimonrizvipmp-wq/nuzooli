@@ -106,19 +106,19 @@ export const ECOSYSTEM_PROJECTS: EcosystemProject[] = [
   {
     id: 'quran-parho',
     titleEnglish: 'Quran-Parho (قرآن پڑھو)',
-    titleUrdu: 'قرآن پڑھو (آف لائن ڈیٹا بیس)',
-    subtitleEnglish: 'Native Android Kotlin Offline Platform',
-    subtitleUrdu: 'اینڈرائیڈ کوٹلن نیٹو آف لائن پلیٹ فارم',
+    titleUrdu: 'قرآن پڑھو (Quran-Parho)',
+    subtitleEnglish: 'Quranic Reading & Memorization Platform',
+    subtitleUrdu: 'قرآن فہمی، تلاوت و حفظ ویب ایپلیکیشن',
     category: 'textual',
     categoryLabelEnglish: 'Textual & Diachronic',
     categoryLabelUrdu: 'متنی و زمانی',
-    descriptionEnglish: 'A high-performance offline mobile reading and memorization engine built natively in Android/Kotlin with synchronized word-by-word morphological roots and semantic audio.',
-    descriptionUrdu: 'اینڈرائیڈ اور کوٹلن پر استوار ایک تیز رفتار آف لائن موبائل ایپلی کیشن جو لفظ بہ لفظ صرفی و نحوی جڑوں اور تلاوتِ صوتی کے ساتھ منسلک ہے۔',
-    url: 'https://github.com/syedimonrizvipmp-wq/nuzooli/releases',
-    statusTag: 'Native Android App',
+    descriptionEnglish: 'An interactive, responsive web application for complete Quranic recitation, memorization drills, and verse-by-verse synchronized audio.',
+    descriptionUrdu: 'قرآن مجید کی مکمل تلاوت، سورتوں کے حفظ اور لفظ بہ لفظ صوتی اسباق پر مشتمل تیز رفتار انٹرایکٹو ویب ایپلیکیشن۔',
+    url: 'https://quran-parho.vercel.app',
+    statusTag: 'Live Web Platform',
     isExternal: true,
     accentColor: '#10b981',
-    metrics: 'Offline Kotlin Engine'
+    metrics: 'Production Web App'
   },
   {
     id: 'ayyam-allah',

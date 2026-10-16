@@ -1395,12 +1395,12 @@ export const ArcOfReconnectionView: React.FC = () => {
                     />
                     <text
                       x={Math.max(20, Math.min(svgWidth - 520, x2 - 260)) + 260}
-                      y={78}
+                      y={bottomY + 78}
                       textAnchor="middle"
                       fontSize="20"
                       fontWeight="900"
                       fill="var(--text-primary)"
-                      className="font-sans select-none"
+                      className="font-sans font-urdu select-none"
                     >
                       مصحف #{inspectedPureArc.mushafOrder}: {inspectedPureArc.surahNameEnglish} ({inspectedPureArc.surahNameArabic}) (Δ {inspectedPureArc.delta})
                     </text>
@@ -2037,12 +2037,12 @@ export const ArcOfReconnectionView: React.FC = () => {
                   />
                   <text
                     x={Math.max(20, Math.min(svgWidth - 520, getBottomX(inspectedSurahDetails.mushafOrder) - 260)) + 260}
-                    y={78}
+                    y={bottomY + 78}
                     textAnchor="middle"
                     fontSize="20"
                     fontWeight="900"
                     fill="var(--text-primary)"
-                    className="font-sans select-none"
+                    className="font-sans font-urdu select-none"
                   >
                     مصحف #{inspectedSurahDetails.mushafOrder}: {inspectedSurahDetails.surahNameEnglish} ({inspectedSurahDetails.surahNameArabic}) (Δ {inspectedDelta})
                   </text>

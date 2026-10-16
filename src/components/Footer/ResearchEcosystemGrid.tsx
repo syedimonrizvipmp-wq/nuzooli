@@ -59,13 +59,13 @@ export const ResearchEcosystemGrid: React.FC<ResearchEcosystemGridProps> = ({ on
               </span>
             </div>
             
-            <h3 className="text-xl sm:text-2xl font-bold font-serif text-[var(--text-primary)]">
+            <h3 className={`text-xl sm:text-2xl font-bold text-[var(--text-primary)] ${language === 'en' ? 'font-serif' : 'font-urdu'}`}>
               {language === 'en'
                 ? 'Interconnected Computational Humanities & Exegetical Network'
                 : 'باہم مربوط قرآنی، تاریخی و کلامی ڈیجیٹل لیبارٹریز'}
             </h3>
             
-            <p className="text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed">
+            <p className={`text-xs sm:text-sm text-[var(--text-secondary)] leading-relaxed ${language === 'en' ? 'font-sans' : 'font-urdu leading-normal'}`}>
               {language === 'en'
                 ? 'Explore the sister research platforms bridging classical Hawzah scholarship with modern text analytics, millennial diachronic timelines, and applied virtue ethics.'
                 : 'قرآنی علوم، تقابلِ تفاسیر، ۵،۹۴۶ سالہ اسلامی تقویم، تجوید کی صوتیات اور نہج البلاغہ کے تنظیمی اصولوں پر مشتمل ہم قدم پلیٹ فارمز۔'}
@@ -78,7 +78,9 @@ export const ResearchEcosystemGrid: React.FC<ResearchEcosystemGridProps> = ({ on
               className="px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5 shrink-0 cursor-pointer"
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>{language === 'en' ? 'Launch Full Ecosystem Drawer' : 'پورا نیٹ ورک ملاحظہ کریں'}</span>
+              <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>
+                {language === 'en' ? 'Launch Full Ecosystem Drawer' : 'پورا نیٹ ورک ملاحظہ کریں'}
+              </span>
             </button>
           )}
         </div>
@@ -98,7 +100,7 @@ export const ResearchEcosystemGrid: React.FC<ResearchEcosystemGridProps> = ({ on
                 <div className="flex items-center justify-between gap-1 mb-2">
                   <div className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-[var(--text-muted)]">
                     {getCategoryIcon(project.category)}
-                    <span className="truncate">
+                    <span className={`truncate ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
                       {language === 'en' ? project.categoryLabelEnglish : project.categoryLabelUrdu}
                     </span>
                   </div>
@@ -106,23 +108,23 @@ export const ResearchEcosystemGrid: React.FC<ResearchEcosystemGridProps> = ({ on
                 </div>
 
                 {/* Project Title */}
-                <h4 className="text-sm font-bold text-[var(--text-primary)] group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors font-serif leading-snug">
+                <h4 className={`text-sm font-bold text-[var(--text-primary)] group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors leading-snug ${language === 'en' ? 'font-serif' : 'font-urdu'}`}>
                   {language === 'en' ? project.titleEnglish : project.titleUrdu}
                 </h4>
                 
-                <p className="text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 mt-0.5">
+                <p className={`text-[11px] font-semibold text-emerald-800 dark:text-emerald-300 mt-0.5 ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
                   {language === 'en' ? project.subtitleEnglish : project.subtitleUrdu}
                 </p>
 
                 {/* Short Description */}
-                <p className="text-[11px] text-[var(--text-secondary)] leading-relaxed mt-2 line-clamp-3">
+                <p className={`leading-relaxed mt-2 line-clamp-3 ${language === 'en' ? 'font-sans text-[11px] text-[var(--text-secondary)]' : 'font-urdu text-[11px] leading-loose text-right text-[var(--text-secondary)]'}`} dir={language === 'ur' ? 'rtl' : 'ltr'}>
                   {language === 'en' ? project.descriptionEnglish : project.descriptionUrdu}
                 </p>
               </div>
 
               {/* Bottom Tag & Metric */}
               <div className="pt-2 border-t border-[var(--border-subtle)] flex items-center justify-between gap-1 text-[10px]">
-                <span className="font-semibold text-emerald-700 dark:text-emerald-400 truncate">
+                <span className={`font-semibold text-emerald-700 dark:text-emerald-400 truncate ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
                   {project.statusTag}
                 </span>
                 <span className="text-[9px] text-[var(--text-muted)] font-mono shrink-0">

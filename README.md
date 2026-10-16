@@ -193,7 +193,7 @@ Project Nuzooli forms the foundational diachronic node within an interconnected 
 | **Radiant Quranic Academy (رسم الخط و تجوید)** | Computational Phonetics & Orthoepy | Biomechanical Makharij & Tajweed wave acoustics | [radiant-quranic-academy.vercel.app](https://radiant-quranic-academy.vercel.app/) |
 | **Aligile (علوی اخلاقیات و فرائض)** | Applied Ethics & Governance | Nahj al-Balagha Virtue Ethics for Agile Systems | [getmorefromlife.github.io/aligile](https://getmorefromlife.github.io/aligile/) |
 | **Sacred Pages Archive (اوراقِ مقدسہ)** | Thematic Exegetical Library | 40+ Peer-Level Theological Treatises & Monographs | [sacred-pages-booklets.pages.dev](https://sacred-pages-booklets.pages.dev/) |
-| **Quran-Parho (قرآن پڑھو)** | Native Mobile Exegesis | Native Android Kotlin Offline Database | [github.com/syedimonrizvipmp-wq/nuzooli](https://github.com/syedimonrizvipmp-wq/nuzooli) |
+| **Quran-Parho (قرآن پڑھو)** | Quranic Reading & Memorization Web App | Interactive Web Application & Audio Recitation Engine | [quran-parho.vercel.app](https://quran-parho.vercel.app) |
 
 ---
 
