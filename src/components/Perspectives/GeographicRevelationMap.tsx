@@ -41,6 +41,7 @@ export const GeographicRevelationMap: React.FC = () => {
     pauseAudio,
     setActivePassageStep,
     setPerspectiveMode,
+    language,
   } = useQuran();
 
   const [selectedSiteId, setSelectedSiteId] = useState<string>('ghar-hira');
@@ -540,7 +541,9 @@ export const GeographicRevelationMap: React.FC = () => {
             <div className="p-4 sm:p-5 rounded-2xl bg-[var(--bg-surface)] border border-emerald-600/25 space-y-3">
               <div className="flex items-center justify-between text-xs font-bold text-emerald-800 dark:text-emerald-300">
                 <span>
-                  سورۃ {activeSite.surahNameEnglish} ({activeSite.surahNameUrdu}) — {activeSite.surahNumber}:{activeSite.featuredAyahNumber}
+                  {language === 'en'
+                    ? `Surah ${activeSite.surahNameEnglish} (${activeSite.surahNameUrdu.startsWith('سورۃ') ? activeSite.surahNameUrdu : `سورۃ ${activeSite.surahNameUrdu}`}) — ${activeSite.surahNumber}:${activeSite.featuredAyahNumber}`
+                    : `${activeSite.surahNameUrdu.startsWith('سورۃ') ? activeSite.surahNameUrdu : `سورۃ ${activeSite.surahNameUrdu}`} (${activeSite.surahNameEnglish}) — ${activeSite.surahNumber}:${activeSite.featuredAyahNumber}`}
                 </span>
                 <span className="text-[10px] text-[var(--text-muted)] font-sans">
                   نزولِ تدریجی مرحلہ #{activeSite.passageStepNumber}

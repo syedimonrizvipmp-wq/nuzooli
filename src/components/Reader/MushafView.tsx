@@ -4,6 +4,8 @@ import { useQuran } from '@/context/QuranContext';
 import { loadSurahVerses } from '@/utils/quranVerseLoader';
 import { Verse } from '@/types/quran';
 import { URDU_TRANSLATORS, ENGLISH_TRANSLATORS } from '@/data/translations';
+import { SurahVisualBadge } from '@/components/SurahMemorizer/SurahVisualBadge';
+import { SURAH_114_VISUAL_CATALOG } from '@/data/surahVisualCatalog114';
 import {
   Compass,
   BookOpen,
@@ -230,34 +232,42 @@ export const MushafView: React.FC = () => {
           </div>
 
           {/* Surah Header Display */}
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-            <div>
-              <div className="flex flex-wrap items-center gap-2 mb-2 text-xs">
-                <span className="px-2.5 py-0.5 rounded-full bg-emerald-600/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/25 font-bold font-sans">
-                  مصحف ترتیب #{activeSurahMeta.n}
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-200 border border-amber-500/25 font-bold flex items-center gap-1">
-                  <Compass className="w-3.5 h-3.5 text-amber-600" />
-                  <span>نزولِ زمانی ترتیب #{activeSurahMeta.nuzul}</span>
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-800 dark:text-sky-200 border border-sky-500/25 font-semibold">
-                  {activeSurahMeta.type === 'meccan' ? 'مکی (Meccan)' : 'مدنی (Medinan)'}
-                </span>
-                <span className="px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-800 dark:text-purple-200 border border-purple-500/25 font-semibold">
-                  {activeSurahMeta.verses} آیات (Verses)
-                </span>
-              </div>
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <SurahVisualBadge
+                mushafOrder={activeSurahMeta.n}
+                fallbackEmoji={SURAH_114_VISUAL_CATALOG[activeSurahMeta.n]?.emoji || '📖'}
+                size="md"
+                altText={activeSurahMeta.en}
+              />
+              <div>
+                <div className="flex flex-wrap items-center gap-2 mb-2 text-xs">
+                  <span className="px-2.5 py-0.5 rounded-full bg-emerald-600/15 text-emerald-800 dark:text-emerald-300 border border-emerald-500/25 font-bold font-sans">
+                    مصحف ترتیب #{activeSurahMeta.n}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-amber-500/15 text-amber-800 dark:text-amber-200 border border-amber-500/25 font-bold flex items-center gap-1">
+                    <Compass className="w-3.5 h-3.5 text-amber-600" />
+                    <span>نزولِ زمانی ترتیب #{activeSurahMeta.nuzul}</span>
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-800 dark:text-sky-200 border border-sky-500/25 font-semibold">
+                    {activeSurahMeta.type === 'meccan' ? 'مکی (Meccan)' : 'مدنی (Medinan)'}
+                  </span>
+                  <span className="px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-800 dark:text-purple-200 border border-purple-500/25 font-semibold">
+                    {activeSurahMeta.verses} آیات (Verses)
+                  </span>
+                </div>
 
-              <div className="flex flex-wrap items-baseline gap-3">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-[var(--text-primary)]">
-                  {activeSurahMeta.en}
-                </h2>
-                <span className="font-arabic text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-800 dark:text-emerald-300">
-                  سورة {activeSurahMeta.ar}
-                </span>
-                <span className="text-base sm:text-lg font-normal text-[var(--text-muted)] font-urdu">
-                  ({activeSurahMeta.ur})
-                </span>
+                <div className="flex flex-wrap items-baseline gap-3">
+                  <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-serif text-[var(--text-primary)]">
+                    {activeSurahMeta.en}
+                  </h2>
+                  <span className="font-arabic text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-800 dark:text-emerald-300">
+                    سورة {activeSurahMeta.ar}
+                  </span>
+                  <span className="text-base sm:text-lg font-normal text-[var(--text-muted)] font-urdu">
+                    ({activeSurahMeta.ur})
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -731,21 +741,29 @@ export const MushafView: React.FC = () => {
                 </div>
               </div>
 
-              {/* Middle: Surah Names */}
-              <div className="flex items-center justify-between mb-2">
-                <div>
-                  <h3 className="font-bold text-base text-[var(--text-primary)] font-serif group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors">
-                    {s.en}
-                  </h3>
-                  <p className="text-xs text-[var(--text-muted)]">{s.verses} Ayahs</p>
-                </div>
-                <div className="text-right">
-                  <span className="text-xl font-bold font-arabic text-emerald-800 dark:text-emerald-300">
-                    {s.ar}
-                  </span>
-                  <p className="text-xs text-[var(--text-secondary)] font-urdu">
-                    {s.ur}
-                  </p>
+              {/* Middle: Visual Badge & Surah Names */}
+              <div className="flex items-center gap-3.5 mb-2">
+                <SurahVisualBadge
+                  mushafOrder={s.n}
+                  fallbackEmoji={SURAH_114_VISUAL_CATALOG[s.n]?.emoji || '📖'}
+                  size="sm"
+                  altText={s.en}
+                />
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-bold text-base text-[var(--text-primary)] font-serif group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors truncate">
+                      {s.en}
+                    </h3>
+                    <span className="text-xl font-bold font-arabic text-emerald-800 dark:text-emerald-300">
+                      {s.ar}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs mt-0.5">
+                    <span className="text-[var(--text-muted)]">{s.verses} Ayahs</span>
+                    <span className="text-[var(--text-secondary)] font-urdu font-medium">
+                      {s.ur}
+                    </span>
+                  </div>
                 </div>
               </div>
 

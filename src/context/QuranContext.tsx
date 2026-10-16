@@ -11,6 +11,8 @@ import {
   PassageStreamMode,
   QuranContextType,
 } from '@/types/quran';
+import { Language } from '@/types/i18n';
+import { translations } from '@/locales';
 import { ALL_114_CHRONOLOGICAL_EVENTS } from '@/data/allChronologicalEvents';
 import { INITIAL_REVELATION_EVENTS } from '@/data/initialSeedEvents';
 import { getAyahAudioUrl, DEFAULT_RECITER_ID } from '@/data/reciters';
@@ -64,6 +66,35 @@ const BASE_114_EVENTS: RevelationEvent[] = ALL_114_CHRONOLOGICAL_EVENTS.map((m) 
 const QuranContext = createContext<QuranContextType | undefined>(undefined);
 
 export const QuranProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  // 0. Language State (i18n) — English ('en') default landing language
+  const [language, setLanguageState] = useState<Language>(() => {
+    try {
+      const saved = localStorage.getItem('tarteeb_language');
+      if (saved === 'en' || saved === 'ur') return saved;
+    } catch {
+      // fallback
+    }
+    return 'en';
+  });
+
+  const setLanguage = useCallback((lang: Language) => {
+    setLanguageState(lang);
+    localStorage.setItem('tarteeb_language', lang);
+    if (typeof document !== 'undefined') {
+      document.documentElement.dir = lang === 'en' ? 'ltr' : 'rtl';
+      document.documentElement.lang = lang;
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.dir = language === 'en' ? 'ltr' : 'rtl';
+      document.documentElement.lang = language;
+    }
+  }, [language]);
+
+  const t = translations[language];
+
   // 1. Events State (all 114 events)
   const [events, setEvents] = useState<RevelationEvent[]>(() => {
     try {
@@ -556,6 +587,9 @@ export const QuranProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   return (
     <QuranContext.Provider
       value={{
+        language,
+        setLanguage,
+        t,
         events,
         activeEvent,
         activeEventOrder,

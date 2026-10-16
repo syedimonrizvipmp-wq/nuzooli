@@ -14,6 +14,8 @@ export const TimeRibbon: React.FC = () => {
     setPeriodFilter,
     activeMilestoneId,
     setActiveMilestoneId,
+    language,
+    t,
   } = useQuran();
 
   const ribbonRef = useRef<HTMLDivElement>(null);
@@ -26,6 +28,15 @@ export const TimeRibbon: React.FC = () => {
     'Early Medinan',
     'Late Medinan',
   ];
+
+  const epochLabels: Record<string, { en: string; ur: string }> = {
+    'All': { en: t.epochs.all, ur: 'تمام ادوار' },
+    'Early Meccan': { en: 'Early Meccan', ur: 'اوائلِ مکی' },
+    'Mid Meccan': { en: 'Mid Meccan', ur: 'اواسطِ مکی' },
+    'Late Meccan': { en: 'Late Meccan', ur: 'اواخرِ مکی' },
+    'Early Medinan': { en: 'Early Medinan', ur: 'اوائلِ مدنی' },
+    'Late Medinan': { en: 'Late Medinan', ur: 'اواخرِ مدنی' },
+  };
 
   const filteredEvents = events.filter((e) => {
     if (periodFilter === 'All') return true;
@@ -46,9 +57,13 @@ export const TimeRibbon: React.FC = () => {
         {/* Top Header: Timeline Stats & Direct Chronological Jump Selector */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
+            <div className={`flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400 ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
               <Clock className="w-4 h-4" />
-              <span>The 23-Year Prophetic Timeline — All 114 Surahs (6,236 Verses)</span>
+              <span>
+                {language === 'en'
+                  ? 'The 23-Year Prophetic Timeline — All 114 Surahs (6,236 Verses)'
+                  : '۲۳ سالہ وحیِ الٰہی — تمام ۱۱۴ سورتیں (۶,۲۳۶ آیات)'}
+              </span>
             </div>
           </div>
 
@@ -56,19 +71,21 @@ export const TimeRibbon: React.FC = () => {
           <div className="flex items-center gap-2 w-full md:w-auto">
             <div className="flex items-center gap-1.5 bg-[var(--bg-surface-elevated)] px-3 py-1.5 rounded-xl border border-[var(--border-subtle)] text-xs text-[var(--text-secondary)] w-full md:w-auto">
               <ListFilter className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
-              <span className="font-semibold whitespace-nowrap font-urdu">وحی پر جائیں:</span>
+              <span className={`font-semibold whitespace-nowrap ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
+                {language === 'en' ? 'Jump to Revelation:' : 'وحی پر جائیں:'}
+              </span>
               <select
                 value={activeEventOrder}
                 onChange={(e) => setActiveEventOrder(parseInt(e.target.value, 10))}
-                className="bg-transparent text-[var(--text-primary)] font-bold focus:outline-none cursor-pointer text-xs w-full md:w-64 font-urdu"
+                className={`bg-transparent text-[var(--text-primary)] font-bold focus:outline-none cursor-pointer text-xs w-full md:w-64 ${language === 'en' ? 'font-sans' : 'font-urdu'}`}
               >
                 {events.map((evt) => (
                   <option
                     key={evt.chronologicalOrder}
                     value={evt.chronologicalOrder}
-                    className="bg-[var(--bg-surface-elevated)] text-[var(--text-primary)] font-urdu"
+                    className="bg-[var(--bg-surface-elevated)] text-[var(--text-primary)]"
                   >
-                    #{evt.chronologicalOrder} — {evt.surahNameArabic} ({evt.surahNameUrdu}) • {evt.revelationPeriod}
+                    #{evt.chronologicalOrder} — {evt.surahNameArabic} ({language === 'en' ? evt.surahNameEnglish : evt.surahNameUrdu}) • {language === 'en' ? evt.revelationPeriod : epochLabels[evt.revelationPeriod]?.ur || evt.revelationPeriod}
                   </option>
                 ))}
               </select>
@@ -81,18 +98,19 @@ export const TimeRibbon: React.FC = () => {
           <div className="flex items-center gap-1.5 min-w-max">
             {periods.map((p) => {
               const count = p === 'All' ? events.length : events.filter(e => e.revelationPeriod === p).length;
+              const label = language === 'en' ? epochLabels[p]?.en || p : epochLabels[p]?.ur || p;
               return (
                 <button
                   key={p}
                   onClick={() => setPeriodFilter(p)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                  className={`px-3 py-1 rounded-full text-xs font-medium whitespace-nowrap transition-all flex items-center gap-1.5 cursor-pointer ${
                     periodFilter === p
                       ? 'bg-emerald-700 text-white shadow-xs'
                       : 'bg-[var(--bg-surface-elevated)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-emerald-500/40'
                   }`}
                 >
-                  <span className={p === 'All' ? 'font-urdu font-bold' : ''}>
-                    {p === 'All' ? 'تمام ادوار (All Phases)' : p}
+                  <span className={language === 'en' ? 'font-sans font-medium' : 'font-urdu font-bold'}>
+                    {label}
                   </span>
                   <span className={`px-1.5 py-0.2 rounded-full text-[10px] ${
                     periodFilter === p ? 'bg-emerald-800 text-white' : 'bg-[var(--bg-surface)] text-[var(--text-muted)]'

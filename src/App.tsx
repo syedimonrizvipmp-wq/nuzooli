@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuran } from '@/context/QuranContext';
 import { Navbar } from '@/components/Header/Navbar';
 import { DisclaimerBanner } from '@/components/Header/DisclaimerBanner';
@@ -7,6 +7,9 @@ import { EventCard } from '@/components/Reader/EventCard';
 import { MushafView } from '@/components/Reader/MushafView';
 import { PerspectivesView } from '@/components/Perspectives/PerspectivesView';
 import { ChronologicalPassageReader } from '@/components/Reader/ChronologicalPassageReader';
+import { ChronologicalScrollStream } from '@/components/Timeline/ChronologicalScrollStream';
+import { DedicatedTimelinePage } from '@/components/Timeline/DedicatedTimelinePage';
+import { DedicatedSurahMemorizationPage } from '@/components/SurahMemorizer/DedicatedSurahMemorizationPage';
 import { TypographyModal } from '@/components/Modals/TypographyModal';
 import { BookmarksModal } from '@/components/Modals/BookmarksModal';
 import { DataImportExportModal } from '@/components/Modals/DataImportExportModal';
@@ -21,6 +24,65 @@ export const AppContent: React.FC = () => {
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isDataModalOpen, setIsDataModalOpen] = useState(false);
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
+
+  // Dedicated Standalone Pages Detection
+  const [isDedicatedTimeline, setIsDedicatedTimeline] = useState<boolean>(() => {
+    return (
+      typeof window !== 'undefined' &&
+      (window.location.hash === '#timeline' || window.location.hash === '#grand-timeline')
+    );
+  });
+
+  const [isDedicatedMemorizer, setIsDedicatedMemorizer] = useState<boolean>(() => {
+    return (
+      typeof window !== 'undefined' &&
+      (window.location.hash === '#surahs' ||
+        window.location.hash === '#surah-memorizer' ||
+        window.location.hash === '#memorize')
+    );
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setIsDedicatedTimeline(
+        window.location.hash === '#timeline' || window.location.hash === '#grand-timeline'
+      );
+      setIsDedicatedMemorizer(
+        window.location.hash === '#surahs' ||
+          window.location.hash === '#surah-memorizer' ||
+          window.location.hash === '#memorize'
+      );
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  // When on dedicated timeline page, render ONLY that page
+  if (isDedicatedTimeline) {
+    return (
+      <DedicatedTimelinePage
+        onBackToMain={() => {
+          window.location.hash = '';
+          setIsDedicatedTimeline(false);
+        }}
+      />
+    );
+  }
+
+  // When on dedicated surah memorization page, render ONLY that page
+  if (isDedicatedMemorizer) {
+    return (
+      <DedicatedSurahMemorizationPage
+        onBackToMain={() => {
+          window.location.hash = '';
+          setIsDedicatedMemorizer(false);
+        }}
+        onNavigateToTimeline={() => {
+          window.location.hash = '#timeline';
+        }}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)] transition-colors">
@@ -43,6 +105,7 @@ export const AppContent: React.FC = () => {
       <main className="flex-1 max-w-[1780px] w-full mx-auto px-3 sm:px-6 lg:px-8 xl:px-12 py-3 sm:py-6">
         {perspectiveMode === 'nuzul' && <EventCard event={activeEvent} />}
         {perspectiveMode === 'passage_nuzul' && <ChronologicalPassageReader />}
+        {perspectiveMode === 'timeline_stream' && <ChronologicalScrollStream />}
         {perspectiveMode === 'mushaf' && <MushafView />}
         {perspectiveMode === 'perspectives' && <PerspectivesView />}
       </main>

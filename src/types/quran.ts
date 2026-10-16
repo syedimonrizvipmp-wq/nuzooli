@@ -89,7 +89,7 @@ export interface SurahSummary {
 
 export type ReadingLayout = 'split' | 'arabic-only' | 'translation-only' | 'side-by-side';
 
-export type PerspectiveMode = 'nuzul' | 'passage_nuzul' | 'mushaf' | 'perspectives';
+export type PerspectiveMode = 'nuzul' | 'passage_nuzul' | 'timeline_stream' | 'mushaf' | 'perspectives';
 
 export interface ChronologicalPassageStep {
   stepNumber: number;
@@ -169,7 +169,12 @@ export interface ActiveAudioState {
   reciterId: string;
 }
 
+import { Language, TranslationDictionary } from './i18n';
+
 export interface QuranContextType {
+  language: Language;
+  setLanguage: (lang: Language) => void;
+  t: TranslationDictionary;
   events: RevelationEvent[];
   activeEvent: RevelationEvent;
   activeEventOrder: number;
@@ -212,3 +217,4 @@ export interface QuranContextType {
   importCustomEvents: (newEvents: RevelationEvent[]) => void;
   resetToDefaultSeed: () => void;
 }
+

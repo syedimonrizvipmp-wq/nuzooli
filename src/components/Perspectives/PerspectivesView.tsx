@@ -153,7 +153,7 @@ export const PERSPECTIVE_TABS: PerspectiveTabDef[] = [
 ];
 
 export const PerspectivesView: React.FC = () => {
-  const { setActiveEventOrder, setPerspectiveMode } = useQuran();
+  const { setActiveEventOrder, setPerspectiveMode, language } = useQuran();
   const [activeTab, setActiveTab] = useState<PerspectiveTabId>('arc');
 
   // Sub-filter for Tab 1 (Nature)
@@ -185,18 +185,26 @@ export const PerspectivesView: React.FC = () => {
               <span>Multi-View Analytics & Historical Slices</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)] flex flex-wrap items-baseline gap-2.5">
-              <span className="font-urdu">مختلف مناظر و تجزیات</span>
-              <span className="text-base sm:text-lg font-sans font-normal text-[var(--text-muted)]">(Research & Analytics Suite)</span>
+              <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>
+                {language === 'en' ? 'Multi-Perspective Analytical Suite' : 'مختلف مناظر و تجزیات'}
+              </span>
+              <span className="text-base sm:text-lg font-sans font-normal text-[var(--text-muted)]">
+                {language === 'en' ? '(11 Dedicated Scholarly Perspectives)' : '(Research & Analytics Suite)'}
+              </span>
             </h2>
-            <p className="text-xs sm:text-sm text-[var(--text-secondary)] mt-1.5 max-w-3xl font-urdu leading-relaxed">
-              قرآن مجید کے ۲۳ سالہ زمانی و تاریخی نزول، اسبابِ نزول، جغرافیہ، اور ربطِ مصحف کے تمام ۱۱ تحقیقی مناظر میں سے مطلوبہ زاویہ منتخب فرمائیں (بغیر کسی اسکرولنگ کے تمام آپشنز سامنے موجود ہیں):
+            <p className={`text-xs sm:text-sm text-[var(--text-secondary)] mt-1.5 max-w-3xl leading-relaxed ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
+              {language === 'en'
+                ? 'Explore the 23-year prophetic revelation timeline through 11 multi-dimensional analytical perspectives: from divine interlocutors and situational crises to thematic heatmaps and gradual legislation.'
+                : 'قرآن مجید کے ۲۳ سالہ زمانی و تاریخی نزول، اسبابِ نزول، جغرافیہ، اور ربطِ مصحف کے تمام ۱۱ تحقیقی مناظر میں سے مطلوبہ زاویہ منتخب فرمائیں:'}
             </p>
           </div>
 
           <div className="flex items-center gap-2 self-start md:self-auto shrink-0">
-            <span className="px-3.5 py-1.5 rounded-xl bg-emerald-600/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/25 text-xs font-bold font-urdu flex items-center gap-1.5 shadow-2xs">
+            <span className="px-3.5 py-1.5 rounded-xl bg-emerald-600/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/25 text-xs font-bold flex items-center gap-1.5 shadow-2xs">
               <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-              <span>کل ۱۱ تحقیقی مناظر (11 Views)</span>
+              <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>
+                {language === 'en' ? '11 Research Perspectives' : 'کل ۱۱ تحقیقی مناظر (11 Views)'}
+              </span>
             </span>
           </div>
         </div>
@@ -224,7 +232,7 @@ export const PerspectivesView: React.FC = () => {
                   </div>
                   
                   <div className="flex items-center gap-1.5">
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md ${
+                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-md font-sans ${
                       isActive ? 'bg-amber-400 text-slate-950 font-bold' : 'bg-[var(--bg-surface-elevated)] text-[var(--text-muted)] border border-[var(--border-subtle)]'
                     }`}>
                       #{idx + 1}
@@ -237,23 +245,29 @@ export const PerspectivesView: React.FC = () => {
 
                 {/* Card Middle: Titles */}
                 <div>
-                  <div className={`text-base font-bold font-urdu leading-snug ${
+                  <div className={`text-base font-bold leading-snug ${
+                    language === 'en' ? 'font-sans' : 'font-urdu'
+                  } ${
                     isActive ? 'text-white' : 'text-[var(--text-primary)] group-hover:text-emerald-700 dark:group-hover:text-emerald-300'
                   }`}>
-                    {tab.labelUr}
+                    {language === 'en' ? tab.labelEn : tab.labelUr}
                   </div>
-                  <div className={`text-[11px] font-medium font-sans truncate mt-0.5 ${
+                  <div className={`text-[11px] font-medium truncate mt-0.5 ${
+                    language === 'en' ? 'font-urdu text-right' : 'font-sans'
+                  } ${
                     isActive ? 'text-emerald-200' : 'text-[var(--text-muted)]'
                   }`}>
-                    {tab.labelEn}
+                    {language === 'en' ? tab.labelUr : tab.labelEn}
                   </div>
                 </div>
 
                 {/* Card Bottom: Concise 1-line Exegesis Description */}
-                <div className={`text-[11px] font-urdu line-clamp-2 leading-relaxed mt-2.5 pt-2 border-t ${
+                <div className={`text-[11px] line-clamp-2 leading-relaxed mt-2.5 pt-2 border-t ${
+                  language === 'en' ? 'font-sans' : 'font-urdu'
+                } ${
                   isActive ? 'text-emerald-100/90 border-white/15' : 'text-[var(--text-secondary)] border-[var(--border-subtle)]'
                 }`}>
-                  {tab.descriptionUr}
+                  {language === 'en' ? tab.description : tab.descriptionUr}
                 </div>
               </button>
             );

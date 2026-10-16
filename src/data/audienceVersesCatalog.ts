@@ -600,7 +600,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو! راعنا (ہماری رعایت کرو) نہ کہا کرو «انظرنامِ کہا کرو اور غور سے سنا کرو اور یاد رکھو کہ کافرین کے لئے بڑا دردناک عذاب ہے",
       "translationEnglish": "O you who have faith! Do not say Ra‘ina, but say Unzurna, and listen! And there is a painful punishment for the faithless",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -619,7 +619,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو! صبر اور نماز کے ذریعہ مدد مانگو کہ خدا صبر کرنے والوں کے ساتھ ہے",
       "translationEnglish": "O you who have faith! Take recourse in patience and prayer; indeed Allah is with the patient",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -638,7 +638,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "صاحبانِ ایمان جو ہم نے پاکیزہ رزق عطا کیا ہے اسے کھاؤ اور دینے والے خدا کا شکریہ ادا کرو اگر تم اس کی عبادت کرتے ہو",
       "translationEnglish": "O you who have faith! Eat of the good things We have provided you, and thank Allah, if it is Him that you worship",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -657,7 +657,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو! تمہارے اوپر مقتولین کے بارے میں قصاص لکھ دیا گیا ہے آزادکے بدلے آزاد اورغلام کے بدلے غلام اور عورت کے بدلے عورت. اب اگرکسی کو مقتول کے وارث کی طرف سے معافی مل جائے تو نیکی کا اتباع کرے اور احسان کے ساتھ اس کے حق کو ادا کردے. یہ پروردگار کی طرف سے تمہارے حق میں تخفیف اور رحمت ہے لیکن اب جو شخص زیادتی کرے گا اس کے لئے دردناک عذاب بھی ہے",
       "translationEnglish": "O you who have faith! Retribution is prescribed for you regarding the slain: freeman for freeman, slave for slave, and female for female. But if one is granted any extenuation by his brother, let the follow up [for the blood-money] be honourable, and let the payment to him be with kindness. That is a remission from your Lord and a mercy; and should anyone transgress after that, there shall be a painful punishment for him",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -676,7 +676,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "صاحبانِ ایمان تمہارے اوپر روزے اسی طرح لکھ دیئے گئے ہیں جس طرح تمہارے پہلے والوںپر لکھے گئے تھے شایدتم اسی طرح متقی بن جاؤ",
       "translationEnglish": "O you who have faith! Prescribed for you is fasting as it was prescribed for those who were before you, so that you may be Godwary",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -695,7 +695,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو! تم سب مکمل طریقہ سے اسلام میں داخل ہوجاؤ اور شیطانی اقدامات کا اتباع نہ کرو کہ وہ تمہارا کھلا ہوا دشمن ہے",
       "translationEnglish": "O you who have faith! Enter into submission, all together, and do not follow in Satan’s steps; he is indeed your manifest enemy",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -714,7 +714,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو جو تمہیں رزق دیا گیا ہے اس میں سے راسِ خدا میں خرچ کرو قبل اسکے کہ وہ دن آجائے جس دن نہ تجارت ہوگی نہ دوستی کام آئے گی اور نہ سفارش. اورکافرین ہی اصل میں ظالمین ہیں",
       "translationEnglish": "O you who have faith! Spend out of what We have provided you before there comes a day on which there will be no bargaining, neither friendship, nor intercession. And the faithless—they are the wrongdoers",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -733,7 +733,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اپنے صدقات کو منّت گزاری اور اذیت سے برباد نہ کرو اس شخص کی طرح جو اپنے مال کو دنیا دکھانے کے لئے صرف کرتاہے اور اس کا ایمان نہ خدا پر ہے اور نہ آخرت پر اس کی مثال اس صاف چٹان کی ہے جس پر گرد جم گئی ہو کہ تیز بارش کے آتے ہی بالکل صاف ہوجائے یہ لوگ اپنی کمائی پر بھی اختیار نہیں رکھتے اور اللہ کافروں کی ہدایت بھی نہیں کرتا",
       "translationEnglish": "O you who have faith! Do not render your charities void by reproaches and affronts, like those who spend their wealth to be seen by people and have no faith in Allah and the Last Day. Their parable is that of a rock covered with soil: a downpour strikes it, leaving it bare. They have no power over anything of what they have earned, and Allah does not guide the faithless lot",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -752,7 +752,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو اپنی پاکیزہ کمائی اور جو کچھ ہم نے زمین سے تمہارے لئے پیدا کیا ہے سب میں سے راسِ خدا میں خرچ کرو اور خبردار انفاق کے ارادے سے خراب مال کو ہاتھ بھی نہ لگانا کہ اگر یہ مال تم کو دیا جائے تو آنکھ بند کئے بغیر چھوؤ گے بھی نہیں یاد رکھو کہ خدا سب سے بے نیاز ہے اور سزاوار حمد و ثنا بھی ہے",
       "translationEnglish": "O you who have faith! Spend of the good things you have earned [through trade and the like] and of what We bring forth for you from the earth, and do not be of the mind to give the bad part of it, for you yourselves would not take it, unless you ignore. And know that Allah is all-sufficient, all-laudable",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -771,7 +771,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ سے ڈرو اور جو سود باقی رہ گیا ہے اسے چھوڑ دو اگر تم صاحبان هایمان ہو",
       "translationEnglish": "O you who have faith! Be wary of Allah and abandon [all claims to] what remains of usury, should you be faithful",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -790,7 +790,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب بھی آپس میں ایک مقررہ مدّت کے لئے قرض کا لین دین کرو تو اسے لکھ لو اورتمہارے درمیان کوئی بھی کاتب لکھے لیکن انصاف کے ساتھ لکھے اور کاتب کو نہ چاہئے کہ خدا کی تعلیم کے مطابق لکھنے سے انکار کرے . اسے لکھ دینا چاہئے اور جس کے ذمہ قرض ہے اس کو چاہئے کہ وہ املا کرے اور اس خدا سے ڈرتا رہے جو اس کا پالنے والاہے اور کسی طرح کی کمی نہ کرے . اب اگرجس کے ذمہ قرض ہے وہ نادان کمزور یامضمون بتانے کے قابل نہیں ہے تو اس کا ولی مضمون تیار کرے---- اور اپنے مردوں میں سے دو کو گواہ بناؤ اور دو مذِد نہ ہوں تو ایک مذِد اور دو عورتیں تاکہ ایک بہکنے لگے تو دوسری یاد دلادے اور گواہوں کو چاہئے کہ گواہی کے لئے بلائے جائیں تو انکار نہ کریں اور خبردار لکھا پڑھی سے ناگواری کا اظہار نہ کرنا چاہے قرض چھوٹا ہو یا بڑا مّدت معین ہونی چاہئے .یہی پروردگار کے نزدیک عدالت کے مطابق اورگواہی کے لئے زیادہ مستحکم طریقہ ہے او ر اس امر سے قریب تر ہے کہ آپس میںشک و شبہ نہ پیدا ہو---- ہاں اگر تجارت نقد ہے جس سے تم لوگ آپس میں اموال کی الٹ پھیر کرتے ہو تو نہ لکھنے میں کوئی حرج بھی نہیں ہے اور اگر تجارت میں بھی گواہ بناؤ تو کاتب یا گواہ کو حق نہیں کہ اپنے طرزِ عمل سے لوگوں کو نقصان پہنچائے اور نہ لوگوں کو یہ حق ہے اوراگرتم نے ایسا کیا تویہ اطاعت خدا سے نافرمانی",
       "translationEnglish": "O you who have faith! When you contract a loan for a specified term, write it down. Let a writer write with honesty between you, and let not the writer refuse to write as Allah has taught him. So let him write, and let the one who incurs the debt dictate, and let him be wary of Allah, his Lord, and not diminish anything from it. But if the debtor be feeble-minded, or weak, or incapable of dictating himself, then let his guardian dictate with honesty, and take as witness two witnesses from your men, and if there are not two men, then a man and two women—from those whom you approve as witnesses—so that if one of the two defaults the other will remind her. The witnesses must not refuse when they are called, and do not consider it wearisome to write it down, whether it be a big or small sum, [as a loan lent] until its term. That is more just with Allah and more upright in respect to testimony, and the likeliest way to avoid doubt, unless it is an on-the-spot deal you transact between yourselves, in which case there is no sin upon you not to write it. Take witnesses when you make a deal, and let no harm be done to the writer or witness, and if you did that, it would be sinful of you. Be wary of Allah and Allah will teach you, and Allah has knowledge of all things",
       "subCategoryKey": "surah_2",
-      "subCategoryTitleUrdu": "سورۃ سورۃ البقرہ",
+      "subCategoryTitleUrdu": "سورۃ البقرہ",
       "subCategoryTitleEnglish": "Al-Baqarah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -809,7 +809,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والواگر تم نے اہلِ کتاب کے ِس گروہ کی اطاعت کرلی تو یہ تم کو ایمان کے بعد کفر کی طرف پلٹا دیں گے",
       "translationEnglish": "O you who have faith, if you obey a part of those who were given the Book, they will turn you back, after your faith, into faithless ones",
       "subCategoryKey": "surah_3",
-      "subCategoryTitleUrdu": "سورۃ سورۃ آلِ عمران",
+      "subCategoryTitleUrdu": "سورۃ آلِ عمران",
       "subCategoryTitleEnglish": "Aal-e-Imran",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -828,7 +828,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ سے اس طرح ڈرو جو ڈرنے کا حق ہے اور خبردار اس وقت تک نہ مرنا جب تک مسلمان نہ ہوجاؤ",
       "translationEnglish": "O you who have faith! Be wary of Allah with the wariness due to Him and do not die except as Muslims",
       "subCategoryKey": "surah_3",
-      "subCategoryTitleUrdu": "سورۃ سورۃ آلِ عمران",
+      "subCategoryTitleUrdu": "سورۃ آلِ عمران",
       "subCategoryTitleEnglish": "Aal-e-Imran",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -847,7 +847,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو خبردار غیروں کو اپنا راز دار نہ بنانا یہ تمہیں نقصان پہنچانے میں کوئی کوتاہی نہ کریں گے- یہ صرف تمہاری مشقت و مصیبت کے خواہش مند ہیں- ان کی عداوت زبان سے بھی ظاہر ہے اور جو دل میں چھپا رکھا ہے وہ تو بہت زیادہ ہے. ہم نے تمہارے لئے نشانیوں کو واضح کرکے بیان کردیا ہے اگر تم صاحبانِ عقل ہو",
       "translationEnglish": "O you who have faith! Do not take your confidants from others than yourselves; they will spare nothing to ruin you. They are eager to see you in distress. Hatred has already shown itself from their mouths, and what their breasts hide [within] is yet worse. We have certainly made the signs clear for you, should you exercise your reason",
       "subCategoryKey": "surah_3",
-      "subCategoryTitleUrdu": "سورۃ سورۃ آلِ عمران",
+      "subCategoryTitleUrdu": "سورۃ آلِ عمران",
       "subCategoryTitleEnglish": "Aal-e-Imran",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -866,7 +866,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو یہ دوگنا چوگنا سود نہ کھاؤ اور ا للہ سے ڈرو کہ شاید نجات پاجاؤ",
       "translationEnglish": "O you who have faith! Do not exact usury, twofold and severalfold, and be wary of Allah so that you may be felicitous",
       "subCategoryKey": "surah_3",
-      "subCategoryTitleUrdu": "سورۃ سورۃ آلِ عمران",
+      "subCategoryTitleUrdu": "سورۃ آلِ عمران",
       "subCategoryTitleEnglish": "Aal-e-Imran",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -885,7 +885,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اگر تم کفر اختیار کرنے والوں کی اطاعت کرلو گے تو یہ تمہیں اُلٹے پاؤںپلٹا لے جائیں گے اور پھر تم ہی اُلٹے خسارہ والوں میں ہوجاؤ گے",
       "translationEnglish": "O you who have faith! If you obey the faithless, they will turn you back on your heels, and you will become losers",
       "subCategoryKey": "surah_3",
-      "subCategoryTitleUrdu": "سورۃ سورۃ آلِ عمران",
+      "subCategoryTitleUrdu": "سورۃ آلِ عمران",
       "subCategoryTitleEnglish": "Aal-e-Imran",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -904,7 +904,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والوں خبردار کافروں جیسے نہ ہوجاؤ جنہوں نے اپنے ساتھیوں کے سفر یا جنگ میں مرنے پر یہ کہنا شروع کردیا کہ وہ ہمارے پاس ہوتے تو نہ مرتے اور نہ قتل کئے جاتے.. خدا تمہاری علیحدگی ہی کو ان کے لئے باعجُ مسرّت قرار دینا چاہتا ہے کہ موت و حیات اسی کے اختیار میں ہے اور وہ تمہارے اعمال سے خوب باخبر ہے",
       "translationEnglish": "O you who have faith! Do not be like the faithless who say of their brethren, when they travel in the land or go into battle, ‘Had they stayed with us they would not have died or been killed,’ so that Allah may make it a regret in their hearts. But Allah gives life and brings death, and Allah watches what you do",
       "subCategoryKey": "surah_3",
-      "subCategoryTitleUrdu": "سورۃ سورۃ آلِ عمران",
+      "subCategoryTitleUrdu": "سورۃ آلِ عمران",
       "subCategoryTitleEnglish": "Aal-e-Imran",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -923,7 +923,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو صبر کرو.صبر کی تعلیم دو.جہاد کے لئے تیاری کرو اور اللہ سے ڈرو شاید تم فلاح یافتہ اور کامیاب ہوجاؤ",
       "translationEnglish": "O you who have faith! Be patient, stand firm, and close [your] ranks, and be wary of Allah so that you may be felicitous",
       "subCategoryKey": "surah_3",
-      "subCategoryTitleUrdu": "سورۃ سورۃ آلِ عمران",
+      "subCategoryTitleUrdu": "سورۃ آلِ عمران",
       "subCategoryTitleEnglish": "Aal-e-Imran",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -942,7 +942,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو تمہارے لئے جائز نہیں ہے کہ جبرا عورتوں کے وارث بن جاؤ اور خبردار انہیں منع بھی نہ کرو کہ جو کچھ ان کو دے دیا ہے اس کا کچھ حصہّ لے لو مگر یہ کہ واضح طور پر بدکاری کریں اور ان کے ساتھ نیک برتاؤ کرو اب اگر تم انہیں ناپسند بھی کرتے ہو تو ہوسکتا ہے کہ تم کسی چیز کو ناپسند کرتے ہو اور خدا اسی میں خیر کثیر قرار دے دے",
       "translationEnglish": "O you who have faith! It is not lawful for you to inherit women forcibly, and do not press them to take away part of what you have given them, unless they commit a gross indecency. Consort with them in an honourable manner; and should you dislike them, maybe you dislike something while Allah invests it with an abundant good",
       "subCategoryKey": "surah_4",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النساء",
+      "subCategoryTitleUrdu": "سورۃ النساء",
       "subCategoryTitleEnglish": "An-Nisa",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -961,7 +961,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو- آپس میںایک دوسرے کے مال کو ناحق طریقہ سے نہ کھا جایا کرو ... مگر یہ کہ باہمی رضامندی سے معاملت ہو اور خبردار اپنے نفس کو قتل نہ کرو - اللہ تمہارے حال پر بہت مہربان ہے",
       "translationEnglish": "O you who have faith! Do not eat up your wealth among yourselves unrightfully, but it should be trade by mutual consent. And do not kill yourselves. Indeed Allah is most merciful to you",
       "subCategoryKey": "surah_4",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النساء",
+      "subCategoryTitleUrdu": "سورۃ النساء",
       "subCategoryTitleEnglish": "An-Nisa",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -980,7 +980,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبر دار نشہ کی حالت میں نماز کے قریب بھی نہ جانا جب تک یہ ہوش نہ آجائے کہ تم کیا کہہ رہے ہو اور جنابت کی حالت میں بھی مگر یہ کہ راستہ سے گزر رہے ہو جب تک غسل نہ کرلو اور اگر بیمار ہو یا سفر کی حالت میں ہو اور کسی کے پیخانہ نکل آئے, یا عورتوں سے باہمی جنسی ربط قائم ہوجائے اور پانی نہ ملے تو پاک مٹی سے تمیم کرلو اس طرح کہ اپنے چہروں اور ہاتھوں پر مسح کرلو بیشک خدا بہت معاف کرنے والا اور بخشنے والا ہے",
       "translationEnglish": "O you who have faith! Do not approach prayer when you are intoxicated, [not] until you know what you are saying, nor [enter mosques] in the state of ritual impurity until you have washed yourselves, except while passing through. But if you are sick or on a journey, or any of you has come from the toilet, or you have touched women, and you cannot find water, then make your ablution on clean ground and wipe a part of your faces and your hands. Indeed Allah is all-excusing, all-forgiving",
       "subCategoryKey": "surah_4",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النساء",
+      "subCategoryTitleUrdu": "سورۃ النساء",
       "subCategoryTitleEnglish": "An-Nisa",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -999,7 +999,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ کی اطاعت کرو رسول اور صاحبانِ امر کی اطاعت کرو جو تم ہی میں سے ہیں پھر اگر آپس میں کسی بات میں اختلاف ہوجائے تو اسے خدا اور رسول کی طرف پلٹا دو اگر تم اللہ اور روز آخرت پر ایمان رکھنے والے ہو- یہی تمہارے حق میں خیر اور انجام کے اعتبار سے بہترین بات ہے",
       "translationEnglish": "O you who have faith! Obey Allah and obey the Apostle and those vested with authority among you. And if you dispute concerning anything, refer it to Allah and the Apostle, if you have faith in Allah and the Last Day. That is better and more favourable in outcome",
       "subCategoryKey": "surah_4",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النساء",
+      "subCategoryTitleUrdu": "سورۃ النساء",
       "subCategoryTitleEnglish": "An-Nisa",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1018,7 +1018,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اپنے تحفظ کا سامان سنبھال لو اور جماعت جماعت یا اکٹھا جیسا موقع ہو سب نکل پڑو",
       "translationEnglish": "O you who have faith! Take your precautions, then go forth in companies, or go forth en masse",
       "subCategoryKey": "surah_4",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النساء",
+      "subCategoryTitleUrdu": "سورۃ النساء",
       "subCategoryTitleEnglish": "An-Nisa",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1037,7 +1037,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب تم راسِ خدا میں جہاد کے لئے سفر کرو تو پہلے تحقیق کرلو اور خبردار جو اسلام کی پیش کش کرے اس سے یہ نہ کہنا کہ تو مومن نہیں ہے کہ اس طرح تم زندگانی دنیا کا چند روزہ سرمایہ چاہتے ہو اور خدا کے پاس بکثرت فوائد پائے جاتے ہیں- آخر تم بھی تو پہلے ایسے ہی کافر تھے- خدا نے تم پر احسان کیا کہ تمہارے اسلام کو قبول کرلیا(اور دل چیرنے کی شرط نہیں لگائی) تو اب تم بھی اقدام سے پہلے تحقیق کرو کہ خدا تمہارے اعمال سے خوب باخبر ہے",
       "translationEnglish": "O you who have faith! When you issue forth in the way of Allah, try to ascertain: do not say to someone who offers you peace, ‘You are not a believer,’ seeking the transitory wares of the life of this world. Yet with Allah are plenteous gains. You too were such earlier, but Allah did you a favour. Therefore, do ascertain. Allah is indeed well aware of what you do",
       "subCategoryKey": "surah_4",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النساء",
+      "subCategoryTitleUrdu": "سورۃ النساء",
       "subCategoryTitleEnglish": "An-Nisa",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1056,7 +1056,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو! عدل و انصاف کے ساتھ قیام کرو اور اللہ کے لئے گواہ بنو چاہے اپنی ذات یا اپنے والدین اور اقربا ہی کے خلاف کیوں نہ ہو- جس کے لئے گواہی دینا ہے وہ غنی ہو یا فقیر اللہ دونوں کے لئے تم سے اولیٰ ہے لہذا خبردار خواہشات کا اتباع نہ کرنا تاکہ انصاف کرسکو اور اگر توڑ مروڑ سے کام لیا یا بالکل کنارہ کشی کرلی تو یاد رکھو کہ اللہ تمہارے اعمال سے خوب باخبر ہے",
       "translationEnglish": "O you who have faith! Be maintainers of justice and witnesses for the sake of Allah, even if it should be against yourselves or [your] parents and near relatives, and whether it be [someone] rich or poor, for Allah has a greater right over them. So do not follow [your] desires, lest you should be unfair, and if you distort [the testimony] or disregard [it], Allah is indeed well aware of what you do",
       "subCategoryKey": "surah_4",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النساء",
+      "subCategoryTitleUrdu": "سورۃ النساء",
       "subCategoryTitleEnglish": "An-Nisa",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1075,7 +1075,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو! اللہ ً رسول اور وہ کتاب جو رسول پر نازل ہوئی ہے اور وہ کتاب جو اس سے پہلے نازل ہوچکی ہے سب پر ایمان لے آؤ اور یاد رکھو کہ جو خدا, ملائکہ, کتب سماویہ, رسول اور روزِ قیامت کا انکار کرے گا وہ یقینا گمراہی میں بہت دور نکل گیا ہے",
       "translationEnglish": "O you who have faith! Have faith in Allah and His Apostle and the Book that He has sent down to His Apostle and the Book He had sent down earlier. Whoever disbelieves in Allah and His angels, His Books and His apostles and the Last Day, has certainly strayed into far error",
       "subCategoryKey": "surah_4",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النساء",
+      "subCategoryTitleUrdu": "سورۃ النساء",
       "subCategoryTitleEnglish": "An-Nisa",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1094,7 +1094,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار مومنین کو چھوڑ کر کفاّر کو اپنا ولی اور سرپرست نہ بنانا کیا تم چاہتے ہو کہ اللہ کے لئے اپنے خلاف صریحی دلیل و حجت قرار دے لو",
       "translationEnglish": "O you who have faith! Do not take the faithless for friends instead of the faithful. Do you wish to give Allah a clear sanction against yourselves",
       "subCategoryKey": "surah_4",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النساء",
+      "subCategoryTitleUrdu": "سورۃ النساء",
       "subCategoryTitleEnglish": "An-Nisa",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1113,7 +1113,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اپنے عہد و پیمان اور معاملات کی پابندی کرو تمہارے لئے تمام چوپائے حلال کردیئے گئے ہیں علاوہ ان کے جوتمہیں پڑھ کر سنائے جارہے ہیں. مگر حالاُ احرام میں شکار کو حلال مت سمجھ لینا بے شک اللہ جو چاہتا حکم دیتا ہے",
       "translationEnglish": "O you who have faith! Keep your agreements. You are permitted animals of grazing livestock, except what is [now] announced to you, disallowing game while you are in pilgrim sanctity. Indeed Allah decrees whatever He desires",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1132,7 +1132,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو !خبردار خدا کی نشانیوں کی حرمت کو ضائع نہ کرنا اور نہ محترم مہینے. قربانی کے جانور اور جن جانوروں کے گلے میں پٹےّ باندھ دیئے گئے ہیں اور جو لوگ خانہ خدا کا ارادہ کرنے والے ہیں اور فرض پروردگار اور رضائے الٰہی کے طلبگار ہیں ان کی حرمت کی خلاف ورزی کرنا اور جب احرام ختم ہوجائے تو شکار کرو اور خبردار کسی قوم کی عداوت فقط اس بات پر کہ اس نے تمہیں مسجدالحرام سے روک دیا ہے تمہیں ظلم پر آمادہ نہ کردے --نیکی اور تقویٰ پر ایک دوسرے کی مدد کرو اور گناہ اور تعدّی پر آپس میں تعاون نہ کرنا اور اللہ سے ڈرتے رہنا کہ اس کا عذاب بہت سخت ہے",
       "translationEnglish": "O you who have faith! Do not violate Allah’s sacraments, neither the sacred month, nor the offering, nor the necklaces, nor those bound for the Sacred House, who seek their Lord’s grace and [His] pleasure. But when you emerge from pilgrim sanctity, you may hunt for game. Ill feeling for a people should not lead you, because they barred you from [access to] the Sacred Mosque, to transgress. Cooperate in piety and Godwariness, but do not cooperate in sin and aggression, and be wary of Allah. Indeed Allah is severe in retribution",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1151,7 +1151,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب بھی نماز کے لئے اٹھو تو پہلے اپنے چہروں کو اور کہنیوں تک اپنے ہاتھوںکو دھوؤ اور اپنے سر اور گٹّے تک پیروں کا مسح کرو اور اگر جنابت کی حالت میں ہو تو غسل کرو اور اگر مریض ہو یا سفر کے عالم میں ہو یا پیخانہ وغیرہ نکل آیا ہے یا عورتوں کو باہم لمس کیاہے اور پانی نہ ملے تو پاک مٹی سے تیمم کرلو -اس طرح کہ اپنے چہرے اور ہاتھوں کا مسح کرلو کہ خدا تمہارے لئے کسی طرح کی زحمت نہیں چاہتا. بلکہ یہ چاہتا ہے کہ تمہیں پاک و پاکیزہ بنا دے اور تم پر اپنی نعمت کو تمام کردے شاید تم اس طرح اس کے شکر گزار بندے بن جاؤ",
       "translationEnglish": "O you who have faith! When you stand up for prayer, wash your faces and your hands up to the elbows, and wipe a part of your heads and your feet, up to the ankles. If you are junub, purify yourselves. But if you are sick, or on a journey, or any of you has come from the toilet, or you have touched women, and you cannot find water, then make tayammum with clean ground and wipe a part of your faces and your hands with it. Allah does not desire to put you to hardship, but He desires to purify you, and to complete His blessing upon you so that you may give thanks",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1170,7 +1170,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خدا کے لئے قیام کرنے والے اور انصاف کے ساتھ گواہی دینے والے بنو اور خبردار کسی قوم کی عداوت تمہیں اس بات پر آمادہ نہ کردے کہ انصاف کو ترک کردو -انصاف کرو کہ یہی تقوٰی سے قریب تر ہے اور اللرُسے ڈرتے رہو کہ اللہ تمہارے اعمال سے خوب باخبر ہے",
       "translationEnglish": "O you who have faith! Be maintainers, as witnesses for the sake of Allah, of justice, and ill feeling for a people should never lead you to be unfair. Be fair; that is nearer to Godwariness, and be wary of Allah. Allah is indeed well aware of what you do",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1189,7 +1189,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو! اپنے اوپر اللہ کی اس نعمت کو یاد کرو کہ جب ایک قوم نے تمہاری طرف ہاتھ بڑھانے کا ارادہ کیاتو خدا نے ان کے ہاتھوں کو تم تک پہنچنے سے روک دیا اور اللہ سے ڈرتے رہو کہ صاحبان هایمان اللہ ہی پر بھروسہ کرتے ہیں",
       "translationEnglish": "O you who have faith! Remember Allah’s blessing upon you when a people set out to extend their hands against you, but He withheld their hands from you, and be wary of Allah, and in Allah let all the faithful put their trust",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1208,7 +1208,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ سے ڈرو اور اس تک پہنچے کا وسیلہ تلاش کرو اوراس کی راہ میں جہاد کرو کہ شاید اس طرح کامیاب ہوجاؤ",
       "translationEnglish": "O you who have faith! Be wary of Allah, and seek the means of recourse to Him, and wage jihad in His way, so that you may be felicitous",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1227,7 +1227,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو یہودیوں اور عیسائیوں کو اپنا دوست اور سرپرست نہ بناؤ کہ یہ خود آپس میں ایک دوسرے کے دوست ہیں اور تم میں سے کوئی انہیں دوست بنائے گا تو ان ہی میں شمار ہوجائے گا بیشک اللہ ظالم قوم کی ہدایت نہیں کرتا ہے",
       "translationEnglish": "O you who have faith! Do not take the Jews and the Christians for allies: they are allies of each other. Any of you who allies with them is indeed one of them. Indeed Allah does not guide the wrongdoing lot",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1246,7 +1246,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو تم میں سے جو بھی اپنے دین سے پلٹ جائے گا ...تو عنقریب خدا ایک قوم کو لے آئے گا جو اس کی محبوب اور اس سے محبت کرنے والی مومنین کے سامنے خاکسار اور کفار کے سامنے صاحبِ عزت, راسِ خدا میں جہاد کرنے والی اور کسی ملامت کرنے والے کی ملامت کی پرواہ نہ کرنے والی ہوگی -یہ فضلِ خدا ہے وہ جسے چاہتا ہے عطا کرتا ہے اور وہ صاحبِ وسعت اور علیم و دانا بھی ہے",
       "translationEnglish": "O you who have faith! Should any of you desert his religion, Allah will soon bring a people whom He loves and who love Him, [who will be] humble towards the faithful, stern towards the faithless, waging jihad in the way of Allah, not fearing the blame of any blamer. That is Allah’s grace, which He grants to whomever He wishes, and Allah is all-bounteous, all-knowing",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1265,7 +1265,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار اہل ه کتاب میں جن لوگوں نے تمہارے دین کو مذاق اور تماشہ بنالیا ہے اور دیگر کفار کو بھی اپنا ولی اور سرپرست نہ بنانا اور اللہ سے ڈرتے رہنا اگر تم واقعی صاحب ایمان ہو",
       "translationEnglish": "O you who have faith! Do not take those who take your religion in derision and play, from among those who were given the Book before you, and the infidels, as friends, and be wary of Allah, should you be faithful",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1284,7 +1284,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جن چیزوں کو خدا نے تمہارے لئے حلال کیا ہے انہیں حرام نہ بناؤ اور حد سے تجاوز نہ کرو کہ خدا تجاوز کرنے والوں کو دوست نہیں رکھتا ہے",
       "translationEnglish": "O you who have faith! Do not prohibit the good things that Allah has made lawful to you, and do not transgress. Indeed Allah does not like the transgressors",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1303,7 +1303,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو !شرابً جوا ,بت ,پانسہ یہ سب گندے شیطانی اعمال ہیں لہذا ان سے پرہیز کرو تاکہ کامیابی حاصل کرسکو",
       "translationEnglish": "O you who have faith! Indeed wine, gambling, idols, and the divining arrows are abominations of Satan’s doing, so avoid them, so that you may be felicitous",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1322,7 +1322,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو !اللہ ان شکاروں کے ذریعہ تمہارا امتحان ضرور لے گا جن تک تمہارے ہاتھ اور نیزے پہنچ جاتے ہیں تاکہ وہ یہ دیکھے کہ اس سے لوگوں کے غائبانہ میں بھی کون کون ڈرتا ہے پھر جو اس کے بعد بھی زیادتی کرے گا اس کے لئے دردناک عذاب ہے",
       "translationEnglish": "O you who have faith! Allah will surely test you with some of the game within the reach of your hands and spears, so that Allah may know those who fear Him in secret. So whoever transgresses after that, there is a painful punishment for him",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1341,7 +1341,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو حالاُ احرام میں شکار کو نہ مارو اور جو تم میں قصدا ایسا کرے گا اس کی سزا انہی جانوروں کے برابر ہے جنہیں قتل کیا ہے جس کا فیصلہ تم میں سے دو عادل افراد کریں اور اس قربانی کو کعبہ تک جانا چاہئے یا مساکین کے کھانے کی شکل میں کفارہ دیا جائے یا اس کے برابر روزے رکھے جائیں تاکہ اپنے کام کے انجام کا مزہ چکھیں -اللہ نے گزشتہ معاملات کو معاف کردیا ہے لیکن اب جو دوبارہ شکار کرے گا تو اس سے انتقام لے گا اور وہ سب پر غالب آنے والا اور بدلہ لینے والا ہے",
       "translationEnglish": "O you who have faith! Do not kill any game when you are in pilgrim sanctity. Should any of you kill it intentionally, its atonement, the counterpart from cattle of what he has killed, as judged by two fair men among you, will be an offering brought to the Ka‘bah, or an atonement by feeding needy persons, or its equivalent in fasting, that he may taste the untoward consequences of his conduct. Allah has excused what is already past; but should anyone resume, Allah shall take vengeance on him, for Allah is all-mighty, avenger",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1360,7 +1360,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو ان چیزوں کے بارے میں سوال نہ کرو جو تم پر ظاہر ہوجائیں تو تمہیں بری لگیں اور اگر نزول قرآن کے وقت دریافت کرلو گے تو ظاہر بھی کردی جائیں گی اور اب تک کی باتوں کواللہ نے معاف کردیا ہے کہ وہ بڑا بخشنے والا اور برداشت کرنے والا ہے",
       "translationEnglish": "O you who have faith! Do not ask about things, which, if they are disclosed to you, will upset you. Yet if you ask about them while the Quran is being sent down, they shall be disclosed to you. Allah has excused it, and Allah is all-forgiving, all-forbearing",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1379,7 +1379,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اپنے نفس کی فکر کرو -اگر تم ہدایت یافتہ رہے تو گمراہوں کی گمراہی تمہیں کوئی نقصان نہیں پہنچاسکتی -تم سب کی بازگشت خدا کی طرف ہے پھر وہ تمہیں تمہارے اعمال سے باخبر کرے گا",
       "translationEnglish": "O you who have faith! Take care of your own souls. He who strays cannot hurt you if you are guided. To Allah will be the return of you all, whereat He will inform you concerning what you used to do",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1398,7 +1398,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب تم میں سے کسی کی موت سامنے آجائے تو گواہی کا خیال رکھنا کہ وصیت کے وقت دو عادل گواہ تم میں سے ہوں یا پھر تمہارے غیر میں سے ہوں اگر تم سفر کی حالت میں ہو اور وہیں موت کی مصیبت نازل ہوجائے ان دونوں کو نماز کے بعد روک کر رکھو پھر اگر تمہیں شک ہو تو یہ خدا کی قسم کھائیں کہ ہم اس گواہی سے کسی طرح کا فائدہ نہیں چاہتے ہیں چاہے قرابتدار ہی کا معاملہ کیوں نہ ہو اور نہ خدائی شہادت کو چھپاتے ہیں کہ اس طرح ہم یقینا گناہگاروں میں شمار ہوجائیں گے",
       "translationEnglish": "O you who have faith! The witness between you, when death approaches any of you, while making a bequest, shall be two fair men from among yourselves—or two from among others, if you are journeying in the land and the affliction of death visits you. You shall detain the two of them after the prayer, and, if you have any doubt, they shall vow by Allah, ‘We will not sell it for any gain, even if it were a relative, nor will we conceal the testimony of Allah, for then we would indeed be among the sinners.’",
       "subCategoryKey": "surah_5",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المائدہ",
+      "subCategoryTitleUrdu": "سورۃ المائدہ",
       "subCategoryTitleEnglish": "Al-Ma'idah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1417,7 +1417,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو جب کفاّر سے میدان هجنگ میں ملاقات کرو تو خبردار انہیں پیٹھ نہ دکھانا",
       "translationEnglish": "O you who have faith! When you encounter the faithless advancing [for battle], do not turn your backs [to flee] from them",
       "subCategoryKey": "surah_8",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الانفال",
+      "subCategoryTitleUrdu": "سورۃ الانفال",
       "subCategoryTitleEnglish": "Al-Anfal",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1436,7 +1436,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ و رسول کی اطاعت کرو اور اس سے رو گردانی نہ کرو جب کہ تم صَن بھی رہے ہو",
       "translationEnglish": "O you who have faith! Obey Allah and His Apostle, and do not turn away from him while you hear [him]",
       "subCategoryKey": "surah_8",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الانفال",
+      "subCategoryTitleUrdu": "سورۃ الانفال",
       "subCategoryTitleEnglish": "Al-Anfal",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1455,7 +1455,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو اللہ و رسول کی آواز پر لبیک کہو جب وہ تمہیں اس امر کی طرف دعوت دیں جس میں تمہاری زندگی ہے اور یاد رکھو کہ خدا انسان اور اس کے دل کے درمیان حائل ہوجاتا ہے اور تم سب اسی کی طرف حاضر کئے جاؤ گے",
       "translationEnglish": "O you who have faith! Answer Allah and the Apostle when he summons you to that which will give you life. Know that Allah intervenes between a man and his heart and that toward Him you will be mustered",
       "subCategoryKey": "surah_8",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الانفال",
+      "subCategoryTitleUrdu": "سورۃ الانفال",
       "subCategoryTitleEnglish": "Al-Anfal",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1474,7 +1474,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خدا و رسول اور اپنی امانتوں کے بارے میں خیانت نہ کرو جب کہ تم جانتے بھی ہو",
       "translationEnglish": "O you who have faith! Do not betray Allah and the Apostle, and do not betray your trusts knowingly",
       "subCategoryKey": "surah_8",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الانفال",
+      "subCategoryTitleUrdu": "سورۃ الانفال",
       "subCategoryTitleEnglish": "Al-Anfal",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1493,7 +1493,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اگر تم تقوٰی الٰہی اختیار کرو گے تو وہ تمہیں حق و باطل میں تفرقہ کی صلاحیت عطا کردے گا -تمہاری برائیوں کی پردہ پوشی کرے گا -تمہارے گناہوں کو معاف کردے گا کہ وہ بڑا فضل کرنے والا ہے",
       "translationEnglish": "O you who have faith! If you are wary of Allah, He shall appoint a criterion for you, and absolve you of your misdeeds, and forgive you, for Allah is dispenser of a great grace",
       "subCategoryKey": "surah_8",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الانفال",
+      "subCategoryTitleUrdu": "سورۃ الانفال",
       "subCategoryTitleEnglish": "Al-Anfal",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1512,7 +1512,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب کسی گروہ سے مقابلہ کرو تو ثبات هقدم سے کام لو اور اللہ کو بہت یاد کرو کہ شاید اسی طرح کامیابی حاصل کرلو",
       "translationEnglish": "O you who have faith! When you meet a host [in battle], then stand firm, and remember Allah greatly so that you may be felicitous",
       "subCategoryKey": "surah_8",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الانفال",
+      "subCategoryTitleUrdu": "سورۃ الانفال",
       "subCategoryTitleEnglish": "Al-Anfal",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1531,7 +1531,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار اپنے باپ دادا اور بھائیوں کو اپنا دوست نہ بناؤ اگر وہ ایمان کے مقابلہ میں کفر کو دوست رکھتے ہوں اور جو شخص بھی ایسے لوگوں کو اپنا دوست بنائے گا وہ ظالموں میں شمار ہوگا",
       "translationEnglish": "O you who have faith! Do not befriend your fathers and brothers if they prefer faithlessness to faith. Those of you who befriend them—it is they who are the wrongdoers",
       "subCategoryKey": "surah_9",
-      "subCategoryTitleUrdu": "سورۃ سورۃ التوبہ",
+      "subCategoryTitleUrdu": "سورۃ التوبہ",
       "subCategoryTitleEnglish": "At-Tawbah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1550,7 +1550,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو !مشرکین صررِ نجاست ہیں لہذا خبردار اس سال کے بعد مسجدالحرام میں داخل نہ ہونے پائیں اور اگر تمہیں غربت کا خوف ہے تو عنقریب خدا چاہے گا تو اپنے فضل و کرم سے تمہیں غنی بنادے گا کہ وہ صاحب هعلم بھی ہے اور صاحب هحکمت بھی ہے",
       "translationEnglish": "O you who have faith! The polytheists are indeed unclean: so let them not approach the Holy Mosque after this year. Should you fear poverty, Allah will enrich you out of His grace, if He wishes. Indeed Allah is all-knowing, all-wise",
       "subCategoryKey": "surah_9",
-      "subCategoryTitleUrdu": "سورۃ سورۃ التوبہ",
+      "subCategoryTitleUrdu": "سورۃ التوبہ",
       "subCategoryTitleEnglish": "At-Tawbah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1569,7 +1569,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو نصارٰی کے بہت سے علمائ اور راہب ,لوگوں کے اموال کو ناجائز طریقہ سے کھاجاتے ہیں اور لوگوں کو راسِ خدا سے روکتے ہیں .... اور جو لوگ سونے چاندی کا ذخیرہ کرتے ہیں اور اسے راہ هخدا میں خرچ نہیں کرتے پیغمبر,آپ انہیں دردناک عذاب کی بشارت دے دیں",
       "translationEnglish": "O you who have faith! Indeed many of the scribes and monks wrongfully eat up the people’s wealth, and bar [them] from the way of Allah. Those who treasure up gold and silver, and do not spend it in the way of Allah, inform them of a painful punishment",
       "subCategoryKey": "surah_9",
-      "subCategoryTitleUrdu": "سورۃ سورۃ التوبہ",
+      "subCategoryTitleUrdu": "سورۃ التوبہ",
       "subCategoryTitleEnglish": "At-Tawbah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1588,7 +1588,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو تمہیں کیا ہوگیا ہے کہ جب تم سے کہا گیا کہ راہ هخدا میں جہاد کے لئے نکلو تو تم زمین سے چپک کر رہ گئے کیا تم آخرت کے بدلے زندگانی دنیا سے راضی ہوگئے ہو تو یاد رکھو کہ آخرت میں اس متاع هزندگانی دنیا کی حقیقت بہت قلیل ہے",
       "translationEnglish": "O you who have faith! What is the matter with you that when you are told: ‘Go forth in the way of Allah,’ you sink heavily to the ground? Are you pleased with the life of this world instead of the Hereafter? But the wares of the life of this world compared with the Hereafter are but insignificant",
       "subCategoryKey": "surah_9",
-      "subCategoryTitleUrdu": "سورۃ سورۃ التوبہ",
+      "subCategoryTitleUrdu": "سورۃ التوبہ",
       "subCategoryTitleEnglish": "At-Tawbah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1607,7 +1607,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والواللہ سے ڈرو اور صادقین کے ساتھ ہوجاؤ",
       "translationEnglish": "O you who have faith! Be wary of Allah, and be with the Truthful",
       "subCategoryKey": "surah_9",
-      "subCategoryTitleUrdu": "سورۃ سورۃ التوبہ",
+      "subCategoryTitleUrdu": "سورۃ التوبہ",
       "subCategoryTitleEnglish": "At-Tawbah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1626,7 +1626,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اپنے آس پاس والے کفار سے جہاد کرو اور وہ تم میں سختی اور طاقت کا احساس کریں اور یاد رکھو کہ اللہ صرف پرہیز گار افراد کے ساتھ ہے",
       "translationEnglish": "O you who have faith! Fight the faithless who are in your vicinity, and let them find severity in you, and know that Allah is with the Godwary",
       "subCategoryKey": "surah_9",
-      "subCategoryTitleUrdu": "سورۃ سورۃ التوبہ",
+      "subCategoryTitleUrdu": "سورۃ التوبہ",
       "subCategoryTitleEnglish": "At-Tawbah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1645,7 +1645,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو ! رکوع کروً سجدہ کرو اور اپنے رب کی عبادت کرو اور کارخیر انجام دو کہ شاید اسی طرح کامیاب ہوجاؤ اور نجات حاصل کرلو",
       "translationEnglish": "O you who have faith! Bow down and prostrate yourselves, and worship your Lord, and do good, so that you may be felicitous",
       "subCategoryKey": "surah_22",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الحج",
+      "subCategoryTitleUrdu": "سورۃ الحج",
       "subCategoryTitleEnglish": "Al-Hajj",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1664,7 +1664,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو شیطان کے نقش قدم پر نہ چلنا کہ جو شیطان کے قدم بہ قدم چلے گا اسے شیطان ہر طرح کی برائی کا حکم دے گا اور اگر تم پر اللہ کا فضل اور اس کی رحمت نہ ہوتی تو تم میں کوئی بھی پاکباز نہ ہوتا لیکن اللہ جسے چاہتا ہے پاک و پاکیزہ بنادیتا ہے اور وہ ہر ایک کی سننے والا اور ہر ایک کے حال هه دل کا جاننے والا ہے",
       "translationEnglish": "O you who have faith! Do not follow in Satan’s steps. Whoever follows in Satan’s steps [should know that] he indeed prompts [you to commit] indecent and wrongful acts. Were it not for Allah’s grace and His mercy upon you, not one of you would ever become pure. But Allah purifies whomever He wishes, and Allah is all-hearing, all-knowing",
       "subCategoryKey": "surah_24",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النور",
+      "subCategoryTitleUrdu": "سورۃ النور",
       "subCategoryTitleEnglish": "An-Nur",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1683,7 +1683,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار اپنے گھروں کے علاوہ کسی کے گھر میں داخل نہ ہونا جب تک کہ صاحبِ خانہ سے اجازت نہ لے لو اور انہیں سلام نہ کرلو یہی تمہارے حق میں بہتر ہے کہ شاید تم اس سے نصیحت حاصل کرسکو",
       "translationEnglish": "O you who have faith! Do not enter houses other than your own until you have announced [your arrival] and greeted their occupants. That is better for you. Maybe you will take admonition",
       "subCategoryKey": "surah_24",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النور",
+      "subCategoryTitleUrdu": "سورۃ النور",
       "subCategoryTitleEnglish": "An-Nur",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1702,7 +1702,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو تمہارے غلام و کنیز اور وہ بچے ّجو ابھی سن بلوغ کو نہیں پہنچے ہیں ان سب کو چاہئے کہ تمہارے پاس داخل ہونے کے لئے تین اوقات میں اجازت لیں نماز صبح سے پہلے اور دوپہر کے وقت جب تم کپڑے اتار کر آرام کرتے ہو اور نماز عشائ کے بعد یہ تین اوقات پردے کے ہیں اس کے بعد تمہارے لئے یا ان کے لئے کوئی حرج نہیں ہے کہ ایک دوسرے کے پاس چکر لگاتے رہیں کہ اللہ اسی طرح اپنی آیتوں کو واضح کرکے بیان کرتا ہے اور بیشک اللہ ہر شے کا جاننے والا اور صاحبِ حکمت ہے",
       "translationEnglish": "O you who have faith! Your slaves and any of you who have not yet reached puberty should seek your permission three times: before the dawn prayer, and when you put off your garments at noon, and after the night prayer. These are three times of privacy for you. Apart from these, it is not sinful of you or them to frequent one another [freely]. Thus does Allah clarify the signs for you, and Allah is all-knowing, all-wise",
       "subCategoryKey": "surah_24",
-      "subCategoryTitleUrdu": "سورۃ سورۃ النور",
+      "subCategoryTitleUrdu": "سورۃ النور",
       "subCategoryTitleEnglish": "An-Nur",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1721,7 +1721,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو! اس وقت اللہ کی نعمت کو یاد کرو جب کفر کے لشکر تمہارے سامنے آگئے اور ہم نے ان کے خلاف تمہاری مدد کے لئے تیز ہوا اور ایسے لشکر بھیج دیئے جن کو تم نے دیکھا بھی نہیں تھا اور اللہ تمہارے اعمال کوخوب دیکھنے والا ہے",
       "translationEnglish": "O you who have faith! Remember Allah’s blessing upon you when the hosts came at you, and We sent against them a gale and hosts whom you did not see, and Allah sees best what you do",
       "subCategoryKey": "surah_33",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الاحزاب",
+      "subCategoryTitleUrdu": "سورۃ الاحزاب",
       "subCategoryTitleEnglish": "Al-Ahzab",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1740,7 +1740,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والواللہ کا ذکر بہت زیادہ کیا کرو",
       "translationEnglish": "O you who have faith! Remember Allah with frequent remembrance",
       "subCategoryKey": "surah_33",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الاحزاب",
+      "subCategoryTitleUrdu": "سورۃ الاحزاب",
       "subCategoryTitleEnglish": "Al-Ahzab",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1759,7 +1759,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب مومنات سے نکاح کرنا اور ان کو ہاتھ لگائے بغیر طلاق دے دینا تو تمہارے لئے کوئی حق نہیں ہے کہ ان سے و عدہ کا مطالبہ کرو لہٰذا کچھ عطیہ دے کر خوبصورتی کے ساتھ رخصت کردینا",
       "translationEnglish": "O you who have faith! When you marry faithful women and then divorce them before you touch them, there shall be no period for you to reckon. But provide for them and release them in a graceful manner",
       "subCategoryKey": "surah_33",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الاحزاب",
+      "subCategoryTitleUrdu": "سورۃ الاحزاب",
       "subCategoryTitleEnglish": "Al-Ahzab",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1778,7 +1778,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "اے ایمان والو خبردار پیغمبر کے گھروں میں اس وقت تک داخل نہ ہونا جب تک تمہیں کھانے کے لئے اجازت نہ دے دی جائے اور اس وقت بھی برتنوں پر نگاہ نہ رکھنا ہاں جب دعوت دے دی جائے تو داخل ہوجاؤ اور جب کھالو تو فورا منتشر ہوجاؤ اور باتوں میں نہ لگ جاؤ کہ یہ بات پیغمبر کو تکلیف پہنچاتی ہے اور وہ تمہارا خیال کرتے ہیں حالانکہ اللہ حق کے بارے میں کسی بات کی شرم نہیں رکھتا اور جب ازواج پیغمبر سے کسی چیز کا سوال کرو تو پردہ کے پیچھے سے سوال کرو کہ یہ بات تمہارے اور ان کے دونوں کے دلوں کے لئے زیادہ پاکیزہ ہے اور تمہیں حق نہیں ہے کہ خدا کے رسول کو اذیت دو یا ان کے بعد کبھی بھی ان کی ازواج سے نکاح کرو کہ یہ بات خدا کی نگاہ میں بہت بڑی بات ہے",
       "translationEnglish": "O you who have faith! Do not enter the Prophet’s houses for a meal until you are granted permission, without hanging around for it to be readied. But enter when you are invited, and disperse when you have taken your meal, without cozying up for chats. Such conduct on your part offends the Prophet, and he is ashamed of [asking] you [to leave]; but Allah is not ashamed of [expressing] the truth. When you ask [his] womenfolk for something, do so from behind a curtain. That is more chaste for your hearts and theirs. You should not offend the Apostle of Allah, nor may you ever marry his wives after him. Indeed that would be a grave [sin] with Allah",
       "subCategoryKey": "surah_33",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الاحزاب",
+      "subCategoryTitleUrdu": "سورۃ الاحزاب",
       "subCategoryTitleEnglish": "Al-Ahzab",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1797,7 +1797,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "بیشک اللہ اور اس کے ملائکہ رسول پر صلٰوات بھیجتے ہیں تو اے صاحبانِ ایمان تم بھی ان پر صلٰوات بھیجتے رہو اور سلام کرتے رہو",
       "translationEnglish": "Indeed Allah and His angels bless the Prophet; O you who have faith! Invoke blessings on him and invoke Peace upon him in a worthy manner",
       "subCategoryKey": "surah_33",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الاحزاب",
+      "subCategoryTitleUrdu": "سورۃ الاحزاب",
       "subCategoryTitleEnglish": "Al-Ahzab",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1816,7 +1816,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار ان کے جیسے نہ بن جاؤ جنہوں نے موسٰی علیھ السّلام کو اذیت دی تو خدا نے انہیں ان کے قول سے بری ثابت کردیا اور و ہ اللہ کے نزدیک ایک باوجاہت انسان تھے",
       "translationEnglish": "O you who have faith! Do not be like those who offended Moses, whereat Allah cleared him of what they alleged, and he was distinguished in Allah’s sight",
       "subCategoryKey": "surah_33",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الاحزاب",
+      "subCategoryTitleUrdu": "سورۃ الاحزاب",
       "subCategoryTitleEnglish": "Al-Ahzab",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1835,7 +1835,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ سے ڈرو اور سیدھی بات کرو",
       "translationEnglish": "O you who have faith! Be wary of Allah, and speak upright words",
       "subCategoryKey": "surah_33",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الاحزاب",
+      "subCategoryTitleUrdu": "سورۃ الاحزاب",
       "subCategoryTitleEnglish": "Al-Ahzab",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1854,7 +1854,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اگر تم اللہ کی مدد کرو گے تو اللہ بھی تمہاری مدد کرے گا اور تمہیں ثابت قدم بنادے گا",
       "translationEnglish": "O you who have faith! If you help Allah, He will help you and make your feet steady",
       "subCategoryKey": "surah_47",
-      "subCategoryTitleUrdu": "سورۃ سورۃ محمد",
+      "subCategoryTitleUrdu": "سورۃ محمد",
       "subCategoryTitleEnglish": "Muhammad",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1873,7 +1873,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ کی اطاعت کرو اور رسول کی اطاعت کرو اور خبردار اپنے اعمال کو برباد نہ کرو",
       "translationEnglish": "O you who have faith! Obey Allah and obey the Apostle, and do not render your works void",
       "subCategoryKey": "surah_47",
-      "subCategoryTitleUrdu": "سورۃ سورۃ محمد",
+      "subCategoryTitleUrdu": "سورۃ محمد",
       "subCategoryTitleEnglish": "Muhammad",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1892,7 +1892,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار خدا و ر رسول کے سامنے اپنی بات کو آگے نہ بڑھاؤ اور اللہ سے ڈرو بیشک اللہ ہر بات کا سننے والا اور جاننے والا ہے",
       "translationEnglish": "O you who have faith! Do not venture ahead of Allah and His Apostle, and be wary of Allah. Indeed Allah is all-hearing, all-knowing",
       "subCategoryKey": "surah_49",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الحجرات",
+      "subCategoryTitleUrdu": "سورۃ الحجرات",
       "subCategoryTitleEnglish": "Al-Hujurat",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1911,7 +1911,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار اپنی آواز کو نبی کی آواز پر بلند نہ کرنا اور ان سے اس طرح بلند آواز میں بات بھی نہ کرنا جس طرح آپس میں ایک دوسرے کو پکارتے ہو کہیں ایسا نہ ہو کہ تمہارے اعمال برباد ہوجائیں اور تمہیں اس کا شعور بھی نہ ہو",
       "translationEnglish": "O you who have faith! Do not raise your voices above the voice of the Prophet, and do not speak aloud to him like you shout to one another, lest your works should fail without your being aware",
       "subCategoryKey": "surah_49",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الحجرات",
+      "subCategoryTitleUrdu": "سورۃ الحجرات",
       "subCategoryTitleEnglish": "Al-Hujurat",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1930,7 +1930,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اگر کوئی فاسق کوئی خبر لے کر آئے تو اس کی تحقیق کرو ایسا نہ ہو کہ کسی قوم تک ناواقفیت میں پہنچ جاؤ اور اس کے بعد اپنے اقدام پر شرمندہ ہونا پڑے",
       "translationEnglish": "O you who have faith! If a vicious character brings you some news, verify it, lest you should visit [harm] on some people out of ignorance, and then become regretful for what you have done",
       "subCategoryKey": "surah_49",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الحجرات",
+      "subCategoryTitleUrdu": "سورۃ الحجرات",
       "subCategoryTitleEnglish": "Al-Hujurat",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1949,7 +1949,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار کوئی قوم دوسری قوم کا مذاق نہ اڑائے کہ شاید وہ اس سے بہتر ہو اور عورتوں کی بھی کوئی جماعت دوسری جماعت کا مسخرہ نہ کرے کہ شاید وہی عورتیں ان سے بہتر ہوں اور آپس میں ایک دوسرے کو طعنے بھی نہ دینا اور اِرے اِرے القاب سے یاد بھی نہ کرنا کہ ایمان کے بعد بدکاریً کا نام ہی بہت اِرا ہے اور جو شخص بھی توبہ نہ کرے تو سمجھو کہ یہی لوگ درحقیقت ظالمین ہیں",
       "translationEnglish": "O you who have faith! Let not any people ridicule another people: it may be that they are better than they are; nor let women [ridicule] women: it may be that they are better than they are. And do not defame one another, nor insult one another by [calling] nicknames. How evil are profane names subsequent to faith! As for those who are not penitent [of their past conduct]—such are the wrongdoers",
       "subCategoryKey": "surah_49",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الحجرات",
+      "subCategoryTitleUrdu": "سورۃ الحجرات",
       "subCategoryTitleEnglish": "Al-Hujurat",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1968,7 +1968,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اکثر گمانوں سے اجتناب کرو کہ بعض گمان گناہ کا درجہ رکھتے ہیں اور خبردار ایک دوسرے کے عیب تلاش نہ کرو اور ایک دوسرے کی غیبت بھی نہ کرو کہ کیا تم میں سے کوئی اس بات کو پسند کرے گا کہ اپنے مفِدہ بھائی کا گوشت کھائے یقینا تم اسے اِرا سمجھو گے تو اللہ سے ڈرو کہ بیشک اللہ بہت بڑا توبہ کا قبول کرنے والا اور مہربان ہے",
       "translationEnglish": "O you who have faith! Avoid much suspicion; indeed some suspicions are sins. And do not spy on one another or backbite. Will any of you love to eat the flesh of his dead brother? You would hate it. Be wary of Allah; indeed Allah is all-clement, all-merciful",
       "subCategoryKey": "surah_49",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الحجرات",
+      "subCategoryTitleUrdu": "سورۃ الحجرات",
       "subCategoryTitleEnglish": "Al-Hujurat",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -1987,7 +1987,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ سے ڈرو اور رسول پر واقعی ایمان لے آؤ تاکہ خدا تمہیں اپنی رحمت کے دہرے حّصے عطا کردے اور تمہارے لئے ایسا نور قرار دے دے جس کی روشنی میں چل سکو اور تمہیں بخش دے اور اللہ بہت زیادہ بخشنے والا اور مہربان ہے",
       "translationEnglish": "O you who have faith! Be wary of Allah and have faith in His Apostle. He will grant you a double share of His mercy and a light to walk by, and He will forgive you, and Allah is all-forgiving, all-merciful",
       "subCategoryKey": "surah_57",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الحدید",
+      "subCategoryTitleUrdu": "سورۃ الحدید",
       "subCategoryTitleEnglish": "Al-Hadid",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2006,7 +2006,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب بھی راز کی باتیں کرو تو خبردار گناہ اور تعدی اور رسول کی نافرمانی کے ساتھ نہ کرنا بلکہ نیکی اور تقویٰ کے ساتھ باتیں کرنا اور اللہ سے ڈرتے رہنا کہ بالآخر اسی کی طرف پلٹ کر جانا ہے",
       "translationEnglish": "O you who have faith! When you converse secretly, do not hold private conversations [imbued] with sin and aggression and disobedience to the Apostle, but converse in [a spirit of] piety and Godfearing, and be wary of Allah toward whom you will be gathered",
       "subCategoryKey": "surah_58",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المجادلہ",
+      "subCategoryTitleUrdu": "سورۃ المجادلہ",
       "subCategoryTitleEnglish": "Al-Mujadila",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2025,7 +2025,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب تم سے مجلس میں وسعت پیدا کرنے کے لئے کہا جائے تو دوسروں کو جگہ دیدو تاکہ خدا تمہیں جنّت میں وسعت دے سکے اور جب تم سے کہا جائے کہ اُٹھ جاؤ تو اُٹھ جاؤ کہ خدا صاحبان هایمان اور جن کو علم دیا گیا ہے ان کے درجات کو بلند کرنا چاہتا ہے اور اللہ تمہارے اعمال سے خوب باخبر ہے",
       "translationEnglish": "O you who have faith! When you are told, ‘Make room,’ in sittings, then do make room; Allah will make room for you. And when you are told, ‘Rise up!’ Do rise up. Allah will raise in rank those of you who have faith and those who have been given knowledge, and Allah is well aware of what you do",
       "subCategoryKey": "surah_58",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المجادلہ",
+      "subCategoryTitleUrdu": "سورۃ المجادلہ",
       "subCategoryTitleEnglish": "Al-Mujadila",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2044,7 +2044,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب بھی رسول سے کوئی راز کی بات کرو تو پہلے صدقہ نکال دو کہ یہی تمہارے حق میں بہتری اور پاکیزگی کی بات ہے پھر اگر صدقہ ممکن نہ ہو تو خدا بہت بخشنے والا اور مہربان ہے",
       "translationEnglish": "O you who have faith! When you converse privately with the Apostle, offer a charity before your private talk. That is better for you and purer. But if you cannot afford [to make the offering], then Allah is indeed all-forgiving, all-merciful",
       "subCategoryKey": "surah_58",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المجادلہ",
+      "subCategoryTitleUrdu": "سورۃ المجادلہ",
       "subCategoryTitleEnglish": "Al-Mujadila",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2063,7 +2063,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ سے ڈرو اور ہر شخص یہ دیکھے کہ اس نے کل کے لئے کیا بھیج دیا ہے اور اللہ سے ڈرتے رہو کہ وہ یقینا تمہارے اعمال سے باخبر ہے",
       "translationEnglish": "O you who have faith! Be wary of Allah, and let every soul consider what it sends ahead for Tomorrow, and be wary of Allah. Allah is indeed well aware of what you do",
       "subCategoryKey": "surah_59",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الحشر",
+      "subCategoryTitleUrdu": "سورۃ الحشر",
       "subCategoryTitleEnglish": "Al-Hashr",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2082,7 +2082,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار میرے اور اپنے دشمنوں کو دوست مت بنانا کہ تم ان کی طرف دوستی کی پیش کش کرو جب کہ انہوں نے اس حق کا انکار کردیا ہے جو تمہارے پاس آچکا ہے اور وہ رسول کو اور تم کو صرف اس بات پر نکال رہے ہیں کہ تم اپنے پروردگار (اللرُ) پر ایمان رکھتے ہو .... اگر تم واقعا ہماری راہ میں جہاد اور ہماری مرضی کی تلاش میں گھر سے نکلے ہو تو ان سے خفیہ دوستی کس طرح کررہے ہو جب کہ میں تمہارے ظاہر و باطن سب کو جانتا ہوں اور جو بھی تم میں سے ایسا اقدام کرے گا وہ یقینا سیدھے راستہ سے بہک گیا ہے",
       "translationEnglish": "O you who have faith! Do not take My enemy and your enemy for friends, [secretly] offering them affection, if you have set out for jihad in My way and to seek My pleasure, for they have certainly denied whatever has come to you of the truth, expelling the Apostle and you, because you have faith in Allah, your Lord. You secretly nourish affection for them, while I know well whatever you hide and whatever you disclose, and whoever among you does that has certainly strayed from the right way",
       "subCategoryKey": "surah_60",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الممتحنہ",
+      "subCategoryTitleUrdu": "سورۃ الممتحنہ",
       "subCategoryTitleEnglish": "Al-Mumtahanah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2101,7 +2101,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب تمہارے پاس ہجرت کرنے والی مومن عورتیں آئیں تو پہلے ان کا امتحان کرو کہ اللہ ان کے ایمان کو خوب جانتا ہے پھر اگر تم بھی دیکھو کہ یہ مومنہ ہیں توخبردار انہیں کفاّر کی طرف واپس نہ کرنا - نہ وہ ان کے لئے حلال ہیں اور نہ یہ ان کے لئے حلال ہیں اور جو خرچہ کفاّر نے مہر کا دیا ہے وہ انہیں واپس کردو اور تمہارے لئے کوئی حرج نہیں ہے کہ تم ان کی اجرت (مہر) دینے کے بعد ان سے نکاح کرلو اور خبردار کافر عورتوں کی عصمت پکڑ کر نہ رکھو اور جو تم نے خرچ کیا ہے وہ کفار سے لے لو اور جو انہوں نے خرچ کیا ہے وہ تم سے لے لیں کہ یہی حکم خدا ہے جس کا فیصلہ خدا نے تمہارے درمیان کیا ہے اور وہ بڑا صاحب ه علم و حکمت ہے",
       "translationEnglish": "O you who have faith! When faithful women come to you as immigrants, test them. Allah knows best [the state of] their faith. Then, if you ascertain them to be [genuinely] faithful women, do not send them back to the faithless. They are not lawful for them, nor are they lawful for them, but give them what [dowry] they have spent [for them]. There is no sin upon you in marrying them when you have given them their dowries. Do not hold on to [conjugal] ties with faithless women. Demand [from the infidels] what you have spent [as dowries], and let the faithless demand [from you] what they have spent [as dowries]. That is Allah’s judgment; He judges between you, and Allah is all-knowing, all-wise",
       "subCategoryKey": "surah_60",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الممتحنہ",
+      "subCategoryTitleUrdu": "سورۃ الممتحنہ",
       "subCategoryTitleEnglish": "Al-Mumtahanah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2120,7 +2120,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار اس قوم سے ہرگز دوستی نہ کرنا جس پر خدا نے غضب نازل کیا ہے کہ وہ آخرت سے اسی طرح مایوس ہوں گے جس طرح کفاّر قبر والوں سے مایوس ہوجاتے ہیں",
       "translationEnglish": "O you who have faith! Do not befriend a people at whom Allah is wrathful: they have despaired of the Hereafter, just as the faithless have despaired of the occupants of the graves",
       "subCategoryKey": "surah_60",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الممتحنہ",
+      "subCategoryTitleUrdu": "سورۃ الممتحنہ",
       "subCategoryTitleEnglish": "Al-Mumtahanah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2139,7 +2139,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو آخر وہ بات کیوں کہتے ہو جس پر عمل نہیں کرتے ہو",
       "translationEnglish": "O you who have faith! Why do you say what you do not do",
       "subCategoryKey": "surah_61",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الصف",
+      "subCategoryTitleUrdu": "سورۃ الصف",
       "subCategoryTitleEnglish": "As-Saff",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2158,7 +2158,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو کیا میں تمہیں ایک ایسی تجارت کی طرف رہنمائی کروں جو تمہیں دردناک عذاب سے بچالے",
       "translationEnglish": "O you who have faith! Shall I show you a deal that will deliver you from a painful punishment",
       "subCategoryKey": "surah_61",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الصف",
+      "subCategoryTitleUrdu": "سورۃ الصف",
       "subCategoryTitleEnglish": "As-Saff",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2177,7 +2177,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اللہ کے مددگار بن جاؤ جس طرح عیسٰی بن مریم علیھ السّلام نے اپنے حواریین سے کہا تھا کہ اللہ کی راہ میں میرا مددگار کون ہے تو حواریین نے کہا کہ ہم اللہ کے ناصر ہیں لیکن پھربنی اسرائیل میں سے ایک گروہ ایمان لے آیا اور ایک گروہ کافر ہوگیا تو ہم نے صاحبان هایمان کی دشمن کے مقابلہ میں مدد کردی تو وہ غالب آکر رہے",
       "translationEnglish": "O you who have faith! Be Allah’s helpers, just as Jesus son of Mary said to his disciples, ‘Who will be my helpers for Allah’s sake?’ The Disciples said, ‘We will be Allah’s helpers!’ So a group of the Children of Israel believed, and a group disbelieved. Then We strengthened the faithful against their enemies, and they came to prevail [over them]",
       "subCategoryKey": "surah_61",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الصف",
+      "subCategoryTitleUrdu": "سورۃ الصف",
       "subCategoryTitleEnglish": "As-Saff",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2196,7 +2196,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو جب تمہیں جمعہ کے دن نماز کے لئے پکارا جائے تو ذکر خدا کی طرف دوڑ پڑو اور کاروبار بند کردو کہ یہی تمہارے حق میں بہتر ہے اگر تم جاننے والے ہو",
       "translationEnglish": "O you who have faith! When the call is made for prayer on Friday, hurry toward the remembrance of Allah, and leave all business. That is better for you, should you know",
       "subCategoryKey": "surah_62",
-      "subCategoryTitleUrdu": "سورۃ سورۃ الجمعہ",
+      "subCategoryTitleUrdu": "سورۃ الجمعہ",
       "subCategoryTitleEnglish": "Al-Jumu'ah",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2215,7 +2215,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خبردار تمہارے اموال اور تمہاری اولاد تمہیں یاد خدا سے غافل نہ کردے کہ جو ایسا کرے گا وہ یقینا خسارہ والوں میں شمار ہوگا",
       "translationEnglish": "O you who have faith! Do not let your possessions and children distract you from the remembrance of Allah, and whoever does that—it is they who are the losers",
       "subCategoryKey": "surah_63",
-      "subCategoryTitleUrdu": "سورۃ سورۃ المنافقون",
+      "subCategoryTitleUrdu": "سورۃ المنافقون",
       "subCategoryTitleEnglish": "Al-Munafiqun",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2234,7 +2234,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو - تمہا---ری بیویوں اور تمہاری اولاد میں سے بعض تمہارے دشمن ہیں لہذا ان سے ہوشیار رہو اور اگر انہیں معاف کردو اور ان سے درگزر کرو اور انہیں بخش دو تو اللہ بھی بہت بخشنے والا اور مہربان ہے",
       "translationEnglish": "O you who have faith! Indeed, you have enemies among your spouses and children; so beware of them. Yet if you excuse, forbear, and forgive, then Allah is indeed all-forgiving, all-merciful",
       "subCategoryKey": "surah_64",
-      "subCategoryTitleUrdu": "سورۃ سورۃ التغابن",
+      "subCategoryTitleUrdu": "سورۃ التغابن",
       "subCategoryTitleEnglish": "At-Taghabun",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2253,7 +2253,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو اپنے نفس اور اپنے اہل کو اس آگ سے بچاؤ جس کا ایندھن انسان اور پتھر ہوں گے جس پر وہ ملائکہ معین ہوں گے جو سخت مزاج اور تندوتیز ہیں اور خدا کے حکم کی مخالفت نہیں کرتے ہیں اور جو حکم دیا جاتا ہے اسی پر عمل کرتے ہیں",
       "translationEnglish": "O you who have faith! Save yourselves and your families from a Fire whose fuel will be people and stones, over which are [assigned] severe and mighty angels, who do not disobey whatever Allah commands them and carry out what they are commanded",
       "subCategoryKey": "surah_66",
-      "subCategoryTitleUrdu": "سورۃ سورۃ التحریم",
+      "subCategoryTitleUrdu": "سورۃ التحریم",
       "subCategoryTitleEnglish": "At-Tahrim",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""
@@ -2272,7 +2272,7 @@ export const ALL_AUDIENCE_VERSES_CATALOG: Record<string, AudienceCatalogAyah[]> 
       "translationUrdu": "ایمان والو خلوص دل کے ساتھ توبہ کرو عنقریب تمہارا پروردگار تمہاری برائیوں کو مٹا دے گا اور تمہیں ان جنتوں میں داخل کردے گا جن کے نیچے نہریں جاری ہوں گی اس دن خدا اپنے نبی اور صاحبانِ ایمان کو رسوا نہیں ہونے دے گا ان کا نور ان کے آگے آگے اور داہنی طرف چل رہا ہوگا اور وہ کہیں گے کہ خدایا ہمارے لئے ہمارے نور کو مکمل کردے اور ہمیں بخش دے کہ تو یقینا ہر شے پر قدرت رکھنے والا ہے",
       "translationEnglish": "O you who have faith! Repent to Allah with sincere repentance! Maybe your Lord will absolve you of your misdeeds and admit you into gardens with streams running in them, on the day when Allah will not let down the Prophet and the faithful who are with him. Their light will move swiftly before them and on their right. They will say, ‘Our Lord! Perfect our light for us, and forgive us! Indeed You have power over all things.’",
       "subCategoryKey": "surah_66",
-      "subCategoryTitleUrdu": "سورۃ سورۃ التحریم",
+      "subCategoryTitleUrdu": "سورۃ التحریم",
       "subCategoryTitleEnglish": "At-Tahrim",
       "scholarlyNoteUrdu": "",
       "scholarlyNoteEnglish": ""

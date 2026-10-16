@@ -33,6 +33,7 @@ export const ThematicEvolutionHeatmap: React.FC = () => {
     pauseAudio,
     setActivePassageStep,
     setPerspectiveMode,
+    language,
   } = useQuran();
 
   const [selectedThemeId, setSelectedThemeId] = useState<ThemeCategory>('tawhid');
@@ -637,8 +638,9 @@ export const ThematicEvolutionHeatmap: React.FC = () => {
         <div className="p-5 rounded-2xl bg-gradient-to-r from-emerald-950/25 via-[var(--bg-surface)] to-[var(--bg-surface)] border border-emerald-600/30 space-y-3">
           <div className="flex items-center justify-between text-xs text-emerald-700 dark:text-emerald-400 font-bold">
             <span>
-              نمائندہ آیتِ مبارکہ: سورۃ {activeCell.representativeVerse.surahNameEnglish} (
-              {activeCell.representativeVerse.surahNameUrdu}) — آیت #{activeCell.representativeVerse.ayahNumber}
+              {language === 'en'
+                ? `Representative Verse: Surah ${activeCell.representativeVerse.surahNameEnglish} (${activeCell.representativeVerse.surahNameUrdu}) — Ayah #${activeCell.representativeVerse.ayahNumber}`
+                : `نمائندہ آیتِ مبارکہ: ${activeCell.representativeVerse.surahNameUrdu} (${activeCell.representativeVerse.surahNameEnglish}) — آیت #${activeCell.representativeVerse.ayahNumber}`}
             </span>
             <span className="font-sans text-[11px] text-[var(--text-muted)]">
               نزولِ تدریجی مرحلہ #{activeCell.representativeVerse.passageStepNumber}

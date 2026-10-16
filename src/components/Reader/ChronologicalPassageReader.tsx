@@ -362,7 +362,7 @@ export const ChronologicalPassageReader: React.FC = () => {
                 </span>
                 <span className="text-[var(--text-muted)]">•</span>
                 <span className="font-urdu font-semibold">
-                  (سورۃ {activePassage.surahNameUrdu})
+                  ({activePassage.surahNameUrdu.startsWith('سورۃ') ? activePassage.surahNameUrdu : `سورۃ ${activePassage.surahNameUrdu}`})
                 </span>
               </div>
 
