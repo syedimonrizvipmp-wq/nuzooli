@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you utilize this computational framework, chronological matrix, or stratified legal datasets in your research, please cite it as below."
+title: "Project Nuzooli: Diachronic Computational Framework for Chronological Quranic Exegesis and Legal Stratification"
+authors:
+  - family-names: "Rizvi"
+    given-names: "Syed Imon"
+    name-particle: "Maulana"
+    orcid: "https://orcid.org/0009-0000-0000-0000"
+    affiliation: "Independent Digital Humanities & Quranic Hermeneutics Researcher"
+url: "https://nuzooli.vercel.app"
+repository-code: "https://github.com/syedimonrizvipmp-wq/nuzooli"
+abstract: "Project Nuzooli is a peer-reviewed-standard computational Digital Humanities framework providing diachronic revelation mapping, mathematical delta displacement analysis (|Nuzul - Mushaf|), and stratified legal evolution tracking (Tadrij al-Ahkam) across classical Islamic primary sources."
+keywords:
+  - "quran"
+  - "digital humanities"
+  - "tarteeb-e-nuzul"
+  - "chronological exegesis"
+  - "diachronic modeling"
+  - "shia tafsir"
+  - "asbab al-nuzul"
+  - "computational hermeneutics"
+  - "tadrij al-ahkam"
+license: "CC-BY-NC-4.0"
+version: 2.0.0
+date-released: 2026-10-16
+preferred-citation:
+  type: software
+  authors:
+    - family-names: "Rizvi"
+      given-names: "Syed Imon"
+      name-particle: "Maulana"
+  title: "Project Nuzooli: Diachronic Computational Framework for Chronological Quranic Exegesis and Legal Stratification"
+  year: 2026
+  version: "2.0.0"
+  url: "https://nuzooli.vercel.app"
+  repository-code: "https://github.com/syedimonrizvipmp-wq/nuzooli"

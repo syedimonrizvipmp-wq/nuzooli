@@ -14,6 +14,7 @@ import { TypographyModal } from '@/components/Modals/TypographyModal';
 import { BookmarksModal } from '@/components/Modals/BookmarksModal';
 import { DataImportExportModal } from '@/components/Modals/DataImportExportModal';
 import { DisclaimerModal } from '@/components/Modals/DisclaimerModal';
+import { CiteResearchModal } from '@/components/Modals/CiteResearchModal';
 import { AudioPlayerBar } from '@/components/Reader/AudioPlayerBar';
 import { ShieldAlert } from 'lucide-react';
 
@@ -24,6 +25,7 @@ export const AppContent: React.FC = () => {
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isDataModalOpen, setIsDataModalOpen] = useState(false);
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
+  const [isCiteModalOpen, setIsCiteModalOpen] = useState(false);
 
   // Dedicated Standalone Pages Detection
   const [isDedicatedTimeline, setIsDedicatedTimeline] = useState<boolean>(() => {
@@ -96,6 +98,7 @@ export const AppContent: React.FC = () => {
         onOpenBookmarks={() => setIsBookmarksOpen(true)}
         onOpenDataModal={() => setIsDataModalOpen(true)}
         onOpenDisclaimer={() => setIsDisclaimerOpen(true)}
+        onOpenCite={() => setIsCiteModalOpen(true)}
       />
 
       {/* Interactive 23-Year Time-Ribbon Discovery Engine (Surah Chronology) */}
@@ -125,10 +128,15 @@ export const AppContent: React.FC = () => {
       <DataImportExportModal
         isOpen={isDataModalOpen}
         onClose={() => setIsDataModalOpen(false)}
+        onOpenCite={() => setIsCiteModalOpen(true)}
       />
       <DisclaimerModal
         isOpen={isDisclaimerOpen}
         onClose={() => setIsDisclaimerOpen(false)}
+      />
+      <CiteResearchModal
+        isOpen={isCiteModalOpen}
+        onClose={() => setIsCiteModalOpen(false)}
       />
 
       {/* Sacred Footer */}

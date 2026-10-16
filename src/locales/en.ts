@@ -29,6 +29,7 @@ export const en: TranslationDictionary = {
     typography: 'Typography & Script',
     bookmarks: 'Bookmarks',
     dataModal: 'Data Management',
+    citeResearch: 'Cite Research',
     disclaimer: 'Scholarly Disclaimer',
   },
   epochs: {

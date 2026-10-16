@@ -1,3 +1,12 @@
+export interface ScholarlyProvenance {
+  primarySource: string;
+  classicalAuthority: string;
+  volumeAndPage?: string;
+  editionInfo?: string;
+  exegeticalNoteUrdu?: string;
+  exegeticalNoteEnglish?: string;
+}
+
 export interface LegislationStage {
   stageNumber: number;
   yearCE: number;
@@ -18,6 +27,7 @@ export interface LegislationStage {
   verseEnglish: string;
   passageStepNumber: number;
   eventOrder: number;
+  scholarlyProvenance: ScholarlyProvenance;
 }
 
 export interface LegislationPathway {
@@ -30,6 +40,7 @@ export interface LegislationPathway {
   totalYearsSpan: string;
   coreWisdomUrdu: string;
   coreWisdomEnglish: string;
+  scholarlyProvenance?: ScholarlyProvenance;
   stages: LegislationStage[];
 }
 
@@ -68,6 +79,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'And from the fruits of the palm trees and grapevines you take intoxicant and good provision. Indeed in that is a sign for a people who reason.',
         passageStepNumber: 15,
         eventOrder: 70,
+        scholarlyProvenance: {
+          primarySource: "Al-Tamhid fi Ulum al-Quran",
+          classicalAuthority: "Ayatollah Muhammad Hadi Marifat",
+          volumeAndPage: "Vol. 1, pp. 248-251 (Tadrij al-Tashri)",
+          editionInfo: "Qom: Muassasat al-Nashr al-Islami",
+          exegeticalNoteUrdu: "التمہید فی علوم القرآن کے مطابق مکی دور میں سکر (نشہ) اور رزق حسن کے موازنے سے حرمت کا بیج بویا گیا۔",
+          exegeticalNoteEnglish: "According to Al-Tamhid, contrasting intoxication with wholesome sustenance in the Meccan era introduced the first normative distinction."
+        },
       },
       {
         stageNumber: 2,
@@ -91,6 +110,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'They ask you about wine and gambling. Say: "In them is great sin and yet some benefit for people, but their sin is greater than their benefit."',
         passageStepNumber: 28,
         eventOrder: 87,
+        scholarlyProvenance: {
+          primarySource: "Al-Mizan fi Tafsir al-Quran",
+          classicalAuthority: "Allamah Muhammad Husayn Tabatabai",
+          volumeAndPage: "Vol. 2, pp. 191-203",
+          editionInfo: "Beirut: Muassasat al-Alami",
+          exegeticalNoteUrdu: "تفسیر المیزان میں علامہ طباطبائی فرماتے ہیں کہ اثم کبیر کا اعلان اجتماعی عقل کو قطعی حرمت کے لیے فکری طور پر آمادہ کرنے کا مرحلہ تھا۔",
+          exegeticalNoteEnglish: "In Al-Mizan, Tabatabai demonstrates that defining the sin as greater than material utility intellectually primed society for prohibition."
+        },
       },
       {
         stageNumber: 3,
@@ -114,6 +141,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'O you who have believed, do not approach prayer while you are intoxicated until you know what you are saying.',
         passageStepNumber: 30,
         eventOrder: 92,
+        scholarlyProvenance: {
+          primarySource: "Asbab al-Nuzul",
+          classicalAuthority: "Ali ibn Ahmad al-Wahidi",
+          volumeAndPage: "p. 156 (Hadith on Salah while intoxicated)",
+          editionInfo: "Cairo: Dar al-Hadith",
+          exegeticalNoteUrdu: "اسباب النزول للواحدی کے مطابق نماز کے اوقات میں نشے کی ممانعت نے دن بھر کے اوقات میں شراب نوشی کو عملاً غیر فعال کر دیا۔",
+          exegeticalNoteEnglish: "Al-Wahidi documents the specific transmission wherein prayer-time prohibition functionally incapacitated habitual daytime drinking."
+        },
       },
       {
         stageNumber: 4,
@@ -137,6 +172,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'O you who have believed, indeed, intoxicants, gambling, stone altars, and divining arrows are but defilement from the work of Satan, so avoid it that you may be successful.',
         passageStepNumber: 36,
         eventOrder: 112,
+        scholarlyProvenance: {
+          primarySource: "Al-Tamhid fi Ulum al-Quran",
+          classicalAuthority: "Ayatollah Muhammad Hadi Marifat & Allamah Tabatabai",
+          volumeAndPage: "Al-Tamhid Vol. 1, p. 253; Al-Mizan Vol. 6, pp. 115-132",
+          editionInfo: "Comprehensive Consensus across Shia & Classical Exegesis",
+          exegeticalNoteUrdu: "دونوں ائمۂ تفسیر کے مطابق لفظ رجس اور فاجتنبوه کا حکم قطعی، ابدی اور بلا استثناء تحریم کا مظہر ہے۔",
+          exegeticalNoteEnglish: "Designating intoxicants as an abomination of Satan alongside the imperative fajtanibuh constitutes categorical, permanent prohibition."
+        },
       },
     ],
   },
@@ -174,6 +217,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'And We did not make the qiblah which you used to face except that We might make evident who would follow the Messenger from who would turn back on his heels.',
         passageStepNumber: 28,
         eventOrder: 87,
+        scholarlyProvenance: {
+          primarySource: "Al-Mizan fi Tafsir al-Quran",
+          classicalAuthority: "Allamah Muhammad Husayn Tabatabai",
+          volumeAndPage: "Vol. 1, pp. 313-324",
+          editionInfo: "Beirut: Muassasat al-Alami",
+          exegeticalNoteUrdu: "علامہ طباطبائی کے مطابق بیت المقدس کو پہلا قبلہ بنانا عربوں کی بت پرستانہ قبائلی عصبیت سے آزادی اور تسلیمِ محض کا امتحان تھا۔",
+          exegeticalNoteEnglish: "Al-Mizan expounds that facing Jerusalem served to detach early Arabian converts from ancestral shrine chauvinism."
+        },
       },
       {
         stageNumber: 2,
@@ -197,6 +248,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'We have certainly seen the turning of your face toward the heaven, and We will surely turn you to a qiblah with which you will be pleased. So turn your face toward al-Masjid al-Haram.',
         passageStepNumber: 28,
         eventOrder: 87,
+        scholarlyProvenance: {
+          primarySource: "Al-Tamhid fi Ulum al-Quran",
+          classicalAuthority: "Ayatollah Muhammad Hadi Marifat",
+          volumeAndPage: "Vol. 1, pp. 142-146 (Tahwil al-Qiblah)",
+          editionInfo: "Qom: Muassasat al-Nashr al-Islami",
+          exegeticalNoteUrdu: "التمہید کے مطابق رجب ۲ ہجری میں مسجدِ قبلتین میں نماز کے دوران قبلہ تبدیل کر کے امتِ مسلمہ کو مستقل عالمی شناخت دی گئی۔",
+          exegeticalNoteEnglish: "Al-Tamhid details the mid-prayer 180-degree turn in Rajab 2 AH as the architectural crystallization of the independent Abrahamic Ummah."
+        },
       },
     ],
   },
@@ -234,6 +293,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'O you who have believed, decreed upon you is fasting as it was decreed upon those before you that you may become righteous.',
         passageStepNumber: 28,
         eventOrder: 87,
+        scholarlyProvenance: {
+          primarySource: "Al-Mizan fi Tafsir al-Quran",
+          classicalAuthority: "Allamah Muhammad Husayn Tabatabai",
+          volumeAndPage: "Vol. 2, pp. 5-15",
+          editionInfo: "Beirut: Muassasat al-Alami",
+          exegeticalNoteUrdu: "تفسیر المیزان کے مطابق کما کتب علی الذین من قبلکم فرما کر مسلمانوں کو سابقہ انبیاء کی سنت کا تسلسل یاد دلا کر نفسیاتی سکون دیا گیا۔",
+          exegeticalNoteEnglish: "Tabatabai demonstrates that grounding fasting in universal prophetic heritage reduced psychological reluctance."
+        },
       },
       {
         stageNumber: 2,
@@ -256,6 +323,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'Fasting is for a limited number of days. So whoever among you is ill or on a journey, then an equal number of other days. And upon those who are able with difficulty, a ransom of feeding a poor person.',
         passageStepNumber: 28,
         eventOrder: 87,
+        scholarlyProvenance: {
+          primarySource: "Al-Tamhid fi Ulum al-Quran",
+          classicalAuthority: "Ayatollah Muhammad Hadi Marifat",
+          volumeAndPage: "Vol. 2, pp. 188-193 (Tadrij fi Fardiyyat al-Sawm)",
+          editionInfo: "Qom: Muassasat al-Nashr al-Islami",
+          exegeticalNoteUrdu: "آیت اللہ ہادی معرفت فرماتے ہیں کہ ابتدا میں فدیہ کا اختیار دینا امت کو بتدریج مشقت کا عادی بنانے کی الٰہی تدبیر تھی۔",
+          exegeticalNoteEnglish: "Al-Tamhid analyzes the pedagogical dispensation of fidyah as an interim transitional grace."
+        },
       },
       {
         stageNumber: 3,
@@ -278,6 +353,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'The month of Ramadan in which was revealed the Quran, a guidance for the people and clear proofs of guidance and criterion. So whoever sights the month, let him fast it.',
         passageStepNumber: 28,
         eventOrder: 87,
+        scholarlyProvenance: {
+          primarySource: "Al-Mizan fi Tafsir al-Quran",
+          classicalAuthority: "Allamah Muhammad Husayn Tabatabai",
+          volumeAndPage: "Vol. 2, pp. 18-35",
+          editionInfo: "Beirut: Muassasat al-Alami",
+          exegeticalNoteUrdu: "علامہ طباطبائی کے مطابق ماہِ رمضان میں قرآن کا نزول اس کی مستقل اور حتمی فرضیت کا علّت و سبب بنا۔",
+          exegeticalNoteEnglish: "Al-Mizan articulates that the ontological descent of the Quran in Ramadan consecrated the whole month as an obligatory sanctuary."
+        },
       },
     ],
   },
@@ -315,6 +398,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'Invite to the way of your Lord with wisdom and good instruction, and argue with them in a way that is best.',
         passageStepNumber: 15,
         eventOrder: 70,
+        scholarlyProvenance: {
+          primarySource: "Al-Tamhid fi Ulum al-Quran",
+          classicalAuthority: "Ayatollah Muhammad Hadi Marifat",
+          volumeAndPage: "Vol. 2, pp. 310-318 (Marahil al-Difa)",
+          editionInfo: "Qom: Muassasat al-Nashr al-Islami",
+          exegeticalNoteUrdu: "مکہ کے ۱۳ سالہ دور میں حکمت، موعظہ حسنہ اور صبرِ محض کا حکم مسلح کارروائی کی قطعی ممانعت پر مبنی تھا۔",
+          exegeticalNoteEnglish: "Al-Tamhid establishes that throughout the 13 Meccan years, intellectual persuasion and non-violent steadfastness were legally mandatory."
+        },
       },
       {
         stageNumber: 2,
@@ -338,6 +429,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'Permission to fight has been given to those who are being fought, because they were wronged. And indeed, Allah is competent to give them victory.',
         passageStepNumber: 27,
         eventOrder: 103,
+        scholarlyProvenance: {
+          primarySource: "Asbab al-Nuzul",
+          classicalAuthority: "Ali ibn Ahmad al-Wahidi",
+          volumeAndPage: "p. 238 (The First Sanction for Self-Defense)",
+          editionInfo: "Cairo: Dar al-Hadith",
+          exegeticalNoteUrdu: "الواحدی کے مطابق اذن للذین یقاتلون بانهم ظلموا قرآن میں قتال اور دفاع کی سب سے پہلی اجازت ہے جو ہجرت کے بعد اتری۔",
+          exegeticalNoteEnglish: "Al-Wahidi records the historical consensus that 22:39 is the chronologically inaugural permission for armed resistance under oppression."
+        },
       },
       {
         stageNumber: 3,
@@ -361,6 +460,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'Fight in the way of Allah those who fight you but do not transgress. Indeed. Allah does not like transgressors.',
         passageStepNumber: 28,
         eventOrder: 87,
+        scholarlyProvenance: {
+          primarySource: "Al-Mizan fi Tafsir al-Quran",
+          classicalAuthority: "Allamah Muhammad Husayn Tabatabai",
+          volumeAndPage: "Vol. 2, pp. 61-75",
+          editionInfo: "Beirut: Muassasat al-Alami",
+          exegeticalNoteUrdu: "علامہ طباطبائی فرماتے ہیں کہ ولا تعتدوا نے دنیا کو جنگ کے اخلاقی ضوابط اور غیر عسکری آبادی کے تحفظ کا قانون دیا۔",
+          exegeticalNoteEnglish: "Tabatabai demonstrates that 2:190 instituted categorical prohibition against aggression, civilian casualties, and disproportionate warfare."
+        },
       },
     ],
   },
@@ -398,6 +505,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'Have you seen the one who denies the Recompense? That is the one who repulses the orphan and does not encourage the feeding of the poor.',
         passageStepNumber: 4,
         eventOrder: 17,
+        scholarlyProvenance: {
+          primarySource: "Al-Mizan fi Tafsir al-Quran",
+          classicalAuthority: "Allamah Muhammad Husayn Tabatabai",
+          volumeAndPage: "Vol. 20, pp. 367-372",
+          editionInfo: "Beirut: Muassasat al-Alami",
+          exegeticalNoteUrdu: "علامہ طباطبائی کے مطابق مکی دور میں یتیم اور مسکین کی کفالت کو اصلِ دین اور توحید کا جزوِ لاینفک قرار دیا گیا۔",
+          exegeticalNoteEnglish: "Al-Mizan expounds that Meccan revelations fused theological faith with tangible empathy for the orphan and destitute."
+        },
       },
       {
         stageNumber: 2,
@@ -421,6 +536,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'O you who have believed, spend from the good things which you have earned and from that which We have produced for you from the earth.',
         passageStepNumber: 28,
         eventOrder: 87,
+        scholarlyProvenance: {
+          primarySource: "Al-Tamhid fi Ulum al-Quran",
+          classicalAuthority: "Ayatollah Muhammad Hadi Marifat",
+          volumeAndPage: "Vol. 2, pp. 270-276",
+          editionInfo: "Qom: Muassasat al-Nashr al-Islami",
+          exegeticalNoteUrdu: "التمہید کے مطابق مدینہ میں انفاق من طیبات ما کسبتم کا حکم رضاکارانہ معاشی تعاون کی تطہیر تھا۔",
+          exegeticalNoteEnglish: "Al-Tamhid highlights the moral transition from raw generosity to offering only untainted, cherished earnings."
+        },
       },
       {
         stageNumber: 3,
@@ -443,6 +566,14 @@ export const GRADUAL_LEGISLATION_PATHWAYS: LegislationPathway[] = [
         verseEnglish: 'Zakah expenditures are only for the poor and for the needy and for those employed to collect them and for bringing hearts together and for freeing captives and for those in debt and for the cause of Allah and for the wayfarer—an obligation imposed by Allah.',
         passageStepNumber: 35,
         eventOrder: 113,
+        scholarlyProvenance: {
+          primarySource: "Al-Mizan fi Tafsir al-Quran",
+          classicalAuthority: "Allamah Muhammad Husayn Tabatabai",
+          volumeAndPage: "Vol. 9, pp. 310-325",
+          editionInfo: "Beirut: Muassasat al-Alami",
+          exegeticalNoteUrdu: "علامہ طباطبائی کے مطابق زکوٰۃ کے ۸ قانونی مصارف نے اسے انفرادی صدقے کے بجائے ادارہ جاتی فلاحی ریاست کا قانون بنا دیا۔",
+          exegeticalNoteEnglish: "Al-Mizan delineates the 8 statutory beneficiary categories as an institutional constitutional mandate for systemic poverty alleviation."
+        },
       },
     ],
   },

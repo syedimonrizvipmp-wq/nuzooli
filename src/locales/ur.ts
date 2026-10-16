@@ -29,6 +29,7 @@ export const ur: TranslationDictionary = {
     typography: 'خطاطی و رسم الخط',
     bookmarks: 'محفوظ شدہ آیات',
     dataModal: 'ڈیٹا مینجمنٹ و بیک اپ',
+    citeResearch: 'تحقیقی حوالہ (Cite)',
     disclaimer: 'علمی و شرعی وضاحت',
   },
   epochs: {

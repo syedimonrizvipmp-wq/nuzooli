@@ -30,6 +30,7 @@ interface NavbarProps {
   onOpenBookmarks: () => void;
   onOpenDataModal: () => void;
   onOpenDisclaimer: () => void;
+  onOpenCite?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -37,6 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenBookmarks,
   onOpenDataModal,
   onOpenDisclaimer,
+  onOpenCite,
 }) => {
   const {
     language,
@@ -368,6 +370,20 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <Database className="w-4 h-4" />
               </button>
 
+              {/* Scholarly Citation Modal Trigger */}
+              {onOpenCite && (
+                <button
+                  onClick={onOpenCite}
+                  title={t.navigation.citeResearch}
+                  className="p-2.5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-[var(--text-secondary)] hover:text-emerald-700 dark:hover:text-emerald-300 hover:border-emerald-500/40 transition-all shadow-2xs cursor-pointer flex items-center gap-1.5"
+                >
+                  <GraduationCap className="w-4 h-4 text-emerald-700 dark:text-emerald-400" />
+                  <span className={`hidden 2xl:inline text-xs font-semibold ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
+                    {language === 'en' ? 'Cite' : 'حوالہ'}
+                  </span>
+                </button>
+              )}
+
               {/* Academic & AI Disclaimer Modal Trigger */}
               <button
                 onClick={onOpenDisclaimer}
@@ -623,6 +639,20 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Database className="w-4 h-4 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
               <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>{t.navigation.dataModal}</span>
             </button>
+
+            {/* Cite Research Modal Trigger */}
+            {onOpenCite && (
+              <button
+                onClick={() => {
+                  onOpenCite();
+                  setIsMobileMenuOpen(false);
+                }}
+                className="col-span-2 flex items-center gap-2.5 p-3 min-h-[48px] rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 dark:text-emerald-300 font-medium text-left cursor-pointer active:scale-95 transition-all shadow-xs"
+              >
+                <GraduationCap className="w-4 h-4 text-emerald-700 dark:text-emerald-400 flex-shrink-0" />
+                <span className={language === 'en' ? 'font-sans' : 'font-urdu'}>{t.navigation.citeResearch}</span>
+              </button>
+            )}
 
             {/* Disclaimer & AI Notice */}
             <button

@@ -29,6 +29,7 @@ export interface TranslationDictionary {
     typography: string;
     bookmarks: string;
     dataModal: string;
+    citeResearch: string;
     disclaimer: string;
   };
   epochs: {

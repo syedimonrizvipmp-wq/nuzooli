@@ -14,6 +14,7 @@ import {
   Layers,
   HelpCircle,
   TrendingUp,
+  BookOpen,
 } from 'lucide-react';
 
 export const GradualLegislationView: React.FC = () => {
@@ -214,8 +215,18 @@ export const GradualLegislationView: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Surah & Ayah Badge */}
-                <div className="flex items-center gap-2 self-start sm:self-auto">
+                {/* Surah & Ayah Badge + Scholarly Provenance Badge */}
+                <div className="flex flex-wrap items-center gap-2 self-start sm:self-auto">
+                  {stage.scholarlyProvenance && (
+                    <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-[11px] text-amber-800 dark:text-amber-300 font-serif shadow-2xs">
+                      <BookOpen className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                      <span className="font-semibold">
+                        {language === 'en' ? 'Source:' : 'ماخذ:'}{' '}
+                        <span className="italic">{stage.scholarlyProvenance.primarySource}</span>
+                      </span>
+                    </div>
+                  )}
+
                   <span className="px-3 py-1.5 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-subtle)] text-xs font-serif text-[var(--text-primary)] font-bold">
                     {stage.surahNameEnglish} {stage.surahNumber}:{stage.ayahNumber}
                   </span>
@@ -252,6 +263,28 @@ export const GradualLegislationView: React.FC = () => {
                   </>
                 )}
               </div>
+
+              {/* Academic Scholarly Provenance Spotlight */}
+              {stage.scholarlyProvenance && (
+                <div className="px-4 py-2.5 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-xs flex flex-col md:flex-row md:items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200">
+                    <span className="font-bold text-[11px] uppercase tracking-wider text-amber-700 dark:text-amber-400 font-sans">
+                      {language === 'en' ? '🎓 Classical Authority:' : '🎓 مستند تفسیری مرجع:'}
+                    </span>
+                    <span className="font-serif font-semibold">{stage.scholarlyProvenance.classicalAuthority}</span>
+                    {stage.scholarlyProvenance.volumeAndPage && (
+                      <span className="hidden sm:inline text-[11px] text-[var(--text-muted)] font-mono">
+                        ({stage.scholarlyProvenance.volumeAndPage})
+                      </span>
+                    )}
+                  </div>
+                  <span className={`text-[11px] text-[var(--text-muted)] ${language === 'en' ? 'font-sans' : 'font-urdu'}`}>
+                    {language === 'en'
+                      ? stage.scholarlyProvenance.exegeticalNoteEnglish || stage.scholarlyProvenance.editionInfo
+                      : stage.scholarlyProvenance.exegeticalNoteUrdu || stage.scholarlyProvenance.editionInfo}
+                  </span>
+                </div>
+              )}
 
               {/* The Revealed Verse */}
               <div className="p-5 rounded-2xl bg-gradient-to-r from-emerald-950/20 via-[var(--bg-surface)] to-[var(--bg-surface)] border border-emerald-600/30 space-y-3">
